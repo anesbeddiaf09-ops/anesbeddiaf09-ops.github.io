@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PV Monitoring System — BEDDIAF Mohamed Anes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sun: #F4A900;
+  --sun2: #FFD166;
+  --sky: #0B1E3D;
+  --sky2: #0E2750;
+  --sky3: #1A3A6B;
+  --teal: #00C9B1;
+  --teal2: #00F5DC;
+  --white: #F0F4FF;
+  --muted: #8AA0C0;
+  --dark: #060E1E;
+  --card: rgba(14,39,80,0.7);
+  --border: rgba(0,201,177,0.15);
+  --border2: rgba(244,169,0,0.3);
+  --sans: 'DM Sans', sans-serif;
+  --display: 'Syne', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--dark);
+  color: var(--white);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ─── CURSOR ─── */
+*, a { cursor: default; }
+a, button { cursor: pointer; }
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--dark); }
+::-webkit-scrollbar-thumb { background: var(--teal); border-radius: 3px; }
+
+/* ─── CANVAS BG ─── */
+#bg-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 3rem;
+  background: rgba(6,14,30,0.85);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+  transition: all 0.3s;
+}
+.nav-logo {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  color: var(--sun);
+  text-decoration: none;
+}
+.nav-logo span { color: var(--teal); }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: color 0.2s;
+  font-family: var(--mono);
+}
+.nav-links a:hover { color: var(--teal2); }
+
+/* ─── HERO ─── */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 8rem 2rem 4rem;
+  z-index: 1;
+  overflow: hidden;
+}
+.hero-eyebrow {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.2s forwards;
+}
+.hero h1 {
+  font-family: var(--display);
+  font-size: clamp(2.8rem, 7vw, 6rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.4s forwards;
+}
+.hero h1 .line-sun { color: var(--sun); display: block; }
+.hero h1 .line-teal { color: var(--teal); display: block; }
+.hero-sub {
+  max-width: 620px;
+  color: var(--muted);
+  font-size: 1.05rem;
+  margin-bottom: 3rem;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.6s forwards;
+}
+.hero-badges {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 3rem;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.8s forwards;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  font-size: 12px;
+  font-family: var(--mono);
+  font-weight: 500;
+  border: 1px solid;
+  letter-spacing: 0.04em;
+}
+.badge-teal { color: var(--teal2); border-color: rgba(0,245,220,0.3); background: rgba(0,201,177,0.08); }
+.badge-sun { color: var(--sun2); border-color: rgba(244,169,0,0.3); background: rgba(244,169,0,0.08); }
+.badge-white { color: var(--white); border-color: rgba(240,244,255,0.2); background: rgba(240,244,255,0.04); }
+
+.scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--muted);
+  font-size: 11px;
+  font-family: var(--mono);
+  letter-spacing: 2px;
+  animation: bounce 2s infinite;
+}
+.scroll-hint::before {
+  content: '';
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, transparent, var(--teal));
+}
+
+/* ─── SUN ORBS ─── */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(80px);
+}
+.orb-1 {
+  width: 500px; height: 500px;
+  top: -100px; left: -150px;
+  background: radial-gradient(circle, rgba(244,169,0,0.18) 0%, transparent 70%);
+  animation: drift 12s ease-in-out infinite;
+}
+.orb-2 {
+  width: 400px; height: 400px;
+  bottom: -80px; right: -100px;
+  background: radial-gradient(circle, rgba(0,201,177,0.15) 0%, transparent 70%);
+  animation: drift 15s ease-in-out infinite reverse;
+}
+
+/* ─── SECTION WRAPPER ─── */
+.section {
+  position: relative;
+  z-index: 1;
+  padding: 5rem 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.section-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--border), transparent);
+}
+.section-title {
+  font-family: var(--display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+}
+.section-title em { color: var(--sun); font-style: normal; }
+.section-desc { color: var(--muted); max-width: 600px; font-size: 1rem; margin-bottom: 3rem; }
+
+/* ─── DIVIDER ─── */
+.divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── OVERVIEW CARDS ─── */
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+.ov-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.8rem;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(8px);
+  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+.ov-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--teal), var(--sun));
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.ov-card:hover { transform: translateY(-4px); border-color: rgba(0,201,177,0.35); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+.ov-card:hover::before { opacity: 1; }
+.ov-icon {
+  width: 48px; height: 48px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  margin-bottom: 1.2rem;
+  background: rgba(0,201,177,0.1);
+  border: 1px solid var(--border);
+}
+.ov-icon.sun { background: rgba(244,169,0,0.1); }
+.ov-title { font-family: var(--display); font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--white); }
+.ov-text { font-size: 14px; color: var(--muted); line-height: 1.65; }
+
+/* ─── ARCH FLOW ─── */
+.arch-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  flex-wrap: wrap;
+  margin: 3rem 0;
+}
+.flow-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.2rem 1.5rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  min-width: 130px;
+  text-align: center;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s;
+  position: relative;
+}
+.flow-node:hover { border-color: rgba(0,245,220,0.4); transform: scale(1.04); }
+.flow-node .fn-icon { font-size: 26px; margin-bottom: 0.3rem; }
+.flow-node .fn-label { font-size: 13px; font-weight: 600; font-family: var(--display); color: var(--white); }
+.flow-node .fn-sub { font-size: 11px; color: var(--muted); font-family: var(--mono); }
+.flow-arrow {
+  width: 50px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--teal), var(--sun));
+  position: relative;
+  flex-shrink: 0;
+}
+.flow-arrow::after {
+  content: '▶';
+  position: absolute;
+  right: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--sun);
+  font-size: 12px;
+}
+
+/* ─── SENSOR CARDS ─── */
+.sensors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+.sensor-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 2rem;
+  backdrop-filter: blur(8px);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.35s;
+}
+.sensor-card::after {
+  content: attr(data-sensor);
+  position: absolute;
+  bottom: -10px; right: 10px;
+  font-family: var(--display);
+  font-size: 5rem;
+  font-weight: 800;
+  color: rgba(255,255,255,0.03);
+  pointer-events: none;
+  line-height: 1;
+}
+.sensor-card:hover { transform: translateY(-5px); border-color: rgba(244,169,0,0.3); box-shadow: 0 24px 48px rgba(0,0,0,0.35); }
+.sensor-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+}
+.sensor-badge {
+  padding: 0.3rem 0.8rem;
+  background: rgba(244,169,0,0.12);
+  border: 1px solid rgba(244,169,0,0.25);
+  border-radius: 8px;
+  font-size: 12px;
+  font-family: var(--mono);
+  color: var(--sun2);
+  white-space: nowrap;
+}
+.sensor-name { font-family: var(--display); font-size: 1.3rem; font-weight: 700; color: var(--white); }
+.sensor-role { font-size: 13px; color: var(--muted); }
+.sensor-desc { font-size: 14px; color: var(--muted); margin-bottom: 1.3rem; line-height: 1.65; }
+.sensor-specs { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+.sensor-specs li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.sensor-specs li:last-child { border-bottom: none; }
+.spec-key { color: var(--muted); font-family: var(--mono); font-size: 12px; }
+.spec-val { color: var(--teal2); font-family: var(--mono); font-size: 12px; font-weight: 500; }
+.sensor-pin {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1rem;
+  padding: 0.35rem 0.8rem;
+  background: rgba(0,201,177,0.08);
+  border: 1px solid rgba(0,201,177,0.2);
+  border-radius: 8px;
+  font-size: 12px;
+  font-family: var(--mono);
+  color: var(--teal2);
+}
+
+/* ─── BLUETOOTH SECTION ─── */
+.bt-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+@media(max-width:680px) { .bt-grid { grid-template-columns: 1fr; } }
+.bt-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 2rem;
+  backdrop-filter: blur(8px);
+}
+.bt-title { font-family: var(--display); font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; }
+.at-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; }
+.at-table th { text-align: left; color: var(--sun2); padding: 0.5rem 0.8rem; border-bottom: 1px solid var(--border2); font-weight: 500; }
+.at-table td { padding: 0.5rem 0.8rem; border-bottom: 1px solid rgba(255,255,255,0.04); color: var(--muted); }
+.at-table tr:last-child td { border-bottom: none; }
+.at-table td:first-child { color: var(--teal2); }
+
+/* ─── STEPS ─── */
+.steps { display: flex; flex-direction: column; gap: 1.5rem; }
+.step-item {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  padding: 1.5rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.step-item::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, var(--teal), var(--sun));
+  border-radius: 3px 0 0 3px;
+}
+.step-item:hover { transform: translateX(5px); border-color: rgba(0,201,177,0.3); }
+.step-num {
+  width: 40px; height: 40px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(0,201,177,0.2), rgba(244,169,0,0.2));
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--display); font-size: 1rem; font-weight: 800;
+  color: var(--sun);
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-title { font-family: var(--display); font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 0.4rem; }
+.step-text { font-size: 14px; color: var(--muted); }
+
+/* ─── STATS STRIP ─── */
+.stats-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 4rem 0;
+}
+@media(max-width:680px) { .stats-strip { grid-template-columns: repeat(2,1fr); } }
+.stat-item {
+  background: var(--card);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  backdrop-filter: blur(8px);
+  transition: background 0.3s;
+}
+.stat-item:hover { background: rgba(14,39,80,0.95); }
+.stat-num {
+  font-family: var(--display);
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--sun);
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+.stat-unit { font-size: 14px; font-family: var(--mono); color: var(--teal2); }
+.stat-desc { font-size: 13px; color: var(--muted); margin-top: 0.3rem; }
+
+/* ─── METHODOLOGY ─── */
+.method-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  margin-bottom: 5rem;
+}
+@media(max-width:700px){ .method-row { grid-template-columns: 1fr; } }
+.method-row.reverse { direction: rtl; }
+.method-row.reverse > * { direction: ltr; }
+.method-visual {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 2rem;
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 240px;
+}
+.circuit-svg { width: 100%; max-width: 320px; }
+.method-text .label { font-family: var(--mono); font-size: 11px; letter-spacing: 2px; color: var(--teal); margin-bottom: 0.6rem; }
+.method-text h3 { font-family: var(--display); font-size: 1.6rem; font-weight: 700; margin-bottom: 0.8rem; }
+.method-text p { font-size: 14px; color: var(--muted); }
+.method-text ul { padding-left: 1.4rem; margin-top: 0.8rem; }
+.method-text ul li { font-size: 14px; color: var(--muted); margin-bottom: 0.4rem; }
+
+/* ─── AUTHOR ─── */
+.author-section {
+  position: relative;
+  z-index: 1;
+  padding: 5rem 2rem;
+  text-align: center;
+  overflow: hidden;
+}
+.author-ring {
+  width: 140px; height: 140px;
+  border-radius: 50%;
+  margin: 0 auto 2rem;
+  background: linear-gradient(135deg, var(--teal), var(--sun));
+  padding: 3px;
+  animation: spin-slow 20s linear infinite;
+}
+.author-ring-inner {
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  background: var(--dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--display);
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: var(--sun);
+  animation: spin-slow 20s linear infinite reverse;
+}
+.author-name {
+  font-family: var(--display);
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: 0.4rem;
+}
+.author-name span { color: var(--teal); }
+.author-role {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--muted);
+  letter-spacing: 2px;
+  margin-bottom: 1.5rem;
+}
+.author-note {
+  max-width: 500px;
+  margin: 0 auto;
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.75;
+  font-style: italic;
+}
+.author-tags {
+  display: flex;
+  gap: 0.8rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 2rem;
+  border-top: 1px solid var(--border);
+  font-size: 13px;
+  color: var(--muted);
+  font-family: var(--mono);
+}
+footer span { color: var(--sun); }
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(8px); }
+}
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -20px) scale(1.05); }
+  66% { transform: translate(-20px, 10px) scale(0.98); }
+}
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes pulse-border {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0,201,177,0); }
+  50% { box-shadow: 0 0 0 6px rgba(0,201,177,0.12); }
+}
+
+/* ─── REVEAL ON SCROLL ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ─── PROGRESS BAR ─── */
+#progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--teal), var(--sun));
+  z-index: 200;
+  transition: width 0.1s;
+}
+
+/* ─── MOBILE ─── */
+@media(max-width:768px){
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { gap: 1rem; }
+  .nav-links a { font-size: 11px; }
+  .arch-flow { gap: 0.5rem; }
+  .flow-arrow { width: 20px; }
+  .stats-strip { grid-template-columns: repeat(2,1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- Progress Bar -->
+<div id="progress-bar"></div>
+
+<!-- Particle BG -->
+<canvas id="bg-canvas"></canvas>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="#hero" class="nav-logo">PV<span>Monitor</span></a>
+  <ul class="nav-links">
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#hardware">Hardware</a></li>
+    <li><a href="#sensors">Sensors</a></li>
+    <li><a href="#comm">Bluetooth</a></li>
+    <li><a href="#author">Author</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <p class="hero-eyebrow">Project Documentation · 2025</p>
+  <h1>
+    <span class="line-sun">Android Monitoring</span>
+    <span class="line-teal">for Photovoltaic</span>
+    Panels
+  </h1>
+  <p class="hero-sub">A complete embedded system that measures, transmits, and displays photovoltaic panel parameters in real time through a Bluetooth-connected Android application.</p>
+  <div class="hero-badges">
+    <span class="badge badge-teal">⚡ Arduino Mega</span>
+    <span class="badge badge-sun">☀️ PV Monitoring</span>
+    <span class="badge badge-white">📱 Android / MIT App Inventor</span>
+    <span class="badge badge-teal">🔵 HC-06 Bluetooth</span>
+  </div>
+  <div class="scroll-hint">SCROLL</div>
+</section>
+
+<!-- DIVIDER -->
+<div class="divider"></div>
+
+<!-- STATS -->
+<div class="section">
+  <div class="stats-strip reveal">
+    <div class="stat-item">
+      <div class="stat-num">4</div>
+      <div class="stat-unit">Sensors</div>
+      <div class="stat-desc">DHT22, BH1750, ACS712, B25</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">54</div>
+      <div class="stat-unit">I/O Pins</div>
+      <div class="stat-desc">Arduino Mega 2560</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">25V</div>
+      <div class="stat-unit">Max Voltage</div>
+      <div class="stat-desc">B25 voltage sensor range</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">100%</div>
+      <div class="stat-unit">Wireless</div>
+      <div class="stat-desc">Bluetooth real-time link</div>
+    </div>
+  </div>
+</div>
+
+<!-- OVERVIEW -->
+<section id="overview">
+<div class="section">
+  <div class="section-label">01 — Project Overview</div>
+  <h2 class="section-title reveal">What this <em>system</em> does</h2>
+  <p class="section-desc reveal">An end-to-end solution for monitoring solar panel performance, designed to be low-cost, portable, and easy to deploy in educational or small-scale installations.</p>
+
+  <div class="overview-grid">
+    <div class="ov-card reveal reveal-delay-1">
+      <div class="ov-icon">⚡</div>
+      <div class="ov-title">Data Acquisition</div>
+      <div class="ov-text">The Arduino Mega collects voltage, current, power output, ambient temperature, humidity and light intensity simultaneously using four dedicated sensors.</div>
+    </div>
+    <div class="ov-card reveal reveal-delay-2">
+      <div class="ov-icon sun">🔵</div>
+      <div class="ov-title">Wireless Transmission</div>
+      <div class="ov-text">Measured data is streamed wirelessly via HC-06 Bluetooth module to a paired Android smartphone, enabling cable-free monitoring in real conditions.</div>
+    </div>
+    <div class="ov-card reveal reveal-delay-3">
+      <div class="ov-icon">📱</div>
+      <div class="ov-title">Android Visualization</div>
+      <div class="ov-text">A custom app built with MIT App Inventor receives and displays all parameters in real time, offering an intuitive interface for performance analysis.</div>
+    </div>
+    <div class="ov-card reveal reveal-delay-4">
+      <div class="ov-icon sun">☀️</div>
+      <div class="ov-title">PV Performance</div>
+      <div class="ov-text">The combined data reveals how environmental conditions — sunlight, temperature, humidity — directly affect the photovoltaic panel efficiency at any moment.</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ARCHITECTURE FLOW -->
+<div class="section" id="hardware">
+  <div class="section-label">02 — System Architecture</div>
+  <h2 class="section-title reveal">How it all <em>connects</em></h2>
+  <p class="section-desc reveal">Four sensing layers feed data into a single microcontroller, which processes and transmits everything wirelessly to the user's phone.</p>
+
+  <div class="arch-flow reveal">
+    <div class="flow-node">
+      <div class="fn-icon">🌡️</div>
+      <div class="fn-label">Sensors</div>
+      <div class="fn-sub">DHT22 · BH1750<br>ACS712 · B25</div>
+    </div>
+    <div class="flow-arrow"></div>
+    <div class="flow-node">
+      <div class="fn-icon">🖥️</div>
+      <div class="fn-label">Arduino Mega</div>
+      <div class="fn-sub">ATmega2560<br>54 I/O pins</div>
+    </div>
+    <div class="flow-arrow"></div>
+    <div class="flow-node">
+      <div class="fn-icon">🔵</div>
+      <div class="fn-label">HC-06</div>
+      <div class="fn-sub">Bluetooth<br>Serial</div>
+    </div>
+    <div class="flow-arrow"></div>
+    <div class="flow-node">
+      <div class="fn-icon">📱</div>
+      <div class="fn-label">Smartphone</div>
+      <div class="fn-sub">Android App<br>MIT App Inventor</div>
+    </div>
+  </div>
+
+  <!-- Arduino Details -->
+  <div class="method-row reveal">
+    <div class="method-visual">
+      <svg class="circuit-svg" viewBox="0 0 320 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Board -->
+        <rect x="40" y="30" width="240" height="140" rx="10" fill="#0E2750" stroke="#00C9B1" stroke-width="1.5"/>
+        <!-- USB -->
+        <rect x="10" y="80" width="35" height="40" rx="5" fill="#1A3A6B" stroke="#00C9B1" stroke-width="1"/>
+        <text x="27" y="104" font-family="JetBrains Mono,monospace" font-size="7" fill="#00C9B1" text-anchor="middle">USB</text>
+        <!-- Pins top -->
+        <g fill="#F4A900">
+          <rect x="55" y="24" width="4" height="10" rx="1"/>
+          <rect x="65" y="24" width="4" height="10" rx="1"/>
+          <rect x="75" y="24" width="4" height="10" rx="1"/>
+          <rect x="85" y="24" width="4" height="10" rx="1"/>
+          <rect x="95" y="24" width="4" height="10" rx="1"/>
+          <rect x="105" y="24" width="4" height="10" rx="1"/>
+          <rect x="115" y="24" width="4" height="10" rx="1"/>
+          <rect x="125" y="24" width="4" height="10" rx="1"/>
+          <rect x="135" y="24" width="4" height="10" rx="1"/>
+          <rect x="145" y="24" width="4" height="10" rx="1"/>
+        </g>
+        <!-- Chip -->
+        <rect x="130" y="70" width="60" height="60" rx="6" fill="#0B1E3D" stroke="#00F5DC" stroke-width="1.5"/>
+        <text x="160" y="97" font-family="JetBrains Mono,monospace" font-size="8" fill="#00F5DC" text-anchor="middle">ATmega</text>
+        <text x="160" y="110" font-family="JetBrains Mono,monospace" font-size="8" fill="#00F5DC" text-anchor="middle">2560</text>
+        <!-- Power LED -->
+        <circle cx="80" cy="155" r="6" fill="#F4A900" opacity="0.8">
+          <animate attributeName="opacity" values="0.8;0.3;0.8" dur="2s" repeatCount="indefinite"/>
+        </circle>
+        <text x="80" y="175" font-family="JetBrains Mono,monospace" font-size="7" fill="#8AA0C0" text-anchor="middle">PWR</text>
+        <!-- Pins bottom -->
+        <g fill="#F4A900">
+          <rect x="55" y="165" width="4" height="10" rx="1"/>
+          <rect x="65" y="165" width="4" height="10" rx="1"/>
+          <rect x="75" y="165" width="4" height="10" rx="1"/>
+          <rect x="85" y="165" width="4" height="10" rx="1"/>
+          <rect x="95" y="165" width="4" height="10" rx="1"/>
+          <rect x="105" y="165" width="4" height="10" rx="1"/>
+        </g>
+        <!-- Label -->
+        <text x="200" y="155" font-family="Syne,sans-serif" font-size="11" fill="#F4A900" font-weight="700">MEGA</text>
+        <text x="200" y="168" font-family="JetBrains Mono,monospace" font-size="8" fill="#8AA0C0">2560</text>
+      </svg>
+    </div>
+    <div class="method-text">
+      <p class="label">MICROCONTROLLER</p>
+      <h3>Arduino Mega 2560</h3>
+      <p>The brain of the system. An advanced platform built around the ATmega2560 chip, chosen for its expansive I/O capacity and built-in serial communication ports.</p>
+      <ul>
+        <li>54 digital I/O pins (vs 14 on the Uno)</li>
+        <li>16 analog input channels</li>
+        <li>Multiple hardware serial ports (UART)</li>
+        <li>Dimensions: 101.6 × 53.3 mm</li>
+        <li>Open-source, large community support</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="method-row reverse reveal">
+    <div class="method-visual">
+      <svg class="circuit-svg" viewBox="0 0 320 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Phone outline -->
+        <rect x="110" y="20" width="100" height="160" rx="14" fill="#0E2750" stroke="#00C9B1" stroke-width="1.5"/>
+        <rect x="122" y="36" width="76" height="120" rx="5" fill="#060E1E"/>
+        <!-- Screen content -->
+        <rect x="128" y="44" width="64" height="14" rx="3" fill="#1A3A6B"/>
+        <text x="160" y="54" font-family="JetBrains Mono,monospace" font-size="6" fill="#00F5DC" text-anchor="middle">PV MONITOR</text>
+        <!-- Data rows -->
+        <rect x="128" y="64" width="30" height="8" rx="2" fill="#0B1E3D"/>
+        <text x="133" y="71" font-family="JetBrains Mono,monospace" font-size="5.5" fill="#8AA0C0">VOLTAGE</text>
+        <rect x="162" y="64" width="30" height="8" rx="2" fill="#0B1E3D"/>
+        <text x="167" y="71" font-family="JetBrains Mono,monospace" font-size="5.5" fill="#F4A900">18.6V</text>
+        <rect x="128" y="76" width="30" height="8" rx="2" fill="#0B1E3D"/>
+        <text x="133" y="83" font-family="JetBrains Mono,monospace" font-size="5.5" fill="#8AA0C0">CURRENT</text>
+        <rect x="162" y="76" width="30" height="8" rx="2" fill="#0B1E3D"/>
+        <text x="167" y="83" font-family="JetBrains Mono,monospace" font-size="5.5" fill="#00C9B1">2.3A</text>
+        <rect x="128" y="88" width="30" height="8" rx="2" fill="#0B1E3D"/>
+        <text x="133" y="95" font-family="JetBrains Mono,monospace" font-size="5.5" fill="#8AA0C0">POWER</text>
+        <rect x="162" y="88" width="30" height="8" rx="2" fill="#0B1E3D"/>
+        <text x="167" y="95" font-family="JetBrains Mono,monospace" font-size="5.5" fill="#F4A900">42.8W</text>
+        <rect x="128" y="100" width="30" height="8" rx="2" fill="#0B1E3D"/>
+        <text x="133" y="107" font-family="JetBrains Mono,monospace" font-size="5.5" fill="#8AA0C0">TEMP</text>
+        <rect x="162" y="100" width="30" height="8" rx="2" fill="#0B1E3D"/>
+        <text x="167" y="107" font-family="JetBrains Mono,monospace" font-size="5.5" fill="#00C9B1">32°C</text>
+        <rect x="128" y="112" width="30" height="8" rx="2" fill="#0B1E3D"/>
+        <text x="133" y="119" font-family="JetBrains Mono,monospace" font-size="5.5" fill="#8AA0C0">LIGHT</text>
+        <rect x="162" y="112" width="30" height="8" rx="2" fill="#0B1E3D"/>
+        <text x="167" y="119" font-family="JetBrains Mono,monospace" font-size="5.5" fill="#F4A900">11240lx</text>
+        <!-- Home button -->
+        <circle cx="160" cy="168" r="7" fill="#1A3A6B" stroke="#00C9B1" stroke-width="1"/>
+        <!-- BT icon -->
+        <text x="40" y="100" font-family="JetBrains Mono,monospace" font-size="28" fill="#00C9B1" opacity="0.3">⬡</text>
+        <line x1="109" y1="100" x2="75" y2="100" stroke="#00C9B1" stroke-width="1" stroke-dasharray="4 3">
+          <animate attributeName="stroke-dashoffset" from="0" to="-14" dur="1s" repeatCount="indefinite"/>
+        </line>
+        <text x="55" y="90" font-family="JetBrains Mono,monospace" font-size="7" fill="#00C9B1">BT</text>
+      </svg>
+    </div>
+    <div class="method-text">
+      <p class="label">MOBILE INTERFACE</p>
+      <h3>Android Smartphone</h3>
+      <p>Acts as the human-machine interface. Receives Bluetooth data and renders it through a purpose-built Android application created in MIT App Inventor.</p>
+      <ul>
+        <li>Real-time parameter visualization</li>
+        <li>Built-in Bluetooth receiver</li>
+        <li>Displays: voltage, current, power, temperature, humidity, light intensity</li>
+        <li>No internet required — direct local link</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SENSORS -->
+<section id="sensors">
+<div class="section">
+  <div class="section-label">03 — Sensor Suite</div>
+  <h2 class="section-title reveal">Four sensors, <em>complete picture</em></h2>
+  <p class="section-desc reveal">Each sensor handles a specific physical parameter, converting it into a signal the Arduino can process and transmit.</p>
+
+  <div class="sensors-grid">
+
+    <!-- DHT22 -->
+    <div class="sensor-card reveal reveal-delay-1" data-sensor="T°">
+      <div class="sensor-header">
+        <div>
+          <div class="sensor-name">DHT22</div>
+          <div class="sensor-role">Temperature & Humidity</div>
+        </div>
+        <span class="sensor-badge">ENV</span>
+      </div>
+      <p class="sensor-desc">A digital environmental sensor integrating a capacitive humidity element and an NTC thermistor. Data is transmitted serially every 2 seconds, requiring a 4.7–10 kΩ pull-up resistor on the DATA line.</p>
+      <ul class="sensor-specs">
+        <li><span class="spec-key">Supply voltage</span><span class="spec-val">3 – 5 V</span></li>
+        <li><span class="spec-key">Consumption</span><span class="spec-val">2.5 mA</span></li>
+        <li><span class="spec-key">Temp. range</span><span class="spec-val">−40°C to +80°C</span></li>
+        <li><span class="spec-key">Humidity range</span><span class="spec-val">0% – 100% RH</span></li>
+        <li><span class="spec-key">Dimensions</span><span class="spec-val">27×59×13.5 mm</span></li>
+        <li><span class="spec-key">Interface</span><span class="spec-val">1-Wire Digital</span></li>
+      </ul>
+      <span class="sensor-pin">📌 Digital I/O pin — Arduino Mega</span>
+    </div>
+
+    <!-- BH1750 -->
+    <div class="sensor-card reveal reveal-delay-2" data-sensor="Lux">
+      <div class="sensor-header">
+        <div>
+          <div class="sensor-name">BH1750</div>
+          <div class="sensor-role">Ambient Light Intensity</div>
+        </div>
+        <span class="sensor-badge">LIGHT</span>
+      </div>
+      <p class="sensor-desc">A high-resolution digital light sensor using the I²C protocol. Measures illuminance from 1 to 65,535 lux with internal analog-to-digital conversion — no external ADC needed. Critical for correlating solar irradiance with panel output.</p>
+      <ul class="sensor-specs">
+        <li><span class="spec-key">Supply voltage</span><span class="spec-val">4.5 V</span></li>
+        <li><span class="spec-key">Consumption</span><span class="spec-val">2.5 mA</span></li>
+        <li><span class="spec-key">Measurement range</span><span class="spec-val">1 – 65,535 lux</span></li>
+        <li><span class="spec-key">Operating current</span><span class="spec-val">7 mA</span></li>
+        <li><span class="spec-key">Power</span><span class="spec-val">260 mW</span></li>
+        <li><span class="spec-key">Interface</span><span class="spec-val">I²C (SCL / SDA)</span></li>
+      </ul>
+      <span class="sensor-pin">📌 I²C Bus — SDA / SCL pins</span>
+    </div>
+
+    <!-- ACS712 -->
+    <div class="sensor-card reveal reveal-delay-3" data-sensor="A">
+      <div class="sensor-header">
+        <div>
+          <div class="sensor-name">ACS712</div>
+          <div class="sensor-role">DC/AC Current Sensing</div>
+        </div>
+        <span class="sensor-badge">CURRENT</span>
+      </div>
+      <p class="sensor-desc">Based on the Hall effect principle. Connected in series with the load, it converts the conductor's magnetic field into an analog voltage proportional to current, at 100 mV/A sensitivity. Requires zero-current calibration before use to eliminate offset voltage.</p>
+      <ul class="sensor-specs">
+        <li><span class="spec-key">Model selected</span><span class="spec-val">ACS712-05B-T</span></li>
+        <li><span class="spec-key">Sensitivity</span><span class="spec-val">100 mV / A</span></li>
+        <li><span class="spec-key">Output type</span><span class="spec-val">Analog voltage</span></li>
+        <li><span class="spec-key">Supports</span><span class="spec-val">AC & DC circuits</span></li>
+        <li><span class="spec-key">Calibration</span><span class="spec-val">Zero-current offset required</span></li>
+      </ul>
+      <span class="sensor-pin">📌 Analog pin A10 — Arduino Mega</span>
+    </div>
+
+    <!-- B25 -->
+    <div class="sensor-card reveal reveal-delay-4" data-sensor="V">
+      <div class="sensor-header">
+        <div>
+          <div class="sensor-name">B25 Sensor</div>
+          <div class="sensor-role">DC Voltage Detection</div>
+        </div>
+        <span class="sensor-badge">VOLTAGE</span>
+      </div>
+      <p class="sensor-desc">A resistive voltage divider that scales down the panel voltage by a factor of 5, bringing it within the Arduino's 5V analog input range. Safely measures photovoltaic output up to 25V DC with fine resolution.</p>
+      <ul class="sensor-specs">
+        <li><span class="spec-key">Input range</span><span class="spec-val">0 – 25 V DC</span></li>
+        <li><span class="spec-key">Measurement start</span><span class="spec-val">0.02445 V</span></li>
+        <li><span class="spec-key">Resolution</span><span class="spec-val">0.00489 V</span></li>
+        <li><span class="spec-key">Scale factor</span><span class="spec-val">÷ 5 (resistive divider)</span></li>
+        <li><span class="spec-key">Compatible with</span><span class="spec-val">5V & 3.3V systems</span></li>
+      </ul>
+      <span class="sensor-pin">📌 Analog pin 9 — Arduino Mega</span>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- BLUETOOTH -->
+<section id="comm">
+<div class="section">
+  <div class="section-label">04 — Communication</div>
+  <h2 class="section-title reveal">Wireless with <em>HC-06</em></h2>
+  <p class="section-desc reveal">The HC-06 Bluetooth module bridges the Arduino and the Android phone, enabling real-time serial data streaming with zero infrastructure dependency.</p>
+
+  <div class="bt-grid">
+    <div class="bt-card reveal">
+      <div class="bt-title">⚙️ Key Design Consideration</div>
+      <p style="font-size:14px;color:var(--muted);margin-bottom:1rem;">The HC-06 RX pin tolerates a maximum of <strong style="color:var(--white)">3.3V</strong>, but Arduino outputs 5V logic. A voltage divider is mandatory to protect the module:</p>
+      <div style="background:var(--dark);border:1px solid var(--border2);border-radius:10px;padding:1rem;font-family:var(--mono);font-size:12px;color:var(--sun2);">
+        <span style="color:var(--muted)">// Voltage divider on RX line</span><br>
+        Arduino TX (5V) → R1 (1kΩ) ──┬── HC-06 RX<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── R2 (2kΩ) → GND<br><br>
+        <span style="color:var(--teal2)">Vout = 5V × 2/(1+2) = 3.33V ✓</span>
+      </div>
+      <p style="font-size:13px;color:var(--muted);margin-top:1rem;">Operating voltage: <strong style="color:var(--white)">3.3 – 5V</strong> | Baud rate: <strong style="color:var(--white)">9600 bps (default)</strong></p>
+    </div>
+
+    <div class="bt-card reveal reveal-delay-2">
+      <div class="bt-title">📟 AT Commands Reference</div>
+      <table class="at-table">
+        <thead>
+          <tr><th>Command</th><th>Function</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>AT+VERSION?</td><td>Check firmware version</td></tr>
+          <tr><td>AT+ORGL</td><td>Restore factory defaults</td></tr>
+          <tr><td>AT+NAME?</td><td>Query device name</td></tr>
+          <tr><td>AT+NAME=MyName</td><td>Set custom device name</td></tr>
+          <tr><td>AT+PSWD?</td><td>Query 4-digit PIN</td></tr>
+          <tr><td>AT+PSWD=1234</td><td>Set new PIN code</td></tr>
+          <tr><td>AT+UART?</td><td>Query baud / parity / stop</td></tr>
+          <tr><td>AT+UART</td><td>Set baud (9600 default)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- METHODOLOGY -->
+<div class="section">
+  <div class="section-label">05 — Implementation</div>
+  <h2 class="section-title reveal">From <em>design</em> to reality</h2>
+  <p class="section-desc reveal">A structured workflow ensured each phase — simulation, assembly, and validation — was completed with technical precision.</p>
+
+  <div class="steps">
+    <div class="step-item reveal">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <div class="step-title">Virtual Schematic Design (Tinkercad CAD)</div>
+        <div class="step-text">Before any physical wiring, the complete circuit was designed and validated on Tinkercad, a dynamic online CAD platform. This allowed testing of the electronic schematic and Arduino code logic in a safe simulation environment, preventing hardware damage.</div>
+      </div>
+    </div>
+    <div class="step-item reveal reveal-delay-1">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <div class="step-title">Component Selection & Rigorous Wiring</div>
+        <div class="step-text">Each sensor was selected based on its measurement range, accuracy, and compatibility with the Arduino's analog/digital inputs. Wiring followed precise pin assignments: DHT22 on digital I/O, BH1750 on I²C, ACS712 on A10, B25 on pin 9, HC-06 with voltage divider protection.</div>
+      </div>
+    </div>
+    <div class="step-item reveal reveal-delay-2">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <div class="step-title">Arduino Firmware Programming</div>
+        <div class="step-text">The Arduino sketch handles multi-sensor polling, signal conditioning (ACS712 zero-offset calibration, B25 scaling by factor 5), data formatting, and serial transmission over Bluetooth at 9600 baud. All readings are packaged into a structured string sent to the HC-06 module.</div>
+      </div>
+    </div>
+    <div class="step-item reveal reveal-delay-3">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <div class="step-title">Android App Development (MIT App Inventor)</div>
+        <div class="step-text">The Android application was developed using MIT App Inventor, a visual block-based environment. It handles Bluetooth device discovery and pairing, continuous data reception, parsing of the incoming serial string, and real-time display of all six parameters on screen.</div>
+      </div>
+    </div>
+    <div class="step-item reveal reveal-delay-4">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <div class="step-title">Hardware Assembly & Experimental Validation</div>
+        <div class="step-text">The physical system was assembled on a breadboard, connecting all sensors and the HC-06 module to the Arduino Mega. The full setup was tested under real photovoltaic panel conditions, validating data accuracy, wireless stability, and app responsiveness.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- AUTHOR -->
+<section id="author" class="author-section">
+  <div class="orb orb-1" style="opacity:0.5;top:0;left:30%"></div>
+  <div class="author-ring">
+    <div class="author-ring-inner">B</div>
+  </div>
+  <h2 class="author-name">BEDDIAF <span>Mohamed Anes</span></h2>
+  <p class="author-role">EMBEDDED SYSTEMS · PHOTOVOLTAICS · ANDROID DEVELOPMENT</p>
+  <p class="author-note">
+    This project documentation was entirely conceived, designed and written by me, BEDDIAF Mohamed Anes. Every hardware choice, sensor integration, firmware logic and mobile application was the result of my own engineering work and research — from the initial schematic on Tinkercad to the final physical prototype.
+  </p>
+  <div class="author-tags">
+    <span class="badge badge-teal">Arduino Mega 2560</span>
+    <span class="badge badge-sun">Photovoltaic Systems</span>
+    <span class="badge badge-white">MIT App Inventor</span>
+    <span class="badge badge-teal">Bluetooth HC-06</span>
+    <span class="badge badge-sun">Sensor Integration</span>
+    <span class="badge badge-white">Embedded Electronics</span>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FOOTER -->
+<footer>
+  <p>Designed & documented by <span>BEDDIAF Mohamed Anes</span> · beddiafmohamedanes@gmail.com · 2025</p>
+  <p style="margin-top:0.3rem;font-size:11px;opacity:0.5;">Android Application for Measurement and Display of Internal and External Photovoltaic Panel Parameters</p>
+</footer>
+
+<script>
+// ─── PARTICLE CANVAS ───
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+class Particle {
+  constructor() { this.reset(); }
+  reset() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.size = Math.random() * 1.5 + 0.3;
+    this.speedX = (Math.random() - 0.5) * 0.3;
+    this.speedY = (Math.random() - 0.5) * 0.3;
+    this.opacity = Math.random() * 0.5 + 0.1;
+    this.color = Math.random() > 0.6 ? '#F4A900' : '#00C9B1';
+  }
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
+  }
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fillStyle = this.color;
+    ctx.globalAlpha = this.opacity;
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  }
+}
+
+for (let i = 0; i < 120; i++) particles.push(new Particle());
+
+function animateParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => { p.update(); p.draw(); });
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
+
+// ─── PROGRESS BAR ───
+window.addEventListener('scroll', () => {
+  const scrollTop = document.documentElement.scrollTop;
+  const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const progress = (scrollTop / scrollHeight) * 100;
+  document.getElementById('progress-bar').style.width = progress + '%';
+});
+
+// ─── SCROLL REVEAL ───
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.1 });
+reveals.forEach(r => observer.observe(r));
+
+// ─── NAV ACTIVE HIGHLIGHT ───
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 120) current = s.id;
+  });
+  navLinks.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + current ? 'var(--teal2)' : '';
+  });
+});
+</script>
+</body>
+</html>
