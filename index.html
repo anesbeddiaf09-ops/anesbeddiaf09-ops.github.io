@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mohamed Anes Beddiaf — Développeur · Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:       #070a12;
+  --bg2:      #0a0f1c;
+  --bg3:      #0d1424;
+  --card:     #0f1626;
+  --card2:    #131c30;
+  --accent:   #5b9dff;   /* electric blue  */
+  --accent-d: #3a7de0;
+  --accent-glow: rgba(91,157,255,0.14);
+  --violet:   #a78bfa;   /* keywords       */
+  --violet-glow: rgba(167,139,250,0.12);
+  --cyan:     #38e1d4;   /* functions      */
+  --string:   #f0b86e;   /* strings        */
+  --green:    #4ade80;   /* success        */
+  --pink:     #ff6b9d;
+  --border:   rgba(255,255,255,0.06);
+  --border2:  rgba(91,157,255,0.20);
+  --text:     #e9eefc;
+  --text2:    #93a4c6;
+  --text3:    #4d5e7e;
+  --mono:     'JetBrains Mono', monospace;
+  --display:  'Syne', sans-serif;
+  --body:     'Outfit', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.7;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Grain texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.4;
+}
+
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+
+/* ── SCROLL PROGRESS ── */
+#bar {
+  position: fixed; top: 0; left: 0; height: 2px; width: 0%;
+  background: linear-gradient(90deg, var(--accent), var(--violet), var(--cyan));
+  z-index: 999; transition: width 0.1s;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.9rem 2.5rem;
+  background: rgba(7,10,18,0.85);
+  backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-brand {
+  font-family: var(--mono); font-weight: 700; font-size: 0.95rem;
+  letter-spacing: -0.01em; color: var(--text); text-decoration: none;
+}
+.nav-brand .br { color: var(--text3); }
+.nav-brand em { color: var(--accent); font-style: normal; }
+.nav-tabs { display: flex; gap: 0.2rem; }
+.tab-btn {
+  font-family: var(--mono); font-size: 11px; padding: 0.4rem 1rem;
+  border-radius: 6px; border: 1px solid transparent;
+  color: var(--text2); cursor: pointer; background: none;
+  transition: all 0.2s; letter-spacing: 0.05em;
+}
+.tab-btn:hover { color: var(--accent); border-color: rgba(91,157,255,0.2); }
+.tab-btn.active {
+  color: var(--accent); border-color: rgba(91,157,255,0.35);
+  background: rgba(91,157,255,0.07);
+}
+
+/* ── SECTIONS ── */
+.section { display: none; padding: 6rem 2rem 4rem; max-width: 960px; margin: 0 auto; }
+.section.active { display: block; }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulseRing {
+  0%   { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+@keyframes blink { 0%,49% { opacity: 1; } 50%,100% { opacity: 0; } }
+.anim { opacity: 0; }
+.anim.in { animation: fadeUp 0.65s ease forwards; }
+.d1 { animation-delay: 0.05s; }
+.d2 { animation-delay: 0.15s; }
+.d3 { animation-delay: 0.25s; }
+.d4 { animation-delay: 0.35s; }
+.d5 { animation-delay: 0.45s; }
+.d6 { animation-delay: 0.55s; }
+.d7 { animation-delay: 0.65s; }
+
+/* ══════════════════════════════
+   SECTION — À PROPOS
+══════════════════════════════ */
+.hero-eyebrow {
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem;
+  display: flex; align-items: center; gap: 0.8rem;
+}
+.hero-eyebrow::before {
+  content: ''; display: block; width: 28px; height: 1px; background: var(--accent);
+}
+.hero-name {
+  font-family: var(--display); font-size: clamp(3rem, 7vw, 5.8rem);
+  font-weight: 800; line-height: 1.0; letter-spacing: -0.03em;
+  color: var(--text); margin-bottom: 0.6rem;
+}
+.hero-name .hi { color: var(--accent); }
+.hero-sub {
+  font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em;
+  color: var(--text2); margin-bottom: 2.2rem;
+}
+.hero-sub .kw { color: var(--violet); }
+.hero-sub .fn { color: var(--cyan); }
+
+/* Terminal hero */
+.terminal {
+  margin: 1.8rem 0 2.2rem;
+  background: #060a13;
+  border: 1px solid rgba(91,157,255,0.18);
+  border-radius: 10px; overflow: hidden;
+  box-shadow: 0 24px 50px rgba(0,0,0,0.4);
+}
+.term-bar {
+  display: flex; align-items: center; gap: 0.5rem;
+  padding: 0.6rem 0.9rem; background: #0b101c;
+  border-bottom: 1px solid var(--border);
+}
+.term-dot { width: 11px; height: 11px; border-radius: 50%; }
+.term-dot.r { background: #ff5f56; }
+.term-dot.y { background: #ffbd2e; }
+.term-dot.g { background: #27c93f; }
+.term-title {
+  font-family: var(--mono); font-size: 10.5px; color: var(--text3);
+  margin-left: auto; letter-spacing: 0.05em;
+}
+.term-body {
+  padding: 1.1rem 1.2rem; font-family: var(--mono);
+  font-size: 12.5px; line-height: 1.85; min-height: 168px;
+}
+.term-line { white-space: pre-wrap; }
+.term-prompt { color: var(--green); }
+.term-path { color: var(--accent); }
+.term-out { color: var(--text2); }
+.term-out .kw { color: var(--violet); }
+.term-out .str { color: var(--string); }
+.term-out .fn { color: var(--cyan); }
+.term-cursor {
+  display: inline-block; width: 8px; height: 15px;
+  background: var(--accent); vertical-align: text-bottom;
+  margin-left: 2px; animation: blink 1.05s step-end infinite;
+}
+
+/* Stat strip */
+.stats-strip {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  gap: 1px; background: var(--border);
+  border-radius: 12px; overflow: hidden; margin: 2rem 0;
+}
+@media(max-width:560px) { .stats-strip { grid-template-columns: repeat(2,1fr); } }
+.stat {
+  background: var(--card); padding: 1.4rem 1rem; text-align: center;
+  transition: background 0.2s;
+}
+.stat:hover { background: var(--card2); }
+.stat-val {
+  font-family: var(--display); font-size: 2rem; font-weight: 800;
+  line-height: 1; color: var(--accent);
+}
+.stat-unit { font-family: var(--mono); font-size: 11px; color: var(--violet); }
+.stat-label { font-size: 11.5px; color: var(--text2); margin-top: 0.3rem; }
+
+/* Profile text */
+.profile-block {
+  padding: 1.6rem; background: var(--card); border-radius: 14px;
+  border-left: 3px solid var(--accent); margin: 1.5rem 0;
+}
+.profile-block p { color: var(--text2); font-size: 0.97rem; line-height: 1.8; }
+.profile-block strong { color: var(--accent); font-weight: 600; }
+
+/* Section labels */
+.sec-label {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.25em;
+  text-transform: uppercase; color: var(--accent);
+  display: flex; align-items: center; gap: 1rem; margin-bottom: 1.2rem;
+}
+.sec-label::after {
+  content: ''; flex: 1; height: 1px;
+  background: linear-gradient(90deg, rgba(91,157,255,0.3), transparent);
+}
+
+/* Skills grid */
+.skills-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(210px,1fr));
+  gap: 1rem; margin-bottom: 2rem;
+}
+.skill-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 1.2rem;
+  transition: border-color 0.25s, transform 0.25s;
+}
+.skill-card:hover { border-color: rgba(91,157,255,0.25); transform: translateY(-2px); }
+.skill-card-head {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--text3); margin-bottom: 0.8rem;
+}
+.tag-list { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.stag {
+  font-family: var(--mono); font-size: 11px; padding: 2px 8px;
+  border-radius: 4px; border: 1px solid;
+}
+.stag-blue   { color: var(--accent); border-color: rgba(91,157,255,0.3); background: rgba(91,157,255,0.06); }
+.stag-violet { color: var(--violet); border-color: rgba(167,139,250,0.3); background: rgba(167,139,250,0.06); }
+.stag-cyan   { color: var(--cyan);   border-color: rgba(56,225,212,0.3);  background: rgba(56,225,212,0.06); }
+.stag-soft   { color: var(--text2);  border-color: var(--border);         background: var(--card2); font-family: var(--body); }
+
+/* Languages */
+.lang-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.85rem; }
+.lang-name { min-width: 72px; font-size: 0.9rem; color: var(--text); }
+.lang-bar-bg { flex: 1; height: 3px; background: rgba(255,255,255,0.07); border-radius: 2px; overflow: hidden; }
+.lang-bar { height: 3px; background: linear-gradient(90deg, var(--accent), var(--violet)); border-radius: 2px; }
+.lang-lvl { font-family: var(--mono); font-size: 10px; color: var(--text3); min-width: 88px; text-align: right; }
+
+/* Interests */
+.interest-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.int-badge {
+  font-size: 12.5px; padding: 0.35rem 0.9rem; border-radius: 999px;
+  border: 1px solid rgba(91,157,255,0.22); background: rgba(91,157,255,0.05);
+  color: #a8c8ff;
+}
+
+/* ══════════════════════════════
+   SECTION — PARCOURS (CV)
+══════════════════════════════ */
+.timeline { display: flex; flex-direction: column; gap: 1px; }
+.tl-entry {
+  display: flex; gap: 1.4rem; align-items: flex-start;
+  padding: 1.5rem 1.5rem 1.5rem 0;
+  border-left: 1px solid var(--border2);
+  margin-left: 8px; padding-left: 1.8rem;
+  position: relative;
+  transition: all 0.2s;
+}
+.tl-entry::before {
+  content: ''; position: absolute; left: -5px; top: 1.8rem;
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--bg); border: 2px solid var(--accent);
+  transition: background 0.2s;
+}
+.tl-entry:hover::before { background: var(--accent); }
+.tl-icon {
+  width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; border: 1px solid var(--border);
+  background: var(--card);
+}
+.tl-body { flex: 1; }
+.tl-head {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.2rem;
+}
+.tl-title {
+  font-family: var(--display); font-weight: 700; font-size: 1rem;
+  color: var(--text); line-height: 1.3;
+}
+.tl-date {
+  font-family: var(--mono); font-size: 10px; color: var(--text3);
+  white-space: nowrap;
+}
+.tl-org { font-size: 0.85rem; color: var(--accent); margin-bottom: 0.4rem; font-weight: 500; }
+.tl-desc { font-size: 0.88rem; color: var(--text2); line-height: 1.65; }
+.tl-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.7rem; }
+.ttag {
+  font-family: var(--mono); font-size: 10px; padding: 2px 7px;
+  border-radius: 4px; border: 1px solid rgba(91,157,255,0.2);
+  background: rgba(91,157,255,0.05); color: #a8c8ff;
+}
+.ttag.note {
+  border-color: rgba(167,139,250,0.28);
+  background: rgba(167,139,250,0.06); color: var(--violet);
+}
+.ttag.gold {
+  border-color: rgba(240,184,110,0.28);
+  background: rgba(240,184,110,0.06); color: var(--string);
+}
+
+.cv-section { margin-bottom: 3.5rem; }
+.cv-title {
+  font-family: var(--display); font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-weight: 700; color: var(--text); margin-bottom: 0.5rem;
+}
+.cv-title span { color: var(--accent); }
+
+/* ══════════════════════════════
+   SECTION — PROJETS
+══════════════════════════════ */
+.proj-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(400px,1fr));
+  gap: 1.5rem; margin: 1.5rem 0;
+}
+@media(max-width: 880px) { .proj-grid { grid-template-columns: 1fr; } }
+
+.proj-card {
+  background: var(--card); border-radius: 18px; overflow: hidden;
+  border: 1px solid var(--border);
+  transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+}
+.proj-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 28px 60px rgba(0,0,0,0.45);
+}
+.proj-card.blue:hover   { border-color: rgba(91,157,255,0.3); }
+.proj-card.violet:hover { border-color: rgba(167,139,250,0.3); }
+.proj-card.cyan:hover   { border-color: rgba(56,225,212,0.3); }
+
+/* Project hero banner */
+.proj-banner {
+  position: relative; height: 170px; overflow: hidden;
+  display: flex; align-items: flex-end; padding: 1.4rem;
+}
+.proj-banner-bg { position: absolute; inset: 0; }
+.blue .proj-banner-bg {
+  background: radial-gradient(ellipse at 30% 50%, rgba(91,157,255,0.18) 0%, transparent 70%),
+              linear-gradient(135deg, #0c1628, #001026);
+}
+.violet .proj-banner-bg {
+  background: radial-gradient(ellipse at 30% 50%, rgba(167,139,250,0.16) 0%, transparent 70%),
+              linear-gradient(135deg, #0c1628, #16002a);
+}
+.cyan .proj-banner-bg {
+  background: radial-gradient(ellipse at 30% 50%, rgba(56,225,212,0.15) 0%, transparent 70%),
+              linear-gradient(135deg, #0c1628, #00201d);
+}
+.proj-banner-grid {
+  position: absolute; inset: 0; opacity: 0.08;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+.proj-icon-big {
+  position: relative; font-size: 3.5rem; margin-right: 1rem; line-height: 1;
+  filter: drop-shadow(0 0 20px currentColor);
+}
+.blue   .proj-icon-big { color: var(--accent); }
+.violet .proj-icon-big { color: var(--violet); }
+.cyan   .proj-icon-big { color: var(--cyan); }
+.proj-banner-text { position: relative; flex: 1; }
+.proj-badge {
+  display: inline-block; font-family: var(--mono); font-size: 9.5px;
+  padding: 2px 8px; border-radius: 4px; letter-spacing: 0.1em;
+  text-transform: uppercase; margin-bottom: 0.5rem;
+}
+.blue   .proj-badge { background: rgba(91,157,255,0.13); color: var(--accent); border: 1px solid rgba(91,157,255,0.3); }
+.violet .proj-badge { background: rgba(167,139,250,0.13); color: var(--violet); border: 1px solid rgba(167,139,250,0.3); }
+.cyan   .proj-badge { background: rgba(56,225,212,0.12); color: var(--cyan);  border: 1px solid rgba(56,225,212,0.3); }
+.proj-name {
+  font-family: var(--display); font-weight: 700; font-size: 1.15rem;
+  color: var(--text); line-height: 1.25;
+}
+.proj-period { font-family: var(--mono); font-size: 10px; color: var(--text3); margin-top: 0.25rem; }
+
+.proj-body { padding: 1.4rem; }
+.proj-desc { font-size: 0.875rem; color: var(--text2); line-height: 1.7; margin-bottom: 1.2rem; }
+
+/* Mini stats inside project */
+.proj-stats {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  gap: 1px; background: rgba(255,255,255,0.05);
+  border-radius: 10px; overflow: hidden; margin-bottom: 1.2rem;
+}
+.pstat { background: var(--bg2); padding: 0.75rem 0.5rem; text-align: center; }
+.pstat-val { font-family: var(--display); font-size: 1.15rem; font-weight: 800; line-height: 1; }
+.blue   .pstat-val { color: var(--accent); }
+.violet .pstat-val { color: var(--violet); }
+.cyan   .pstat-val { color: var(--cyan); }
+.pstat-label { font-size: 9px; font-family: var(--mono); color: var(--text3); margin-top: 2px; letter-spacing: 0.05em; }
+
+/* Chain flow */
+.chain {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 0.3rem;
+  padding: 0.75rem 1rem; border-radius: 8px; margin-bottom: 1.2rem;
+  font-family: var(--mono); font-size: 10.5px;
+}
+.blue   .chain { background: rgba(91,157,255,0.05); border: 1px solid rgba(91,157,255,0.12); }
+.violet .chain { background: rgba(167,139,250,0.05); border: 1px solid rgba(167,139,250,0.12); }
+.cyan   .chain { background: rgba(56,225,212,0.04); border: 1px solid rgba(56,225,212,0.12); }
+.chain-node { padding: 2px 7px; border-radius: 4px; border: 1px solid; }
+.blue   .chain-node { color: var(--accent); border-color: rgba(91,157,255,0.3); }
+.violet .chain-node { color: var(--violet); border-color: rgba(167,139,250,0.3); }
+.cyan   .chain-node { color: var(--cyan);   border-color: rgba(56,225,212,0.3); }
+.chain-arr { color: var(--text3); font-size: 10px; }
+
+.proj-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.ptag {
+  font-family: var(--mono); font-size: 10.5px; padding: 2px 8px;
+  border-radius: 4px; border: 1px solid;
+}
+.blue   .ptag { color: var(--accent); border-color: rgba(91,157,255,0.25); background: rgba(91,157,255,0.05); }
+.violet .ptag { color: var(--violet); border-color: rgba(167,139,250,0.25); background: rgba(167,139,250,0.05); }
+.cyan   .ptag { color: var(--cyan);   border-color: rgba(56,225,212,0.25); background: rgba(56,225,212,0.05); }
+
+/* Placeholder project card */
+.proj-card.placeholder {
+  border: 1px dashed rgba(91,157,255,0.25);
+  background: rgba(91,157,255,0.02);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 2.5rem 1.6rem; min-height: 300px;
+}
+.placeholder-plus {
+  font-family: var(--display); font-size: 2.4rem; color: var(--accent);
+  width: 64px; height: 64px; border-radius: 16px;
+  border: 1px dashed rgba(91,157,255,0.4); background: rgba(91,157,255,0.06);
+  display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;
+}
+.placeholder-title { font-family: var(--display); font-weight: 700; color: var(--text); margin-bottom: 0.5rem; }
+.placeholder-desc { font-size: 0.85rem; color: var(--text2); line-height: 1.6; max-width: 280px; }
+.placeholder-hint { font-family: var(--mono); font-size: 10px; color: var(--text3); margin-top: 0.9rem; letter-spacing: 0.05em; }
+
+/* Method cards */
+.method-grid {
+  display: grid; grid-template-columns: repeat(auto-fit,minmax(185px,1fr));
+  gap: 1rem; margin: 1.5rem 0;
+}
+.method-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 1.2rem;
+}
+.method-icon { font-size: 1.8rem; margin-bottom: 0.6rem; }
+.method-title { font-family: var(--display); font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 0.35rem; }
+.method-desc { font-size: 0.82rem; color: var(--text2); line-height: 1.6; }
+
+/* ══════════════════════════════
+   SECTION — CONTACT
+══════════════════════════════ */
+.contact-hero { text-align: center; padding: 3rem 0 2rem; }
+.contact-title {
+  font-family: var(--display); font-size: clamp(2.2rem,5vw,4rem);
+  font-weight: 800; color: var(--text); line-height: 1.1; margin-bottom: 0.8rem;
+}
+.contact-title span { color: var(--accent); }
+.contact-sub { font-size: 1rem; color: var(--text2); max-width: 520px; margin: 0 auto 2.5rem; }
+
+.contact-grid {
+  display: grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+  gap: 1rem; margin-bottom: 3rem;
+}
+.contact-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 14px; padding: 1.4rem;
+  transition: border-color 0.2s, transform 0.2s;
+  text-decoration: none; display: block;
+}
+.contact-card:hover { border-color: rgba(91,157,255,0.3); transform: translateY(-2px); }
+.ccard-icon { font-size: 1.6rem; margin-bottom: 0.7rem; }
+.ccard-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text3); margin-bottom: 0.3rem; }
+.ccard-val { font-size: 0.9rem; color: var(--accent); font-weight: 500; word-break: break-all; }
+.ccard-val.neutral { color: var(--text); }
+
+/* Avatar identity card */
+.identity {
+  display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;
+  padding: 2rem; background: var(--card); border-radius: 18px;
+  border: 1px solid var(--border); margin-bottom: 2rem;
+}
+.avatar {
+  width: 88px; height: 88px; border-radius: 50%; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--accent), var(--violet), var(--cyan));
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--display); font-size: 2rem; font-weight: 800; color: var(--bg);
+  position: relative;
+}
+.avatar::after {
+  content: ''; position: absolute; inset: -4px; border-radius: 50%;
+  border: 2px solid var(--accent); opacity: 0.4;
+  animation: pulseRing 2.5s ease-out infinite;
+}
+.identity-name {
+  font-family: var(--display); font-size: 1.6rem; font-weight: 800;
+  color: var(--text); line-height: 1.1; margin-bottom: 0.25rem;
+}
+.identity-name em { color: var(--accent); font-style: normal; }
+.identity-sub { font-family: var(--mono); font-size: 11px; color: var(--text3); letter-spacing: 0.1em; }
+
+/* Divider */
+.divider {
+  height: 1px; margin: 3rem 0;
+  background: linear-gradient(90deg, transparent, var(--border2), transparent);
+}
+
+/* Footer */
+footer {
+  text-align: center; padding: 1.5rem 2rem;
+  font-family: var(--mono); font-size: 10px; color: var(--text3);
+  border-top: 1px solid var(--border); letter-spacing: 0.1em;
+}
+footer em { color: var(--accent); font-style: normal; }
+</style>
+</head>
+<body>
+
+<div id="bar"></div>
+
+<nav>
+  <a href="#" class="nav-brand" onclick="show('about');return false;"><span class="br">&lt;</span>B<em>eddiaf</em><span class="br">/&gt;</span></a>
+  <div class="nav-tabs">
+    <button class="tab-btn active" onclick="show('about')">À propos</button>
+    <button class="tab-btn"        onclick="show('cv')">Parcours</button>
+    <button class="tab-btn"        onclick="show('projects')">Projets</button>
+    <button class="tab-btn"        onclick="show('contact')">Contact</button>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     À PROPOS
+══════════════════════════════════════════ -->
+<section id="about" class="section active">
+
+  <div class="hero-eyebrow anim d1">Portfolio · Développement web &amp; informatique · 2025–26</div>
+
+  <h1 class="hero-name anim d2">
+    Mohamed Anes<br><span class="hi">Beddiaf</span>
+  </h1>
+  <p class="hero-sub anim d3"><span class="kw">const</span> profil = <span class="fn">developpeur</span>(<span style="color:var(--string)">'web · informatique · programmation'</span>);</p>
+
+  <!-- Terminal hero -->
+  <div class="terminal anim d4">
+    <div class="term-bar">
+      <span class="term-dot r"></span>
+      <span class="term-dot y"></span>
+      <span class="term-dot g"></span>
+      <span class="term-title">beddiaf@portfolio: ~</span>
+    </div>
+    <div class="term-body" id="term"></div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-strip anim d5">
+    <div class="stat">
+      <div class="stat-val">17.95</div>
+      <div class="stat-unit">/20</div>
+      <div class="stat-label">Bac — Mention TB</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">30</div>
+      <div class="stat-unit">ECTS</div>
+      <div class="stat-label">S1 validé</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">6+</div>
+      <div class="stat-unit">langages</div>
+      <div class="stat-label">C · Python · JS…</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">3</div>
+      <div class="stat-unit">langues</div>
+      <div class="stat-label">AR · FR · EN C1</div>
+    </div>
+  </div>
+
+  <!-- Profile -->
+  <div class="profile-block anim d6">
+    <p>
+      Étudiant en informatique à l'Université de Rouen Normandie, passionné de <strong>développement web</strong> et de <strong>programmation</strong>. J'aime concevoir des interfaces propres, écrire du code clair et transformer une idée en application qui fonctionne. Issu d'un bac scientifique <strong>17,95/20 Mention TB</strong> et d'une classe préparatoire sélective, j'ai des bases solides en <strong>algorithmique, logique et mathématiques</strong>, complétées par des projets techniques menés de bout en bout (front-end, back-end, embarqué, data). Mon objectif : intégrer un <strong>Bachelor 2 — ou un Bachelor 2+3 accéléré</strong> — en informatique / développement web, et continuer à monter en compétence sur des stacks modernes.
+    </p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Skills -->
+  <div class="anim d1">
+    <div class="sec-label">Compétences techniques</div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-card-head">Langages</div>
+        <div class="tag-list">
+          <span class="stag stag-violet">C</span>
+          <span class="stag stag-violet">Python</span>
+          <span class="stag stag-violet">JavaScript</span>
+          <span class="stag stag-violet">C++ (Arduino)</span>
+          <span class="stag stag-violet">SQL (bases)</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-head">Développement web</div>
+        <div class="tag-list">
+          <span class="stag stag-blue">HTML5</span>
+          <span class="stag stag-blue">CSS3</span>
+          <span class="stag stag-blue">JavaScript</span>
+          <span class="stag stag-blue">Responsive design</span>
+          <span class="stag stag-blue">UI / animations</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-head">Outils &amp; workflow</div>
+        <div class="tag-list">
+          <span class="stag stag-cyan">Git / GitHub</span>
+          <span class="stag stag-cyan">VS Code</span>
+          <span class="stag stag-cyan">Terminal / Linux</span>
+          <span class="stag stag-cyan">Debug</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-head">Algorithmique &amp; data</div>
+        <div class="tag-list">
+          <span class="stag stag-blue">Structures de données</span>
+          <span class="stag stag-blue">Logique</span>
+          <span class="stag stag-blue">MATLAB / Simulink</span>
+          <span class="stag stag-blue">Traitement du signal</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-head">Mobile &amp; embarqué</div>
+        <div class="tag-list">
+          <span class="stag stag-cyan">App Inventor</span>
+          <span class="stag stag-cyan">Android</span>
+          <span class="stag stag-cyan">Arduino / IoT</span>
+          <span class="stag stag-cyan">Proteus / Tinkercad</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-head">Soft skills</div>
+        <div class="tag-list">
+          <span class="stag stag-soft">Rigueur</span>
+          <span class="stag stag-soft">Esprit d'équipe</span>
+          <span class="stag stag-soft">Curiosité</span>
+          <span class="stag stag-soft">Autonomie</span>
+          <span class="stag stag-soft">Adaptabilité</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Languages -->
+  <div class="anim d2" style="max-width:500px; margin-bottom:2rem;">
+    <div class="sec-label">Langues</div>
+    <div class="lang-row">
+      <span class="lang-name">Arabe</span>
+      <div class="lang-bar-bg"><div class="lang-bar" style="width:100%"></div></div>
+      <span class="lang-lvl">Natif</span>
+    </div>
+    <div class="lang-row">
+      <span class="lang-name">Français</span>
+      <div class="lang-bar-bg"><div class="lang-bar" style="width:90%"></div></div>
+      <span class="lang-lvl">Courant</span>
+    </div>
+    <div class="lang-row">
+      <span class="lang-name">Anglais</span>
+      <div class="lang-bar-bg"><div class="lang-bar" style="width:82%"></div></div>
+      <span class="lang-lvl">C1 — Avancé</span>
+    </div>
+  </div>
+
+  <!-- Interests -->
+  <div class="anim d3">
+    <div class="sec-label">Domaines d'intérêt</div>
+    <div class="interest-grid">
+      <span class="int-badge">Développement web (front &amp; back)</span>
+      <span class="int-badge">Programmation &amp; algorithmique</span>
+      <span class="int-badge">UI / UX &amp; design d'interface</span>
+      <span class="int-badge">Applications mobiles</span>
+      <span class="int-badge">Systèmes embarqués &amp; IoT</span>
+      <span class="int-badge">Open source &amp; veille tech</span>
+    </div>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════════
+     PARCOURS CV
+══════════════════════════════════════════ -->
+<section id="cv" class="section">
+
+  <div class="cv-section">
+    <div class="sec-label anim d1">01 — Formation</div>
+    <h2 class="cv-title anim d2">Parcours <span>académique</span></h2>
+    <div class="timeline">
+
+      <div class="tl-entry anim d3">
+        <div class="tl-icon">🎓</div>
+        <div class="tl-body">
+          <div class="tl-head">
+            <span class="tl-title">Licence en Informatique &amp; sciences de l'ingénieur (IEEEA)</span>
+            <span class="tl-date">sept. 2025 – présent</span>
+          </div>
+          <div class="tl-org">Université de Rouen Normandie — France</div>
+          <div class="tl-desc">Semestre 1 validé (30 ECTS). Cours clés en informatique : algorithmique et programmation en C, logique combinatoire, structures algébriques. Meilleurs résultats : RSDD 19,25/20 · Projet pro 18/20 · Culture générale 16,75 · Anglais 15,5 · NTIC 15,12.</div>
+          <div class="tl-tags">
+            <span class="ttag note">Admis · 30 ECTS · S1</span>
+            <span class="ttag">Algorithmique C</span>
+            <span class="ttag">Logique combinatoire</span>
+            <span class="ttag">Structures algébriques</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-entry anim d4">
+        <div class="tl-icon">📐</div>
+        <div class="tl-body">
+          <div class="tl-head">
+            <span class="tl-title">Classe préparatoire — Mathématiques appliquées</span>
+            <span class="tl-date">sept. 2024 – juil. 2025</span>
+          </div>
+          <div class="tl-org">École Nationale Supérieure de Mathématiques (ENSMA) — Alger, Algérie</div>
+          <div class="tl-desc">Sélection nationale compétitive. Formation intensive en mathématiques avancées, algèbre, analyse et informatique. Membre actif de deux clubs : Möbius (groupe IT / développement web) et PRASINO (pôle médias &amp; visuel).</div>
+          <div class="tl-tags">
+            <span class="ttag">Algèbre avancée</span>
+            <span class="ttag">Analyse mathématique</span>
+            <span class="ttag">Möbius Club (IT / web)</span>
+            <span class="ttag">PRASINO Club</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-entry anim d5">
+        <div class="tl-icon">🏅</div>
+        <div class="tl-body">
+          <div class="tl-head">
+            <span class="tl-title">Baccalauréat scientifique — Mention Très Bien</span>
+            <span class="tl-date">2024</span>
+          </div>
+          <div class="tl-org">Lycée Frères Aachi Kaïs — Kaïs, Khenchela, Algérie</div>
+          <div class="tl-desc">Formation scientifique pluridisciplinaire (Maths, Physique-Chimie, SVT). Excellents résultats en matières scientifiques — base solide pour un parcours en informatique.</div>
+          <div class="tl-tags">
+            <span class="ttag gold">17,95/20 — Mention TB</span>
+            <span class="ttag gold">Physique : 20/20</span>
+            <span class="ttag gold">Maths : 19/20</span>
+            <span class="ttag">Profil scientifique</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="cv-section">
+    <div class="sec-label anim d1">02 — Projets techniques</div>
+    <h2 class="cv-title anim d2">Réalisations <span>concrètes</span></h2>
+    <div class="timeline">
+
+      <div class="tl-entry anim d3">
+        <div class="tl-icon">🌐</div>
+        <div class="tl-body">
+          <div class="tl-head">
+            <span class="tl-title">Ce portfolio — site web from scratch</span>
+            <span class="tl-date">2025 – 2026</span>
+          </div>
+          <div class="tl-org">Développement web · HTML / CSS / JavaScript</div>
+          <div class="tl-desc">Site one-page entièrement codé à la main : navigation par onglets en JavaScript, animations CSS, terminal animé, design responsive, palette &amp; thème personnalisés. Aucun framework, aucun template.</div>
+          <div class="tl-tags">
+            <span class="ttag">HTML5</span>
+            <span class="ttag">CSS3</span>
+            <span class="ttag">JavaScript</span>
+            <span class="ttag note">Responsive</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-entry anim d4">
+        <div class="tl-icon">📱</div>
+        <div class="tl-body">
+          <div class="tl-head">
+            <span class="tl-title">Application de monitoring temps réel (IoT)</span>
+            <span class="tl-date">nov. 2025 – févr. 2026</span>
+          </div>
+          <div class="tl-org">App mobile + embarqué · Programmation</div>
+          <div class="tl-desc">Chaîne logicielle complète : acquisition multi-capteurs sur Arduino Mega (code C/C++), transmission Bluetooth, et application Android (App Inventor) affichant les données en temps réel. Du capteur jusqu'à l'interface utilisateur.</div>
+          <div class="tl-tags">
+            <span class="ttag">Arduino C++</span>
+            <span class="ttag">App Inventor</span>
+            <span class="ttag">Android</span>
+            <span class="ttag">Bluetooth</span>
+            <span class="ttag note">Temps réel</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-entry anim d5">
+        <div class="tl-icon">📊</div>
+        <div class="tl-body">
+          <div class="tl-head">
+            <span class="tl-title">Acquisition &amp; traitement numérique du signal</span>
+            <span class="tl-date">oct. – déc. 2025</span>
+          </div>
+          <div class="tl-org">Programmation · MATLAB / Simulink · Embarqué</div>
+          <div class="tl-desc">Chaîne d'acquisition et de filtrage de signaux : conception des filtres analogiques et numériques, traitement et visualisation sous MATLAB/Simulink, et pilotage d'un actionneur via Arduino. Validation complète en simulation (Proteus).</div>
+          <div class="tl-tags">
+            <span class="ttag">MATLAB / Simulink</span>
+            <span class="ttag">Traitement du signal</span>
+            <span class="ttag">Arduino</span>
+            <span class="ttag">Proteus</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="cv-section">
+    <div class="sec-label anim d1">03 — Engagement &amp; distinctions</div>
+    <h2 class="cv-title anim d2">Activités <span>associatives</span></h2>
+    <div class="timeline">
+
+      <div class="tl-entry anim d3">
+        <div class="tl-icon">💻</div>
+        <div class="tl-body">
+          <div class="tl-head">
+            <span class="tl-title">Möbius Club — ENSMA</span>
+            <span class="tl-date">2024–2025</span>
+          </div>
+          <div class="tl-org">Groupe IT · Développement web</div>
+          <div class="tl-desc">Projets collaboratifs web, formations techniques et entraide entre membres au sein du groupe informatique du club.</div>
+        </div>
+      </div>
+
+      <div class="tl-entry anim d4">
+        <div class="tl-icon">🎨</div>
+        <div class="tl-body">
+          <div class="tl-head">
+            <span class="tl-title">PRASINO Club — ENSMA</span>
+            <span class="tl-date">2024–2025</span>
+          </div>
+          <div class="tl-org">Responsable pôle médias &amp; visuel</div>
+          <div class="tl-desc">Gestion de la communication visuelle, création de contenus et coordination des événements médiatiques du club scientifique.</div>
+        </div>
+      </div>
+
+      <div class="tl-entry anim d5">
+        <div class="tl-icon">🏆</div>
+        <div class="tl-body">
+          <div class="tl-head">
+            <span class="tl-title">Compétitions inter-lycées</span>
+            <span class="tl-date">2022–2024</span>
+          </div>
+          <div class="tl-org">Lauréat · Sciences exactes</div>
+          <div class="tl-desc">Participation et récompense dans des compétitions académiques inter-lycées en sciences exactes.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════════
+     PROJETS
+══════════════════════════════════════════ -->
+<section id="projects" class="section">
+
+  <div class="sec-label anim d1">Projets</div>
+  <h2 class="cv-title anim d2">Ce que j'ai <span>construit</span></h2>
+  <p class="anim d3" style="color:var(--text2); margin-bottom:2rem; max-width:620px;">Des projets menés de A à Z — conception, code, tests et documentation. D'autres projets web arrivent (emplacements ci-dessous à compléter).</p>
+
+  <div class="proj-grid">
+
+    <!-- ── PORTFOLIO WEB ── -->
+    <div class="proj-card blue anim d3">
+      <div class="proj-banner">
+        <div class="proj-banner-bg"></div>
+        <div class="proj-banner-grid"></div>
+        <div class="proj-icon-big">🌐</div>
+        <div class="proj-banner-text">
+          <div class="proj-badge">Web · Front-end</div>
+          <div class="proj-name">Portfolio développeur (ce site)</div>
+          <div class="proj-period">2025 – 2026 · HTML / CSS / JS</div>
+        </div>
+      </div>
+      <div class="proj-body">
+        <p class="proj-desc">Site one-page codé entièrement à la main, sans framework ni template. Navigation par onglets en JavaScript, animations CSS, terminal animé, thème &amp; coloration syntaxique personnalisés, et design 100% responsive.</p>
+
+        <div class="proj-stats">
+          <div class="pstat blue"><div class="pstat-val">0</div><div class="pstat-label">Framework</div></div>
+          <div class="pstat blue"><div class="pstat-val">4</div><div class="pstat-label">Sections</div></div>
+          <div class="pstat blue"><div class="pstat-val">100%</div><div class="pstat-label">Responsive</div></div>
+          <div class="pstat blue"><div class="pstat-val">JS</div><div class="pstat-label">Vanilla</div></div>
+        </div>
+
+        <div class="chain blue">
+          <span class="chain-node">HTML</span>
+          <span class="chain-arr">→</span>
+          <span class="chain-node">CSS</span>
+          <span class="chain-arr">→</span>
+          <span class="chain-node">JavaScript</span>
+          <span class="chain-arr">→</span>
+          <span class="chain-node">Responsive</span>
+        </div>
+
+        <div class="proj-tags">
+          <span class="ptag">HTML5</span>
+          <span class="ptag">CSS3</span>
+          <span class="ptag">JavaScript</span>
+          <span class="ptag">Animations</span>
+          <span class="ptag">UI design</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── APP IOT ── -->
+    <div class="proj-card cyan anim d4">
+      <div class="proj-banner">
+        <div class="proj-banner-bg"></div>
+        <div class="proj-banner-grid"></div>
+        <div class="proj-icon-big">📱</div>
+        <div class="proj-banner-text">
+          <div class="proj-badge">Mobile · IoT</div>
+          <div class="proj-name">App de monitoring temps réel</div>
+          <div class="proj-period">nov. 2025 – févr. 2026 · App + embarqué</div>
+        </div>
+      </div>
+      <div class="proj-body">
+        <p class="proj-desc">Chaîne logicielle complète : acquisition multi-capteurs programmée sur Arduino Mega (C/C++), transmission Bluetooth, et application Android développée sous App Inventor affichant les mesures en temps réel. Du matériel jusqu'à l'interface.</p>
+
+        <div class="proj-stats">
+          <div class="pstat cyan"><div class="pstat-val">4</div><div class="pstat-label">Capteurs</div></div>
+          <div class="pstat cyan"><div class="pstat-val">BT</div><div class="pstat-label">Sans fil</div></div>
+          <div class="pstat cyan"><div class="pstat-val">RT</div><div class="pstat-label">Temps réel</div></div>
+          <div class="pstat cyan"><div class="pstat-val">1</div><div class="pstat-label">App Android</div></div>
+        </div>
+
+        <div class="chain cyan">
+          <span class="chain-node">Capteurs</span>
+          <span class="chain-arr">→</span>
+          <span class="chain-node">Arduino C++</span>
+          <span class="chain-arr">→</span>
+          <span class="chain-node">Bluetooth</span>
+          <span class="chain-arr">→</span>
+          <span class="chain-node">App Android</span>
+        </div>
+
+        <div class="proj-tags">
+          <span class="ptag">Arduino C++</span>
+          <span class="ptag">App Inventor</span>
+          <span class="ptag">Android</span>
+          <span class="ptag">Bluetooth</span>
+          <span class="ptag">IoT</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── DSP ── -->
+    <div class="proj-card violet anim d5">
+      <div class="proj-banner">
+        <div class="proj-banner-bg"></div>
+        <div class="proj-banner-grid"></div>
+        <div class="proj-icon-big">📊</div>
+        <div class="proj-banner-text">
+          <div class="proj-badge">Data · Signal</div>
+          <div class="proj-name">Acquisition &amp; traitement du signal</div>
+          <div class="proj-period">oct. – déc. 2025 · MATLAB / Arduino</div>
+        </div>
+      </div>
+      <div class="proj-body">
+        <p class="proj-desc">Chaîne d'acquisition et de filtrage de signaux : conception de filtres analogiques et numériques, traitement et visualisation des données sous MATLAB/Simulink, et pilotage d'un actionneur via Arduino. Validation complète en simulation Proteus.</p>
+
+        <div class="proj-stats">
+          <div class="pstat violet"><div class="pstat-val">5</div><div class="pstat-label">Étages</div></div>
+          <div class="pstat violet"><div class="pstat-val">2</div><div class="pstat-label">Filtres</div></div>
+          <div class="pstat violet"><div class="pstat-val">×10</div><div class="pstat-label">Gain</div></div>
+          <div class="pstat violet"><div class="pstat-val">SIM</div><div class="pstat-label">Validé</div></div>
+        </div>
+
+        <div class="chain violet">
+          <span class="chain-node">Acquisition</span>
+          <span class="chain-arr">→</span>
+          <span class="chain-node">Filtrage</span>
+          <span class="chain-arr">→</span>
+          <span class="chain-node">MATLAB</span>
+          <span class="chain-arr">→</span>
+          <span class="chain-node">Arduino</span>
+        </div>
+
+        <div class="proj-tags">
+          <span class="ptag">MATLAB / Simulink</span>
+          <span class="ptag">Traitement signal</span>
+          <span class="ptag">Arduino</span>
+          <span class="ptag">Proteus</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PLACEHOLDER 1 ── -->
+    <div class="proj-card placeholder anim d6">
+      <div class="placeholder-plus">+</div>
+      <div class="placeholder-title">Projet web à venir</div>
+      <div class="placeholder-desc">Emplacement réservé pour un de tes projets web / GitHub. Envoie-moi le nom, la description, la stack et le lien — je le mets en forme ici.</div>
+      <div class="placeholder-hint">// à compléter</div>
+    </div>
+
+    <!-- ── PLACEHOLDER 2 ── -->
+    <div class="proj-card placeholder anim d7">
+      <div class="placeholder-plus">+</div>
+      <div class="placeholder-title">Projet web à venir</div>
+      <div class="placeholder-desc">Deuxième emplacement pour un projet perso, un site réalisé ou une app. Donne-moi les détails et je l'ajoute au même format que les autres cartes.</div>
+      <div class="placeholder-hint">// à compléter</div>
+    </div>
+
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="sec-label anim d1">Méthode de travail</div>
+  <div class="method-grid">
+    <div class="method-card anim d2">
+      <div class="method-icon">🧩</div>
+      <div class="method-title">Concevoir</div>
+      <div class="method-desc">Comprendre le besoin, découper le problème, choisir la bonne approche avant de coder.</div>
+    </div>
+    <div class="method-card anim d3">
+      <div class="method-icon">⌨️</div>
+      <div class="method-title">Coder</div>
+      <div class="method-desc">Écrire un code clair, lisible et réutilisable. Versionné avec Git.</div>
+    </div>
+    <div class="method-card anim d4">
+      <div class="method-icon">🧪</div>
+      <div class="method-title">Tester</div>
+      <div class="method-desc">Simuler, déboguer et valider avant de livrer quoi que ce soit.</div>
+    </div>
+    <div class="method-card anim d5">
+      <div class="method-icon">📝</div>
+      <div class="method-title">Documenter</div>
+      <div class="method-desc">Expliquer le projet clairement, en français comme en anglais.</div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════════
+     CONTACT
+══════════════════════════════════════════ -->
+<section id="contact" class="section">
+
+  <div class="contact-hero">
+    <h1 class="contact-title anim d1">Entrons en <span>contact</span></h1>
+    <p class="contact-sub anim d2">Candidat motivé pour un Bachelor 2 (ou 2+3 accéléré) en informatique / dév web. Disponible pour échanges, stages et collaborations sur des projets tech.</p>
+  </div>
+
+  <div class="identity anim d3">
+    <div class="avatar">B</div>
+    <div>
+      <div class="identity-name">Mohamed Anes<br><em>Beddiaf</em></div>
+      <div class="identity-sub">Né le 29 mai 2006 · Kaïs, Khenchela, Algérie · Rouen, France</div>
+    </div>
+  </div>
+
+  <div class="contact-grid anim d4">
+    <a class="contact-card" href="mailto:beddiafmohamedanes@gmail.com">
+      <div class="ccard-icon">📧</div>
+      <div class="ccard-label">Email</div>
+      <div class="ccard-val">beddiafmohamedanes@gmail.com</div>
+    </a>
+    <a class="contact-card" href="https://linkedin.com/in/mohamed-anes-beddiaf" target="_blank" rel="noopener">
+      <div class="ccard-icon">🔗</div>
+      <div class="ccard-label">LinkedIn</div>
+      <div class="ccard-val">linkedin.com/in/mohamed-anes-beddiaf</div>
+    </a>
+    <div class="contact-card">
+      <div class="ccard-icon">📍</div>
+      <div class="ccard-label">Localisation</div>
+      <div class="ccard-val neutral">Rouen, France · Mobilité internationale</div>
+    </div>
+    <div class="contact-card">
+      <div class="ccard-icon">🎯</div>
+      <div class="ccard-label">Objectif</div>
+      <div class="ccard-val neutral">Bachelor 2 / 2+3 accéléré · Dév web · Informatique</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="anim d5">
+    <div class="sec-label">Formation &amp; diplômes</div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:0.8rem; margin-top:1rem;">
+      <div class="method-card">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--text3);margin-bottom:0.4rem;">Actuellement</div>
+        <div style="font-size:0.9rem;font-weight:600;color:var(--accent);">Licence informatique (IEEEA)</div>
+        <div style="font-size:0.82rem;color:var(--text2);">Université de Rouen Normandie</div>
+      </div>
+      <div class="method-card">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--text3);margin-bottom:0.4rem;">2024–2025</div>
+        <div style="font-size:0.9rem;font-weight:600;color:var(--violet);">Classe prépa ENSMA</div>
+        <div style="font-size:0.82rem;color:var(--text2);">Maths appliquées — Alger</div>
+      </div>
+      <div class="method-card">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--text3);margin-bottom:0.4rem;">2024</div>
+        <div style="font-size:0.9rem;font-weight:600;color:var(--string);">Bac scientifique 17,95/20 TB</div>
+        <div style="font-size:0.82rem;color:var(--text2);">Lycée Kaïs, Khenchela</div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<footer>
+  Portfolio codé en HTML / CSS / JS par <em>BEDDIAF Mohamed Anes</em> · Rouen · 2025–2026
+  · Ce site est lui-même une démo de mes compétences en développement web
+</footer>
+
+<script>
+// Progress bar
+window.addEventListener('scroll', () => {
+  const s = document.documentElement;
+  document.getElementById('bar').style.width =
+    (s.scrollTop / (s.scrollHeight - s.clientHeight) * 100) + '%';
+});
+
+// ── Terminal typewriter ──
+const termLines = [
+  { p: 'beddiaf@portfolio:~$ ', t: 'whoami' },
+  { p: '', t: 'Mohamed Anes Beddiaf — étudiant développeur web & informatique', out: true },
+  { p: 'beddiaf@portfolio:~$ ', t: 'cat objectif.txt' },
+  { p: '', t: 'Intégrer un Bachelor 2 (ou 2+3 accéléré) en informatique / dev web', out: true },
+  { p: 'beddiaf@portfolio:~$ ', t: 'ls competences/' },
+  { p: '', t: 'web/   programmation/   algorithmique/   systemes/', out: true },
+  { p: 'beddiaf@portfolio:~$ ', t: '', cursor: true }
+];
+
+function runTerminal() {
+  const term = document.getElementById('term');
+  if (!term) return;
+  term.innerHTML = '';
+  let li = 0;
+  function nextLine() {
+    if (li >= termLines.length) return;
+    const data = termLines[li];
+    const line = document.createElement('div');
+    line.className = 'term-line';
+    const promptSpan = document.createElement('span');
+    promptSpan.className = 'term-prompt';
+    promptSpan.textContent = data.p;
+    line.appendChild(promptSpan);
+    const textSpan = document.createElement('span');
+    textSpan.className = data.out ? 'term-out' : '';
+    line.appendChild(textSpan);
+    term.appendChild(line);
+
+    if (data.cursor) {
+      const cur = document.createElement('span');
+      cur.className = 'term-cursor';
+      line.appendChild(cur);
+      return;
+    }
+
+    if (data.out) {
+      // output prints instantly with a small delay
+      textSpan.textContent = data.t;
+      li++;
+      setTimeout(nextLine, 320);
+    } else {
+      // command types char by char
+      let ci = 0;
+      (function typeChar() {
+        if (ci <= data.t.length) {
+          textSpan.textContent = data.t.slice(0, ci);
+          ci++;
+          setTimeout(typeChar, 45);
+        } else {
+          li++;
+          setTimeout(nextLine, 280);
+        }
+      })();
+    }
+  }
+  nextLine();
+}
+
+// Tab switching
+function show(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const map = { about:0, cv:1, projects:2, contact:3 };
+  document.querySelectorAll('.tab-btn')[map[id]].classList.add('active');
+  window.scrollTo({ top: 0 });
+  setTimeout(triggerAnims, 60);
+  if (id === 'about') runTerminal();
+}
+
+// Scroll-triggered reveal
+function triggerAnims() {
+  const els = document.querySelectorAll('.section.active .anim');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  els.forEach(el => io.observe(el));
+}
+triggerAnims();
+runTerminal();
+</script>
+</body>
+</html>
