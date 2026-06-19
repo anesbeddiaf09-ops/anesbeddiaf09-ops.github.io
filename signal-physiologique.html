@@ -5,27 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Amplification & Filtrage — BEDDIAF Mohamed Anes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bio: #00E5A0;
-  --bio2: #7FFFD4;
-  --elec: #3B82FF;
-  --elec2: #93C5FD;
-  --pulse: #FF4F7B;
-  --pulse2: #FF9AB2;
-  --dark: #05080F;
-  --sky: #0A1628;
-  --sky2: #0F1F3D;
-  --sky3: #162B54;
-  --card: rgba(10,22,40,0.75);
-  --border: rgba(0,229,160,0.13);
-  --border2: rgba(59,130,255,0.25);
-  --muted: #7A92B8;
-  --white: #EEF3FF;
-  --sans: 'DM Sans', sans-serif;
-  --display: 'Syne', sans-serif;
-  --mono: 'JetBrains Mono', monospace;
+  /* thème clair, vert & rose — assorti au portfolio */
+  --bio:   #178a53;        /* vert principal */
+  --bio2:  #1b7a4d;        /* vert (texte) */
+  --elec:  #d14b86;        /* rose */
+  --elec2: #bf4f7e;        /* rose (texte) */
+  --pulse: #ec5f92;        /* rose vif (points/anim) */
+  --pulse2:#cf5f86;
+  --dark:  #fdf4f7;        /* fond clair (le nom date de l'ancienne version) */
+  --sky:   #f8ebf0;
+  --sky2:  #f2e2ea;
+  --sky3:  #ecd8e3;
+  --card:  rgba(255,255,255,0.82);
+  --border: rgba(45,30,45,0.10);
+  --border2: rgba(209,75,134,0.25);
+  --muted: #5e6b64;
+  --white: #283330;        /* texte (sombre maintenant) */
+  --sans: 'Inter', sans-serif;
+  --display: 'Fraunces', serif;
+  --mono: 'IBM Plex Mono', monospace;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -35,18 +36,18 @@ body { background: var(--dark); color: var(--white); font-family: var(--sans); f
 ::-webkit-scrollbar-track { background: var(--dark); }
 ::-webkit-scrollbar-thumb { background: var(--bio); border-radius: 4px; }
 
-/* ── CANVAS ── */
-#bg-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.35; }
+/* canvas */
+#bg-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.2; }
 
-/* ── PROGRESS ── */
+/* progress */
 #progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--bio), var(--elec), var(--pulse)); z-index: 200; transition: width 0.1s; }
 
-/* ── NAV ── */
+/* nav */
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   display: flex; align-items: center; justify-content: space-between;
   padding: 1rem 3rem;
-  background: rgba(5,8,15,0.88);
+  background: rgba(253,244,247,0.85);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
 }
@@ -56,7 +57,7 @@ nav {
 .nav-links a { font-size: 12px; font-family: var(--mono); color: var(--muted); text-decoration: none; letter-spacing: 0.04em; transition: color 0.2s; }
 .nav-links a:hover { color: var(--bio2); }
 
-/* ── HERO ── */
+/* hero */
 .hero {
   position: relative; min-height: 100vh;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -69,9 +70,9 @@ nav {
 .hero-sub { max-width: 640px; color: var(--muted); font-size: 1rem; margin-bottom: 3rem; opacity: 0; animation: fadeUp 0.8s 0.6s forwards; }
 .hero-badges { display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: center; margin-bottom: 2rem; opacity: 0; animation: fadeUp 0.8s 0.8s forwards; }
 .badge { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.35rem 0.9rem; border-radius: 999px; font-size: 11.5px; font-family: var(--mono); border: 1px solid; }
-.badge-bio { color: var(--bio2); border-color: rgba(0,229,160,0.3); background: rgba(0,229,160,0.07); }
-.badge-elec { color: var(--elec2); border-color: rgba(59,130,255,0.3); background: rgba(59,130,255,0.07); }
-.badge-pulse { color: var(--pulse2); border-color: rgba(255,79,123,0.3); background: rgba(255,79,123,0.07); }
+.badge-bio { color: var(--bio2); border-color: rgba(31,157,98,0.3); background: rgba(31,157,98,0.07); }
+.badge-elec { color: var(--elec2); border-color: rgba(209,75,134,0.3); background: rgba(209,75,134,0.07); }
+.badge-pulse { color: var(--pulse2); border-color: rgba(236,95,146,0.3); background: rgba(236,95,146,0.07); }
 
 /* ECG animated line */
 .ecg-hero {
@@ -84,11 +85,11 @@ nav {
 .scroll-hint::before { content: ''; width: 1px; height: 36px; background: linear-gradient(to bottom, transparent, var(--bio)); }
 
 .orb { position: absolute; border-radius: 50%; pointer-events: none; filter: blur(90px); }
-.orb-1 { width: 450px; height: 450px; top: -100px; left: -120px; background: radial-gradient(circle, rgba(0,229,160,0.14) 0%, transparent 70%); animation: drift 14s ease-in-out infinite; }
-.orb-2 { width: 380px; height: 380px; bottom: -60px; right: -80px; background: radial-gradient(circle, rgba(59,130,255,0.13) 0%, transparent 70%); animation: drift 18s ease-in-out infinite reverse; }
-.orb-3 { width: 300px; height: 300px; top: 40%; left: 55%; background: radial-gradient(circle, rgba(255,79,123,0.09) 0%, transparent 70%); animation: drift 22s ease-in-out infinite; }
+.orb-1 { width: 450px; height: 450px; top: -100px; left: -120px; background: radial-gradient(circle, rgba(31,157,98,0.14) 0%, transparent 70%); animation: drift 14s ease-in-out infinite; }
+.orb-2 { width: 380px; height: 380px; bottom: -60px; right: -80px; background: radial-gradient(circle, rgba(209,75,134,0.13) 0%, transparent 70%); animation: drift 18s ease-in-out infinite reverse; }
+.orb-3 { width: 300px; height: 300px; top: 40%; left: 55%; background: radial-gradient(circle, rgba(236,95,146,0.09) 0%, transparent 70%); animation: drift 22s ease-in-out infinite; }
 
-/* ── LAYOUT ── */
+/* layout */
 .section { position: relative; z-index: 1; padding: 5rem 2rem; max-width: 1100px; margin: 0 auto; }
 .section-label { font-family: var(--mono); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--bio); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 1rem; }
 .section-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, var(--border), transparent); }
@@ -99,7 +100,7 @@ nav {
 .section-desc { color: var(--muted); max-width: 600px; font-size: 1rem; margin-bottom: 3rem; }
 .divider { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); position: relative; z-index: 1; }
 
-/* ── CHAIN FLOW ── */
+/* chain flow */
 .chain { display: flex; align-items: center; flex-wrap: wrap; justify-content: center; gap: 0; margin: 2.5rem 0; }
 .chain-node {
   display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
@@ -107,7 +108,7 @@ nav {
   padding: 1.2rem 1.4rem; min-width: 120px; text-align: center;
   backdrop-filter: blur(8px); transition: all 0.3s; cursor: default;
 }
-.chain-node:hover { border-color: rgba(0,229,160,0.4); transform: translateY(-4px); box-shadow: 0 16px 32px rgba(0,0,0,0.35); }
+.chain-node:hover { border-color: rgba(31,157,98,0.4); transform: translateY(-4px); box-shadow: 0 16px 32px rgba(60,40,55,0.12); }
 .chain-node .cn-icon { font-size: 26px; margin-bottom: 0.2rem; }
 .chain-node .cn-label { font-family: var(--display); font-size: 0.85rem; font-weight: 700; color: var(--white); }
 .chain-node .cn-sub { font-size: 11px; font-family: var(--mono); color: var(--muted); }
@@ -117,7 +118,7 @@ nav {
 .chain-arrow-down { width: 2px; height: 40px; background: linear-gradient(to bottom, var(--elec), var(--bio)); margin: 0 auto; position: relative; }
 .chain-arrow-down::after { content: '▼'; position: absolute; bottom: -12px; left: 50%; transform: translateX(-50%); color: var(--bio); font-size: 11px; }
 
-/* ── CARDS ── */
+/* cards */
 .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.4rem; }
 .card {
   background: var(--card); border: 1px solid var(--border); border-radius: 16px;
@@ -125,27 +126,27 @@ nav {
   transition: all 0.35s;
 }
 .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--bio), var(--elec)); opacity: 0; transition: opacity 0.3s; }
-.card:hover { transform: translateY(-5px); border-color: rgba(0,229,160,0.3); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+.card:hover { transform: translateY(-5px); border-color: rgba(31,157,98,0.3); box-shadow: 0 20px 40px rgba(60,40,55,0.10); }
 .card:hover::before { opacity: 1; }
-.card-icon { width: 46px; height: 46px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 1.1rem; background: rgba(0,229,160,0.1); border: 1px solid var(--border); }
-.card-icon.elec { background: rgba(59,130,255,0.1); }
-.card-icon.pulse { background: rgba(255,79,123,0.1); }
+.card-icon { width: 46px; height: 46px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 1.1rem; background: rgba(31,157,98,0.1); border: 1px solid var(--border); }
+.card-icon.elec { background: rgba(209,75,134,0.1); }
+.card-icon.pulse { background: rgba(236,95,146,0.1); }
 .card-title { font-family: var(--display); font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--white); }
 .card-text { font-size: 14px; color: var(--muted); line-height: 1.65; }
 
-/* ── COMPOSANTS TABLE ── */
+/* composants table */
 .comp-table { width: 100%; border-collapse: collapse; font-size: 14px; margin: 1.5rem 0; }
-.comp-table th { text-align: left; color: var(--bio); font-family: var(--mono); font-size: 12px; letter-spacing: 1px; padding: 0.7rem 1rem; border-bottom: 1px solid rgba(0,229,160,0.2); background: rgba(0,229,160,0.05); }
+.comp-table th { text-align: left; color: var(--bio); font-family: var(--mono); font-size: 12px; letter-spacing: 1px; padding: 0.7rem 1rem; border-bottom: 1px solid rgba(31,157,98,0.2); background: rgba(31,157,98,0.05); }
 .comp-table td { padding: 0.7rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.04); color: var(--muted); font-family: var(--mono); font-size: 13px; }
 .comp-table tr:last-child td { border-bottom: none; }
 .comp-table td:first-child { color: var(--white); }
 .comp-table td:nth-child(3) { color: var(--bio2); }
-.comp-table tr:hover td { background: rgba(0,229,160,0.03); }
+.comp-table tr:hover td { background: rgba(31,157,98,0.03); }
 
-/* ── FORMULA BOX ── */
+/* formula box */
 .formula-card {
-  background: var(--dark);
-  border: 1px solid rgba(59,130,255,0.3);
+  background: var(--sky);
+  border: 1px solid rgba(209,75,134,0.3);
   border-left: 3px solid var(--elec);
   border-radius: 12px; padding: 1.4rem 1.6rem;
   margin: 1.5rem 0; font-family: var(--mono);
@@ -155,7 +156,7 @@ nav {
 .formula-expr span { color: var(--bio2); }
 .formula-note { font-size: 12px; color: var(--muted); margin-top: 0.5rem; }
 
-/* ── SIGNAL OSCILLOSCOPE ── */
+/* signal oscilloscope */
 .scope-box {
   background: #030F06;
   border: 2px solid #1a3a20;
@@ -173,7 +174,7 @@ nav {
 .scope-label { font-family: var(--mono); font-size: 11px; color: #3a7d44; margin-bottom: 0.5rem; letter-spacing: 2px; }
 .scope-svg { width: 100%; display: block; position: relative; z-index: 1; }
 
-/* ── STEPS ── */
+/* steps */
 .steps { display: flex; flex-direction: column; gap: 1.3rem; }
 .step-item {
   display: flex; gap: 1.4rem; align-items: flex-start;
@@ -182,29 +183,29 @@ nav {
   backdrop-filter: blur(8px); transition: all 0.3s; position: relative; overflow: hidden;
 }
 .step-item::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: linear-gradient(to bottom, var(--bio), var(--elec)); border-radius: 3px 0 0 3px; }
-.step-item:hover { transform: translateX(4px); border-color: rgba(0,229,160,0.3); }
-.step-num { width: 38px; height: 38px; border-radius: 10px; background: linear-gradient(135deg, rgba(0,229,160,0.2), rgba(59,130,255,0.2)); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 800; color: var(--bio); flex-shrink: 0; font-size: 0.95rem; }
+.step-item:hover { transform: translateX(4px); border-color: rgba(31,157,98,0.3); }
+.step-num { width: 38px; height: 38px; border-radius: 10px; background: linear-gradient(135deg, rgba(31,157,98,0.2), rgba(209,75,134,0.2)); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 800; color: var(--bio); flex-shrink: 0; font-size: 0.95rem; }
 .step-content { flex: 1; }
 .step-title { font-family: var(--display); font-size: 0.95rem; font-weight: 700; color: var(--white); margin-bottom: 0.35rem; }
 .step-text { font-size: 14px; color: var(--muted); }
 
-/* ── STATS ── */
+/* stats */
 .stats-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border-radius: 18px; overflow: hidden; margin: 3rem 0; }
 @media(max-width:680px) { .stats-strip { grid-template-columns: repeat(2,1fr); } }
 .stat-item { background: var(--card); padding: 1.8rem 1.2rem; text-align: center; backdrop-filter: blur(8px); transition: background 0.3s; }
-.stat-item:hover { background: rgba(10,22,40,0.98); }
+.stat-item:hover { background: rgba(248,235,240,0.98); }
 .stat-num { font-family: var(--display); font-size: 2rem; font-weight: 800; color: var(--bio); line-height: 1; margin-bottom: 0.3rem; }
 .stat-unit { font-size: 13px; font-family: var(--mono); color: var(--elec2); }
 .stat-desc { font-size: 12px; color: var(--muted); margin-top: 0.3rem; }
 
-/* ── SIMULATION GRID ── */
+/* simulation grid */
 .sim-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
 @media(max-width:700px) { .sim-grid { grid-template-columns: 1fr; } }
 .sim-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem; backdrop-filter: blur(8px); }
 .sim-card-title { font-family: var(--display); font-size: 0.95rem; font-weight: 700; margin-bottom: 1rem; color: var(--white); display: flex; align-items: center; gap: 0.5rem; }
 .sim-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
 
-/* ── AUTHOR ── */
+/* author */
 .author-section { position: relative; z-index: 1; padding: 5rem 2rem; text-align: center; }
 .author-ring { width: 130px; height: 130px; border-radius: 50%; margin: 0 auto 2rem; background: linear-gradient(135deg, var(--bio), var(--elec), var(--pulse)); padding: 3px; animation: spin-slow 20s linear infinite; }
 .author-ring-inner { width: 100%; height: 100%; border-radius: 50%; background: var(--dark); display: flex; align-items: center; justify-content: center; font-family: var(--display); font-size: 2.5rem; font-weight: 800; color: var(--bio); animation: spin-slow 20s linear infinite reverse; }
@@ -217,7 +218,7 @@ nav {
 footer { position: relative; z-index: 1; text-align: center; padding: 2rem; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); font-family: var(--mono); }
 footer span { color: var(--bio); }
 
-/* ── ANIMATIONS ── */
+/* animations */
 @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes bounce { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
 @keyframes drift { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(25px,-18px) scale(1.04); } 66% { transform: translate(-18px,10px) scale(0.97); } }
@@ -240,7 +241,7 @@ footer span { color: var(--bio); }
 <div id="progress-bar"></div>
 <canvas id="bg-canvas"></canvas>
 
-<!-- NAV -->
+<!-- barre de nav -->
 <nav>
   <a href="#hero" class="nav-logo">BioSignal<span>Lab</span></a>
   <ul class="nav-links">
@@ -253,7 +254,7 @@ footer span { color: var(--bio); }
   </ul>
 </nav>
 
-<!-- HERO -->
+<!-- hero -->
 <section class="hero" id="hero">
   <div class="orb orb-1"></div>
   <div class="orb orb-2"></div>
@@ -270,12 +271,12 @@ footer span { color: var(--bio); }
   <svg class="ecg-hero" viewBox="0 0 560 70" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path id="ecg-path"
       d="M0,35 L60,35 L75,35 L80,10 L85,60 L90,20 L95,35 L140,35 L155,35 L160,10 L165,60 L170,20 L175,35 L220,35 L235,35 L240,10 L245,60 L250,20 L255,35 L300,35 L315,35 L320,10 L325,60 L330,20 L335,35 L380,35 L395,35 L400,10 L405,60 L410,20 L415,35 L460,35 L475,35 L480,10 L485,60 L490,20 L495,35 L560,35"
-      stroke="#00E5A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      stroke="#178a53" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
       stroke-dasharray="1200" stroke-dashoffset="1200"
       style="animation: drawECG 2.5s 1.2s ease forwards;"
     />
     <!-- Pulse dot -->
-    <circle cx="495" cy="35" r="4" fill="#FF4F7B">
+    <circle cx="495" cy="35" r="4" fill="#ec5f92">
       <animate attributeName="opacity" values="1;0;1" dur="1.2s" repeatCount="indefinite"/>
       <animateMotion path="M0,0 L65,0" dur="2.5s" begin="1.2s" fill="freeze" repeatCount="indefinite"/>
     </circle>
@@ -283,18 +284,18 @@ footer span { color: var(--bio); }
 
   <p class="hero-sub">Un système complet d'acquisition et de conditionnement de signaux physiologiques — amplification différentielle, filtrage analogique, simulation MATLAB et commande d'actionneur via Arduino UNO.</p>
   <div class="hero-badges">
-    <span class="badge badge-bio">⚡ AOP 741</span>
-    <span class="badge badge-elec">🔬 Filtre réjecteur</span>
-    <span class="badge badge-pulse">❤️ Signal EMG/ECG</span>
-    <span class="badge badge-bio">🤖 Arduino UNO</span>
-    <span class="badge badge-elec">📊 MATLAB/Simulink</span>
+    <span class="badge badge-bio">AOP 741</span>
+    <span class="badge badge-elec">Filtre réjecteur</span>
+    <span class="badge badge-pulse">Signal EMG/ECG</span>
+    <span class="badge badge-bio">Arduino UNO</span>
+    <span class="badge badge-elec">MATLAB/Simulink</span>
   </div>
   <div class="scroll-hint">DÉFILER</div>
 </section>
 
 <div class="divider"></div>
 
-<!-- STATS -->
+<!-- stats -->
 <div class="section">
   <div class="stats-strip reveal">
     <div class="stat-item">
@@ -320,7 +321,7 @@ footer span { color: var(--bio); }
   </div>
 </div>
 
-<!-- CHAÎNE D'ACQUISITION -->
+<!-- chaîne d'acquisition -->
 <section id="chaine">
 <div class="section">
   <div class="section-label">01 — Vue d'ensemble</div>
@@ -330,31 +331,26 @@ footer span { color: var(--bio); }
   <!-- Flow diagram -->
   <div class="chain reveal">
     <div class="chain-node">
-      <div class="cn-icon">🖐</div>
       <div class="cn-label">Électrodes</div>
       <div class="cn-sub">Surface Ag/AgCl</div>
     </div>
     <div class="chain-arrow"></div>
     <div class="chain-node">
-      <div class="cn-icon">📈</div>
       <div class="cn-label">Amplificateur</div>
       <div class="cn-sub">AOP 741 — G×10</div>
     </div>
     <div class="chain-arrow"></div>
     <div class="chain-node">
-      <div class="cn-icon">🎛</div>
       <div class="cn-label">Filtre</div>
       <div class="cn-sub">Réjecteur 50 Hz</div>
     </div>
     <div class="chain-arrow"></div>
     <div class="chain-node">
-      <div class="cn-icon">🖥</div>
       <div class="cn-label">Arduino UNO</div>
       <div class="cn-sub">Traitement numérique</div>
     </div>
     <div class="chain-arrow"></div>
     <div class="chain-node">
-      <div class="cn-icon">⚙️</div>
       <div class="cn-label">Moteur pas à pas</div>
       <div class="cn-sub">Actionneur</div>
     </div>
@@ -362,22 +358,18 @@ footer span { color: var(--bio); }
 
   <div class="cards-grid">
     <div class="card reveal reveal-delay-1">
-      <div class="card-icon">🖐</div>
       <div class="card-title">Électrodes de surface</div>
       <div class="card-text">Électrodes flottantes Ag/AgCl placées sur la peau. Un gel conducteur et une éponge assurent la continuité de la conduction entre tissu biologique et métal. Elles captent les signaux EMG, ECG, EEG avec une très faible impédance de contact.</div>
     </div>
     <div class="card reveal reveal-delay-2">
-      <div class="card-icon elec">📈</div>
       <div class="card-title">Pourquoi amplifier ?</div>
       <div class="card-text">Les signaux physiologiques ont des amplitudes très faibles — souvent inférieures au millivolt. Ils sont noyés dans le bruit et les interférences. L'amplificateur différentiel amplifie exclusivement la différence entre les deux électrodes, rejetant le bruit commun.</div>
     </div>
     <div class="card reveal reveal-delay-3">
-      <div class="card-icon pulse">🎛</div>
       <div class="card-title">Filtrage et mise en forme</div>
       <div class="card-text">L'étage de filtrage élimine les interférences parasites — notamment le 50 Hz du réseau électrique — tout en préservant la morphologie du signal utile. Le signal conditionné est ensuite numérisé par l'Arduino UNO pour la commande de l'actionneur.</div>
     </div>
     <div class="card reveal reveal-delay-4">
-      <div class="card-icon">⚙️</div>
       <div class="card-title">Commande du moteur pas à pas</div>
       <div class="card-text">Le signal conditionné sert de variable de commande pour un moteur pas à pas. Ce choix permet une action précise, reproductible et proportionnelle à l'activité musculaire — une interface idéale pour le pilotage de prothèses mécaniques.</div>
     </div>
@@ -387,7 +379,7 @@ footer span { color: var(--bio); }
 
 <div class="divider"></div>
 
-<!-- AMPLIFICATEUR -->
+<!-- amplificateur -->
 <section id="ampli">
 <div class="section">
   <div class="section-label">02 — Amplification</div>
@@ -422,39 +414,39 @@ footer span { color: var(--bio); }
       <div class="sim-card-title"><div class="sim-dot" style="background:var(--elec)"></div> Principe de fonctionnement</div>
       <svg viewBox="0 0 280 180" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;">
         <!-- Triangle AOP -->
-        <polygon points="110,60 110,120 170,90" fill="rgba(59,130,255,0.12)" stroke="#3B82FF" stroke-width="1.5"/>
+        <polygon points="110,60 110,120 170,90" fill="rgba(209,75,134,0.12)" stroke="#d14b86" stroke-width="1.5"/>
         <!-- V+ input -->
-        <line x1="30" y1="72" x2="110" y2="72" stroke="#00E5A0" stroke-width="1.5" stroke-dasharray="4 3"/>
-        <text x="10" y="76" font-family="JetBrains Mono,monospace" font-size="9" fill="#00E5A0">V⁺</text>
+        <line x1="30" y1="72" x2="110" y2="72" stroke="#178a53" stroke-width="1.5" stroke-dasharray="4 3"/>
+        <text x="10" y="76" font-family="IBM Plex Mono,monospace" font-size="9" fill="#178a53">V⁺</text>
         <!-- V- input -->
-        <line x1="30" y1="108" x2="110" y2="108" stroke="#FF4F7B" stroke-width="1.5" stroke-dasharray="4 3"/>
-        <text x="10" y="112" font-family="JetBrains Mono,monospace" font-size="9" fill="#FF4F7B">V⁻</text>
+        <line x1="30" y1="108" x2="110" y2="108" stroke="#ec5f92" stroke-width="1.5" stroke-dasharray="4 3"/>
+        <text x="10" y="112" font-family="IBM Plex Mono,monospace" font-size="9" fill="#ec5f92">V⁻</text>
         <!-- Output -->
-        <line x1="170" y1="90" x2="250" y2="90" stroke="#93C5FD" stroke-width="1.5"/>
-        <text x="210" y="83" font-family="JetBrains Mono,monospace" font-size="9" fill="#93C5FD">Vout</text>
+        <line x1="170" y1="90" x2="250" y2="90" stroke="#bf4f7e" stroke-width="1.5"/>
+        <text x="210" y="83" font-family="IBM Plex Mono,monospace" font-size="9" fill="#bf4f7e">Vout</text>
         <!-- Rg -->
-        <rect x="55" y="126" width="40" height="16" rx="3" fill="none" stroke="#8AA0C0" stroke-width="1"/>
-        <text x="75" y="138" font-family="JetBrains Mono,monospace" font-size="8" fill="#8AA0C0" text-anchor="middle">RG</text>
-        <line x1="55" y1="134" x2="40" y2="134" stroke="#8AA0C0" stroke-width="1"/>
-        <line x1="40" y1="108" x2="40" y2="134" stroke="#8AA0C0" stroke-width="1"/>
-        <line x1="95" y1="134" x2="110" y2="134" stroke="#8AA0C0" stroke-width="1"/>
-        <line x1="110" y1="108" x2="110" y2="134" stroke="#8AA0C0" stroke-width="1"/>
+        <rect x="55" y="126" width="40" height="16" rx="3" fill="none" stroke="#7f8a84" stroke-width="1"/>
+        <text x="75" y="138" font-family="IBM Plex Mono,monospace" font-size="8" fill="#7f8a84" text-anchor="middle">RG</text>
+        <line x1="55" y1="134" x2="40" y2="134" stroke="#7f8a84" stroke-width="1"/>
+        <line x1="40" y1="108" x2="40" y2="134" stroke="#7f8a84" stroke-width="1"/>
+        <line x1="95" y1="134" x2="110" y2="134" stroke="#7f8a84" stroke-width="1"/>
+        <line x1="110" y1="108" x2="110" y2="134" stroke="#7f8a84" stroke-width="1"/>
         <!-- Power -->
-        <text x="130" y="50" font-family="JetBrains Mono,monospace" font-size="8" fill="#F4A900">V+</text>
-        <line x1="135" y1="53" x2="135" y2="63" stroke="#F4A900" stroke-width="1"/>
-        <line x1="135" y1="117" x2="135" y2="127" stroke="#F4A900" stroke-width="1"/>
-        <text x="130" y="138" font-family="JetBrains Mono,monospace" font-size="8" fill="#F4A900">V−</text>
+        <text x="130" y="50" font-family="IBM Plex Mono,monospace" font-size="8" fill="#b03c70">V+</text>
+        <line x1="135" y1="53" x2="135" y2="63" stroke="#b03c70" stroke-width="1"/>
+        <line x1="135" y1="117" x2="135" y2="127" stroke="#b03c70" stroke-width="1"/>
+        <text x="130" y="138" font-family="IBM Plex Mono,monospace" font-size="8" fill="#b03c70">V−</text>
         <!-- Labels inside triangle -->
-        <text x="123" y="77" font-family="JetBrains Mono,monospace" font-size="8" fill="#93C5FD">+</text>
-        <text x="123" y="107" font-family="JetBrains Mono,monospace" font-size="8" fill="#93C5FD">−</text>
-        <text x="125" y="94" font-family="JetBrains Mono,monospace" font-size="7" fill="#3B82FF">741</text>
+        <text x="123" y="77" font-family="IBM Plex Mono,monospace" font-size="8" fill="#bf4f7e">+</text>
+        <text x="123" y="107" font-family="IBM Plex Mono,monospace" font-size="8" fill="#bf4f7e">−</text>
+        <text x="125" y="94" font-family="IBM Plex Mono,monospace" font-size="7" fill="#d14b86">741</text>
         <!-- Gain label -->
-        <text x="185" y="105" font-family="JetBrains Mono,monospace" font-size="7.5" fill="#8AA0C0">G = 5 + 80/RG</text>
+        <text x="185" y="105" font-family="IBM Plex Mono,monospace" font-size="7.5" fill="#7f8a84">G = 5 + 80/RG</text>
         <!-- Electrode source -->
-        <circle cx="18" cy="72" r="5" fill="none" stroke="#00E5A0" stroke-width="1"/>
-        <circle cx="18" cy="108" r="5" fill="none" stroke="#FF4F7B" stroke-width="1"/>
-        <text x="4" y="150" font-family="JetBrains Mono,monospace" font-size="7" fill="#7A92B8">Électrodes</text>
-        <text x="4" y="160" font-family="JetBrains Mono,monospace" font-size="7" fill="#7A92B8">de surface</text>
+        <circle cx="18" cy="72" r="5" fill="none" stroke="#178a53" stroke-width="1"/>
+        <circle cx="18" cy="108" r="5" fill="none" stroke="#ec5f92" stroke-width="1"/>
+        <text x="4" y="150" font-family="IBM Plex Mono,monospace" font-size="7" fill="#7f8a84">Électrodes</text>
+        <text x="4" y="160" font-family="IBM Plex Mono,monospace" font-size="7" fill="#7f8a84">de surface</text>
       </svg>
     </div>
   </div>
@@ -463,7 +455,7 @@ footer span { color: var(--bio); }
 
 <div class="divider"></div>
 
-<!-- FILTRE -->
+<!-- filtre -->
 <section id="filtre">
 <div class="section">
   <div class="section-label">03 — Filtrage analogique</div>
@@ -475,46 +467,46 @@ footer span { color: var(--bio); }
       <div class="sim-card-title"><div class="sim-dot" style="background:var(--pulse)"></div> Schéma bloc MATLAB/Simulink</div>
       <svg viewBox="0 0 280 160" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;">
         <!-- AC source -->
-        <circle cx="30" cy="80" r="18" fill="rgba(59,130,255,0.08)" stroke="#3B82FF" stroke-width="1.2"/>
-        <path d="M22,80 Q26,68 30,80 Q34,92 38,80" stroke="#3B82FF" stroke-width="1.2" fill="none"/>
-        <text x="21" y="106" font-family="JetBrains Mono,monospace" font-size="7" fill="#7A92B8">AC Src</text>
+        <circle cx="30" cy="80" r="18" fill="rgba(209,75,134,0.08)" stroke="#d14b86" stroke-width="1.2"/>
+        <path d="M22,80 Q26,68 30,80 Q34,92 38,80" stroke="#d14b86" stroke-width="1.2" fill="none"/>
+        <text x="21" y="106" font-family="IBM Plex Mono,monospace" font-size="7" fill="#7f8a84">AC Src</text>
         <!-- Wire to RLC -->
-        <line x1="48" y1="80" x2="70" y2="80" stroke="#8AA0C0" stroke-width="1"/>
+        <line x1="48" y1="80" x2="70" y2="80" stroke="#7f8a84" stroke-width="1"/>
         <!-- RLC Branch 1 (series) -->
-        <rect x="70" y="62" width="50" height="14" rx="3" fill="rgba(0,229,160,0.08)" stroke="#00E5A0" stroke-width="1"/>
-        <text x="95" y="72" font-family="JetBrains Mono,monospace" font-size="6.5" fill="#00E5A0" text-anchor="middle">RLC s1</text>
-        <line x1="70" y1="69" x2="55" y2="69" stroke="#00E5A0" stroke-width="1"/>
-        <line x1="55" y1="69" x2="55" y2="80" stroke="#00E5A0" stroke-width="1"/>
-        <line x1="48" y1="80" x2="55" y2="80" stroke="#8AA0C0" stroke-width="1"/>
+        <rect x="70" y="62" width="50" height="14" rx="3" fill="rgba(31,157,98,0.08)" stroke="#178a53" stroke-width="1"/>
+        <text x="95" y="72" font-family="IBM Plex Mono,monospace" font-size="6.5" fill="#178a53" text-anchor="middle">RLC s1</text>
+        <line x1="70" y1="69" x2="55" y2="69" stroke="#178a53" stroke-width="1"/>
+        <line x1="55" y1="69" x2="55" y2="80" stroke="#178a53" stroke-width="1"/>
+        <line x1="48" y1="80" x2="55" y2="80" stroke="#7f8a84" stroke-width="1"/>
         <!-- RLC Branch parallel -->
-        <rect x="70" y="84" width="50" height="14" rx="3" fill="rgba(0,229,160,0.08)" stroke="#00E5A0" stroke-width="1"/>
-        <text x="95" y="94" font-family="JetBrains Mono,monospace" font-size="6.5" fill="#00E5A0" text-anchor="middle">RLC s3</text>
-        <line x1="70" y1="91" x2="55" y2="91" stroke="#00E5A0" stroke-width="1"/>
-        <line x1="55" y1="91" x2="55" y2="80" stroke="#00E5A0" stroke-width="1"/>
+        <rect x="70" y="84" width="50" height="14" rx="3" fill="rgba(31,157,98,0.08)" stroke="#178a53" stroke-width="1"/>
+        <text x="95" y="94" font-family="IBM Plex Mono,monospace" font-size="6.5" fill="#178a53" text-anchor="middle">RLC s3</text>
+        <line x1="70" y1="91" x2="55" y2="91" stroke="#178a53" stroke-width="1"/>
+        <line x1="55" y1="91" x2="55" y2="80" stroke="#178a53" stroke-width="1"/>
         <!-- Center node -->
-        <line x1="120" y1="69" x2="145" y2="69" stroke="#8AA0C0" stroke-width="1"/>
-        <line x1="120" y1="91" x2="145" y2="91" stroke="#8AA0C0" stroke-width="1"/>
+        <line x1="120" y1="69" x2="145" y2="69" stroke="#7f8a84" stroke-width="1"/>
+        <line x1="120" y1="91" x2="145" y2="91" stroke="#7f8a84" stroke-width="1"/>
         <!-- RLC Branch 2 -->
-        <rect x="145" y="76" width="48" height="14" rx="3" fill="rgba(255,79,123,0.08)" stroke="#FF4F7B" stroke-width="1"/>
-        <text x="169" y="86" font-family="JetBrains Mono,monospace" font-size="6.5" fill="#FF4F7B" text-anchor="middle">RLC s2</text>
-        <line x1="145" y1="69" x2="145" y2="83" stroke="#8AA0C0" stroke-width="1"/>
-        <line x1="145" y1="91" x2="145" y2="90" stroke="#8AA0C0" stroke-width="1"/>
+        <rect x="145" y="76" width="48" height="14" rx="3" fill="rgba(236,95,146,0.08)" stroke="#ec5f92" stroke-width="1"/>
+        <text x="169" y="86" font-family="IBM Plex Mono,monospace" font-size="6.5" fill="#ec5f92" text-anchor="middle">RLC s2</text>
+        <line x1="145" y1="69" x2="145" y2="83" stroke="#7f8a84" stroke-width="1"/>
+        <line x1="145" y1="91" x2="145" y2="90" stroke="#7f8a84" stroke-width="1"/>
         <!-- Scopes -->
-        <rect x="205" y="56" width="32" height="18" rx="3" fill="rgba(0,229,160,0.06)" stroke="#3B82FF" stroke-width="1"/>
-        <text x="221" y="68" font-family="JetBrains Mono,monospace" font-size="6" fill="#93C5FD" text-anchor="middle">Scope1</text>
-        <rect x="205" y="82" width="32" height="18" rx="3" fill="rgba(0,229,160,0.06)" stroke="#3B82FF" stroke-width="1"/>
-        <text x="221" y="94" font-family="JetBrains Mono,monospace" font-size="6" fill="#93C5FD" text-anchor="middle">Scope2</text>
+        <rect x="205" y="56" width="32" height="18" rx="3" fill="rgba(31,157,98,0.06)" stroke="#d14b86" stroke-width="1"/>
+        <text x="221" y="68" font-family="IBM Plex Mono,monospace" font-size="6" fill="#bf4f7e" text-anchor="middle">Scope1</text>
+        <rect x="205" y="82" width="32" height="18" rx="3" fill="rgba(31,157,98,0.06)" stroke="#d14b86" stroke-width="1"/>
+        <text x="221" y="94" font-family="IBM Plex Mono,monospace" font-size="6" fill="#bf4f7e" text-anchor="middle">Scope2</text>
         <!-- Voltmeter boxes -->
-        <rect x="193" y="62" width="14" height="10" rx="2" fill="rgba(0,229,160,0.1)" stroke="#00E5A0" stroke-width="0.8"/>
-        <text x="200" y="70" font-family="JetBrains Mono,monospace" font-size="5" fill="#00E5A0" text-anchor="middle">VM</text>
-        <rect x="193" y="88" width="14" height="10" rx="2" fill="rgba(255,79,123,0.1)" stroke="#FF4F7B" stroke-width="0.8"/>
-        <text x="200" y="96" font-family="JetBrains Mono,monospace" font-size="5" fill="#FF4F7B" text-anchor="middle">VM</text>
+        <rect x="193" y="62" width="14" height="10" rx="2" fill="rgba(31,157,98,0.1)" stroke="#178a53" stroke-width="0.8"/>
+        <text x="200" y="70" font-family="IBM Plex Mono,monospace" font-size="5" fill="#178a53" text-anchor="middle">VM</text>
+        <rect x="193" y="88" width="14" height="10" rx="2" fill="rgba(236,95,146,0.1)" stroke="#ec5f92" stroke-width="0.8"/>
+        <text x="200" y="96" font-family="IBM Plex Mono,monospace" font-size="5" fill="#ec5f92" text-anchor="middle">VM</text>
         <!-- Clock -->
-        <circle cx="30" cy="130" r="10" fill="rgba(59,130,255,0.08)" stroke="#3B82FF" stroke-width="1"/>
-        <text x="22" y="148" font-family="JetBrains Mono,monospace" font-size="6.5" fill="#7A92B8">Clock</text>
-        <line x1="40" y1="130" x2="60" y2="130" stroke="#8AA0C0" stroke-width="0.8"/>
-        <rect x="60" y="123" width="28" height="14" rx="2" fill="rgba(59,130,255,0.06)" stroke="#3B82FF" stroke-width="0.8"/>
-        <text x="74" y="133" font-family="JetBrains Mono,monospace" font-size="5.5" fill="#7A92B8" text-anchor="middle">To WS</text>
+        <circle cx="30" cy="130" r="10" fill="rgba(209,75,134,0.08)" stroke="#d14b86" stroke-width="1"/>
+        <text x="22" y="148" font-family="IBM Plex Mono,monospace" font-size="6.5" fill="#7f8a84">Clock</text>
+        <line x1="40" y1="130" x2="60" y2="130" stroke="#7f8a84" stroke-width="0.8"/>
+        <rect x="60" y="123" width="28" height="14" rx="2" fill="rgba(209,75,134,0.06)" stroke="#d14b86" stroke-width="0.8"/>
+        <text x="74" y="133" font-family="IBM Plex Mono,monospace" font-size="5.5" fill="#7f8a84" text-anchor="middle">To WS</text>
       </svg>
     </div>
 
@@ -532,27 +524,27 @@ footer span { color: var(--bio); }
           </g>
           <!-- V-IN (blue) — large sine -->
           <path d="M0,65 C14,20 28,20 42,65 C56,110 70,110 84,65 C98,20 112,20 126,65 C140,110 154,110 168,65 C182,20 196,20 210,65 C224,110 238,110 252,65 C266,20 280,20 280,65"
-            stroke="#3B82FF" stroke-width="1.8" fill="none" opacity="0.9">
+            stroke="#d14b86" stroke-width="1.8" fill="none" opacity="0.9">
             <animate attributeName="stroke-dashoffset" from="900" to="0" dur="2s" fill="freeze" attributeType="XML"/>
           </path>
           <!-- V-OUT (green) — attenuated/phase shifted -->
           <path d="M0,65 C14,24 28,24 42,65 C56,106 70,106 84,65 C98,24 112,24 126,65 C140,106 154,106 168,65 C182,24 196,24 210,65 C224,106 238,106 252,65 C266,24 280,24 280,65"
-            stroke="#00E5A0" stroke-width="1.8" fill="none" opacity="0.85">
+            stroke="#178a53" stroke-width="1.8" fill="none" opacity="0.85">
           </path>
           <!-- Labels -->
           <rect x="5" y="5" width="52" height="12" rx="2" fill="rgba(0,0,0,0.5)"/>
-          <circle cx="12" cy="11" r="3" fill="#3B82FF"/>
-          <text x="18" y="14" font-family="JetBrains Mono,monospace" font-size="7" fill="#93C5FD">V-IN</text>
+          <circle cx="12" cy="11" r="3" fill="#d14b86"/>
+          <text x="18" y="14" font-family="IBM Plex Mono,monospace" font-size="7" fill="#bf4f7e">V-IN</text>
           <rect x="5" y="20" width="56" height="12" rx="2" fill="rgba(0,0,0,0.5)"/>
-          <circle cx="12" cy="26" r="3" fill="#00E5A0"/>
-          <text x="18" y="29" font-family="JetBrains Mono,monospace" font-size="7" fill="#00E5A0">V-OUT</text>
+          <circle cx="12" cy="26" r="3" fill="#178a53"/>
+          <text x="18" y="29" font-family="IBM Plex Mono,monospace" font-size="7" fill="#178a53">V-OUT</text>
           <!-- Time axis -->
-          <text x="245" y="126" font-family="JetBrains Mono,monospace" font-size="6.5" fill="#3a7d44">t (s)</text>
-          <text x="0" y="126" font-family="JetBrains Mono,monospace" font-size="6" fill="#3a7d44">0</text>
-          <text x="50" y="126" font-family="JetBrains Mono,monospace" font-size="6" fill="#3a7d44">0.005</text>
-          <text x="106" y="126" font-family="JetBrains Mono,monospace" font-size="6" fill="#3a7d44">0.010</text>
-          <text x="162" y="126" font-family="JetBrains Mono,monospace" font-size="6" fill="#3a7d44">0.015</text>
-          <text x="218" y="126" font-family="JetBrains Mono,monospace" font-size="6" fill="#3a7d44">0.020</text>
+          <text x="245" y="126" font-family="IBM Plex Mono,monospace" font-size="6.5" fill="#3a7d44">t (s)</text>
+          <text x="0" y="126" font-family="IBM Plex Mono,monospace" font-size="6" fill="#3a7d44">0</text>
+          <text x="50" y="126" font-family="IBM Plex Mono,monospace" font-size="6" fill="#3a7d44">0.005</text>
+          <text x="106" y="126" font-family="IBM Plex Mono,monospace" font-size="6" fill="#3a7d44">0.010</text>
+          <text x="162" y="126" font-family="IBM Plex Mono,monospace" font-size="6" fill="#3a7d44">0.015</text>
+          <text x="218" y="126" font-family="IBM Plex Mono,monospace" font-size="6" fill="#3a7d44">0.020</text>
         </svg>
       </div>
       <p style="font-size:12px;color:var(--muted);margin-top:0.7rem;">Le signal de sortie (vert) conserve la forme sinusoïdale du signal d'entrée (bleu) — confirmant que le filtre rejette la fréquence indésirable sans distorsion du signal utile.</p>
@@ -563,7 +555,7 @@ footer span { color: var(--bio); }
 
 <div class="divider"></div>
 
-<!-- SIMULATION PROTEUS -->
+<!-- simulation proteus -->
 <section id="simulation">
 <div class="section">
   <div class="section-label">04 — Résultats</div>
@@ -587,42 +579,39 @@ footer span { color: var(--bio); }
         </g>
         <!-- Input signal (small amplitude, blue) -->
         <path d="M0,75 C10,66 20,66 30,75 C40,84 50,84 60,75 C70,66 80,66 90,75 C100,84 110,84 120,75 C130,66 140,66 150,75 C160,84 170,84 180,75 C190,66 200,66 210,75 C220,84 230,84 240,75 C250,66 260,66 270,75 C280,84 290,84 300,75 C310,66 320,66 330,75 C340,84 350,84 360,75 C370,66 380,66 390,75 C400,84 410,84 420,75 C430,66 440,66 450,75 C460,84 470,84 480,75 C490,66 500,66 510,75 C520,84 530,84 540,75 C550,66 560,66 560,75"
-          stroke="#3B82FF" stroke-width="1.5" fill="none" opacity="0.7"/>
+          stroke="#d14b86" stroke-width="1.5" fill="none" opacity="0.7"/>
         <!-- Output signal (×10 amplitude, green) -->
         <path d="M0,75 C10,12 20,12 30,75 C40,138 50,138 60,75 C70,12 80,12 90,75 C100,138 110,138 120,75 C130,12 140,12 150,75 C160,138 170,138 180,75 C190,12 200,12 210,75 C220,138 230,138 240,75 C250,12 260,12 270,75 C280,138 290,138 300,75 C310,12 320,12 330,75 C340,138 350,138 360,75 C370,12 380,12 390,75 C400,138 410,138 420,75 C430,12 440,12 450,75 C460,138 470,138 480,75 C490,12 500,12 510,75 C520,138 530,138 540,75 C550,12 560,12 560,75"
-          stroke="#00E5A0" stroke-width="1.8" fill="none" opacity="0.9"/>
+          stroke="#178a53" stroke-width="1.8" fill="none" opacity="0.9"/>
         <!-- Markers -->
-        <line x1="224" y1="5" x2="224" y2="145" stroke="#FF4F7B" stroke-width="0.8" stroke-dasharray="3 3" opacity="0.5"/>
-        <text x="226" y="14" font-family="JetBrains Mono,monospace" font-size="7" fill="#FF9AB2">−750 µs</text>
-        <line x1="448" y1="5" x2="448" y2="145" stroke="#FF4F7B" stroke-width="0.8" stroke-dasharray="3 3" opacity="0.5"/>
-        <text x="450" y="14" font-family="JetBrains Mono,monospace" font-size="7" fill="#FF9AB2">2.77 ms</text>
+        <line x1="224" y1="5" x2="224" y2="145" stroke="#ec5f92" stroke-width="0.8" stroke-dasharray="3 3" opacity="0.5"/>
+        <text x="226" y="14" font-family="IBM Plex Mono,monospace" font-size="7" fill="#cf5f86">−750 µs</text>
+        <line x1="448" y1="5" x2="448" y2="145" stroke="#ec5f92" stroke-width="0.8" stroke-dasharray="3 3" opacity="0.5"/>
+        <text x="450" y="14" font-family="IBM Plex Mono,monospace" font-size="7" fill="#cf5f86">2.77 ms</text>
         <!-- Legend -->
         <rect x="5" y="5" width="60" height="12" rx="2" fill="rgba(0,0,0,0.6)"/>
-        <circle cx="12" cy="11" r="3" fill="#3B82FF"/>
-        <text x="18" y="14" font-family="JetBrains Mono,monospace" font-size="7" fill="#93C5FD">V-IN (1V)</text>
+        <circle cx="12" cy="11" r="3" fill="#d14b86"/>
+        <text x="18" y="14" font-family="IBM Plex Mono,monospace" font-size="7" fill="#bf4f7e">V-IN (1V)</text>
         <rect x="5" y="20" width="68" height="12" rx="2" fill="rgba(0,0,0,0.6)"/>
-        <circle cx="12" cy="26" r="3" fill="#00E5A0"/>
-        <text x="18" y="29" font-family="JetBrains Mono,monospace" font-size="7" fill="#00E5A0">V-OUT (10V)</text>
+        <circle cx="12" cy="26" r="3" fill="#178a53"/>
+        <text x="18" y="29" font-family="IBM Plex Mono,monospace" font-size="7" fill="#178a53">V-OUT (10V)</text>
         <!-- Gain annotation -->
-        <text x="480" y="30" font-family="JetBrains Mono,monospace" font-size="9" fill="#F4A900" font-weight="700">×10</text>
-        <text x="475" y="42" font-family="JetBrains Mono,monospace" font-size="7" fill="#7A92B8">10.00 V</text>
+        <text x="480" y="30" font-family="IBM Plex Mono,monospace" font-size="9" fill="#b03c70" font-weight="700">×10</text>
+        <text x="475" y="42" font-family="IBM Plex Mono,monospace" font-size="7" fill="#7f8a84">10.00 V</text>
       </svg>
     </div>
   </div>
 
   <div class="cards-grid">
     <div class="card reveal reveal-delay-1">
-      <div class="card-icon elec">✅</div>
       <div class="card-title">Gain ×10 confirmé</div>
       <div class="card-text">La simulation Proteus montre clairement que le signal d'entrée à 1V est amplifié à 10V en sortie, validant la configuration R1=1kΩ et R2=10kΩ de l'AOP 741.</div>
     </div>
     <div class="card reveal reveal-delay-2">
-      <div class="card-icon">🔬</div>
       <div class="card-title">Signal préservé</div>
       <div class="card-text">Le signal filtré conserve sa morphologie d'origine après amplification. Cette propriété est fondamentale pour une exploitation fiable dans le cadre de la commande de prothèse.</div>
     </div>
     <div class="card reveal reveal-delay-3">
-      <div class="card-icon pulse">🤖</div>
       <div class="card-title">Application prothèse</div>
       <div class="card-text">Le système conditionné peut être directement exploité pour interpréter les signaux EMG et piloter un mécanisme de prothèse avec précision et reproductibilité.</div>
     </div>
@@ -632,7 +621,7 @@ footer span { color: var(--bio); }
 
 <div class="divider"></div>
 
-<!-- ALIMENTATION -->
+<!-- alimentation -->
 <section id="alimentation">
 <div class="section">
   <div class="section-label">05 — Alimentation</div>
@@ -681,23 +670,20 @@ footer span { color: var(--bio); }
 
 <div class="divider"></div>
 
-<!-- CONCLUSION -->
+<!-- conclusion -->
 <div class="section">
   <div class="section-label">06 — Conclusion</div>
   <h2 class="section-title reveal"><em>Validation</em> et perspectives</h2>
   <div class="cards-grid">
     <div class="card reveal reveal-delay-1">
-      <div class="card-icon">🎯</div>
       <div class="card-title">Objectif atteint</div>
       <div class="card-text">Les simulations MATLAB et Proteus confirment la validité du modèle électrique. Tous les circuits — polarisation, alimentation stabilisée, amplification et mise en forme — fonctionnent comme prévu.</div>
     </div>
     <div class="card reveal reveal-delay-2">
-      <div class="card-icon elec">📐</div>
       <div class="card-title">Pertinence des choix de conception</div>
       <div class="card-text">Le choix de l'AOP 741, du filtre RLC réjecteur et de l'Arduino UNO comme interface de traitement constitue une combinaison robuste, économique et adaptée aux contraintes physiologiques.</div>
     </div>
     <div class="card reveal reveal-delay-3">
-      <div class="card-icon pulse">🚀</div>
       <div class="card-title">Base pour l'implémentation réelle</div>
       <div class="card-text">L'ensemble des performances obtenues fournit une base solide pour une implémentation expérimentale future, notamment dans le contexte des interfaces homme–machine et du pilotage de prothèses bioniques.</div>
     </div>
@@ -706,7 +692,7 @@ footer span { color: var(--bio); }
 
 <div class="divider"></div>
 
-<!-- AUTHOR -->
+<!-- auteur -->
 <section id="author" class="author-section">
   <div class="orb orb-1" style="opacity:0.4;top:0;left:30%"></div>
   <div class="author-ring">
@@ -735,7 +721,7 @@ footer span { color: var(--bio); }
 </footer>
 
 <script>
-// Particles
+// petites particules en fond
 const canvas = document.getElementById('bg-canvas');
 const ctx = canvas.getContext('2d');
 let particles = [];
@@ -749,7 +735,7 @@ class Particle {
     this.speedX = (Math.random()-0.5)*0.25; this.speedY = (Math.random()-0.5)*0.25;
     this.opacity = Math.random()*0.45+0.1;
     const r = Math.random();
-    this.color = r > 0.66 ? '#00E5A0' : r > 0.33 ? '#3B82FF' : '#FF4F7B';
+    this.color = r > 0.66 ? '#178a53' : r > 0.33 ? '#d14b86' : '#ec5f92';
   }
   update() { this.x+=this.speedX; this.y+=this.speedY; if(this.x<0||this.x>canvas.width||this.y<0||this.y>canvas.height) this.reset(); }
   draw() { ctx.beginPath(); ctx.arc(this.x,this.y,this.size,0,Math.PI*2); ctx.fillStyle=this.color; ctx.globalAlpha=this.opacity; ctx.fill(); ctx.globalAlpha=1; }
@@ -758,13 +744,13 @@ for(let i=0;i<100;i++) particles.push(new Particle());
 function animP() { ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p=>{p.update();p.draw();}); requestAnimationFrame(animP); }
 animP();
 
-// Progress bar
+// barre de progression au scroll
 window.addEventListener('scroll',()=>{
   const st=document.documentElement.scrollTop, sh=document.documentElement.scrollHeight-document.documentElement.clientHeight;
   document.getElementById('progress-bar').style.width=(st/sh*100)+'%';
 });
 
-// Reveal
+// apparition des blocs au scroll
 const reveals=document.querySelectorAll('.reveal');
 const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:0.1});
 reveals.forEach(r=>obs.observe(r));

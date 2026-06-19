@@ -3,33 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mohamed Anes Beddiaf — Développeur · Portfolio</title>
+<title>Mohamed Anes Beddiaf — Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg:       #070a12;
-  --bg2:      #0a0f1c;
-  --bg3:      #0d1424;
-  --card:     #0f1626;
-  --card2:    #131c30;
-  --accent:   #5b9dff;   /* electric blue  */
-  --accent-d: #3a7de0;
-  --accent-glow: rgba(91,157,255,0.14);
-  --violet:   #a78bfa;   /* keywords       */
-  --violet-glow: rgba(167,139,250,0.12);
-  --cyan:     #38e1d4;   /* functions      */
-  --string:   #f0b86e;   /* strings        */
-  --green:    #4ade80;   /* success        */
-  --pink:     #ff6b9d;
-  --border:   rgba(255,255,255,0.06);
-  --border2:  rgba(91,157,255,0.20);
-  --text:     #e9eefc;
-  --text2:    #93a4c6;
-  --text3:    #4d5e7e;
-  --mono:     'JetBrains Mono', monospace;
-  --display:  'Syne', sans-serif;
-  --body:     'Outfit', sans-serif;
+  /* thème clair, vert & rose — palette choisie à la main */
+  --bg:       #fdf4f7;
+  --bg2:      #f8ebf0;
+  --bg3:      #f2e2ea;
+  --card:     #ffffff;
+  --card2:    #fbf1f5;
+  --bio:      #178a53;        /* vert principal */
+  --bio-d:    #0f6e41;
+  --bio-glow: rgba(31,157,98,0.14);
+  --solar:    #d14b86;        /* rose */
+  --solar-d:  #b03c70;
+  --solar-glow: rgba(232,114,159,0.14);
+  --pulse:    #ec5f92;        /* rose vif pour les petits points/anim */
+  --elec:     #d65574;        /* corail (2e accent) */
+  --elec-glow:rgba(239,125,147,0.14);
+  --border:   rgba(45,30,45,0.10);
+  --border2:  rgba(31,157,98,0.22);
+  --text:     #283330;
+  --text2:    #5e6b64;
+  --text3:    #7f8a84;
+  --mono:     'IBM Plex Mono', monospace;
+  --display:  'Fraunces', serif;
+  --body:     'Inter', sans-serif;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -45,7 +46,7 @@ body {
   min-height: 100vh;
 }
 
-/* Grain texture overlay */
+/* léger grain par dessus toute la page */
 body::before {
   content: '';
   position: fixed;
@@ -53,35 +54,34 @@ body::before {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
   pointer-events: none;
   z-index: 1000;
-  opacity: 0.4;
+  opacity: 0.22;
 }
 
 ::-webkit-scrollbar { width: 3px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+::-webkit-scrollbar-thumb { background: var(--bio); border-radius: 2px; }
 
-/* ── SCROLL PROGRESS ── */
+/* barre de progression en haut */
 #bar {
   position: fixed; top: 0; left: 0; height: 2px; width: 0%;
-  background: linear-gradient(90deg, var(--accent), var(--violet), var(--cyan));
+  background: linear-gradient(90deg, var(--bio), var(--elec), var(--pulse));
   z-index: 999; transition: width 0.1s;
 }
 
-/* ── NAV ── */
+/* nav */
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 200;
   display: flex; align-items: center; justify-content: space-between;
   padding: 0.9rem 2.5rem;
-  background: rgba(7,10,18,0.85);
+  background: rgba(253,244,247,0.82);
   backdrop-filter: blur(24px);
   border-bottom: 1px solid var(--border);
 }
 .nav-brand {
-  font-family: var(--mono); font-weight: 700; font-size: 0.95rem;
-  letter-spacing: -0.01em; color: var(--text); text-decoration: none;
+  font-family: var(--display); font-weight: 800; font-size: 1rem;
+  letter-spacing: -0.02em; color: var(--text); text-decoration: none;
 }
-.nav-brand .br { color: var(--text3); }
-.nav-brand em { color: var(--accent); font-style: normal; }
+.nav-brand em { color: var(--bio); font-style: normal; }
 .nav-tabs { display: flex; gap: 0.2rem; }
 .tab-btn {
   font-family: var(--mono); font-size: 11px; padding: 0.4rem 1rem;
@@ -89,17 +89,17 @@ nav {
   color: var(--text2); cursor: pointer; background: none;
   transition: all 0.2s; letter-spacing: 0.05em;
 }
-.tab-btn:hover { color: var(--accent); border-color: rgba(91,157,255,0.2); }
+.tab-btn:hover { color: var(--bio); border-color: rgba(31,157,98,0.2); }
 .tab-btn.active {
-  color: var(--accent); border-color: rgba(91,157,255,0.35);
-  background: rgba(91,157,255,0.07);
+  color: var(--bio); border-color: rgba(31,157,98,0.35);
+  background: rgba(31,157,98,0.07);
 }
 
-/* ── SECTIONS ── */
+/* sections (une seule visible à la fois) */
 .section { display: none; padding: 6rem 2rem 4rem; max-width: 960px; margin: 0 auto; }
 .section.active { display: block; }
 
-/* ── ANIMATIONS ── */
+/* animations */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(28px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -108,7 +108,14 @@ nav {
   0%   { transform: scale(1); opacity: 0.6; }
   100% { transform: scale(1.8); opacity: 0; }
 }
-@keyframes blink { 0%,49% { opacity: 1; } 50%,100% { opacity: 0; } }
+@keyframes drawLine {
+  from { stroke-dashoffset: 900; }
+  to   { stroke-dashoffset: 0; }
+}
+@keyframes scanline {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
 .anim { opacity: 0; }
 .anim.in { animation: fadeUp 0.65s ease forwards; }
 .d1 { animation-delay: 0.05s; }
@@ -119,69 +126,53 @@ nav {
 .d6 { animation-delay: 0.55s; }
 .d7 { animation-delay: 0.65s; }
 
-/* ══════════════════════════════
-   SECTION — À PROPOS
-══════════════════════════════ */
+/* à propos */
 .hero-eyebrow {
   font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.2em;
-  text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem;
+  text-transform: uppercase; color: var(--bio); margin-bottom: 1.5rem;
   display: flex; align-items: center; gap: 0.8rem;
 }
 .hero-eyebrow::before {
-  content: ''; display: block; width: 28px; height: 1px; background: var(--accent);
+  content: ''; display: block; width: 28px; height: 1px; background: var(--bio);
 }
 .hero-name {
   font-family: var(--display); font-size: clamp(3rem, 7vw, 5.8rem);
   font-weight: 800; line-height: 1.0; letter-spacing: -0.03em;
   color: var(--text); margin-bottom: 0.6rem;
 }
-.hero-name .hi { color: var(--accent); }
+.hero-name .hi { color: var(--bio); }
 .hero-sub {
-  font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em;
-  color: var(--text2); margin-bottom: 2.2rem;
+  font-family: var(--mono); font-size: 12px; letter-spacing: 0.15em;
+  color: var(--text2); margin-bottom: 2.2rem; text-transform: uppercase;
 }
-.hero-sub .kw { color: var(--violet); }
-.hero-sub .fn { color: var(--cyan); }
 
-/* Terminal hero */
-.terminal {
+/* ECG live */
+.ecg-container {
   margin: 1.8rem 0 2.2rem;
-  background: #060a13;
-  border: 1px solid rgba(91,157,255,0.18);
-  border-radius: 10px; overflow: hidden;
-  box-shadow: 0 24px 50px rgba(0,0,0,0.4);
+  position: relative; height: 56px;
+  background: rgba(31,157,98,0.03);
+  border: 1px solid rgba(31,157,98,0.1);
+  border-radius: 8px; overflow: hidden;
 }
-.term-bar {
-  display: flex; align-items: center; gap: 0.5rem;
-  padding: 0.6rem 0.9rem; background: #0b101c;
-  border-bottom: 1px solid var(--border);
+.ecg-container::after {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(90deg, var(--bg) 0%, transparent 8%, transparent 92%, var(--bg) 100%);
+  pointer-events: none;
 }
-.term-dot { width: 11px; height: 11px; border-radius: 50%; }
-.term-dot.r { background: #ff5f56; }
-.term-dot.y { background: #ffbd2e; }
-.term-dot.g { background: #27c93f; }
-.term-title {
-  font-family: var(--mono); font-size: 10.5px; color: var(--text3);
-  margin-left: auto; letter-spacing: 0.05em;
+.ecg-svg { width: 100%; height: 100%; }
+.ecg-label {
+  position: absolute; top: 4px; right: 10px;
+  font-family: var(--mono); font-size: 9px; color: var(--bio);
+  letter-spacing: 0.1em; display: flex; align-items: center; gap: 5px;
 }
-.term-body {
-  padding: 1.1rem 1.2rem; font-family: var(--mono);
-  font-size: 12.5px; line-height: 1.85; min-height: 168px;
-}
-.term-line { white-space: pre-wrap; }
-.term-prompt { color: var(--green); }
-.term-path { color: var(--accent); }
-.term-out { color: var(--text2); }
-.term-out .kw { color: var(--violet); }
-.term-out .str { color: var(--string); }
-.term-out .fn { color: var(--cyan); }
-.term-cursor {
-  display: inline-block; width: 8px; height: 15px;
-  background: var(--accent); vertical-align: text-bottom;
-  margin-left: 2px; animation: blink 1.05s step-end infinite;
+.ecg-dot {
+  width: 5px; height: 5px; border-radius: 50%; background: var(--pulse);
+  animation: pulseRing 1s ease-out infinite;
+  box-shadow: 0 0 0 0 var(--pulse);
 }
 
-/* Stat strip */
+/* bandeau de stats */
 .stats-strip {
   display: grid; grid-template-columns: repeat(4,1fr);
   gap: 1px; background: var(--border);
@@ -195,31 +186,31 @@ nav {
 .stat:hover { background: var(--card2); }
 .stat-val {
   font-family: var(--display); font-size: 2rem; font-weight: 800;
-  line-height: 1; color: var(--accent);
+  line-height: 1; color: var(--bio);
 }
-.stat-unit { font-family: var(--mono); font-size: 11px; color: var(--violet); }
+.stat-unit { font-family: var(--mono); font-size: 11px; color: var(--elec); }
 .stat-label { font-size: 11.5px; color: var(--text2); margin-top: 0.3rem; }
 
-/* Profile text */
+/* petit texte de présentation */
 .profile-block {
   padding: 1.6rem; background: var(--card); border-radius: 14px;
-  border-left: 3px solid var(--accent); margin: 1.5rem 0;
+  border-left: 3px solid var(--bio); margin: 1.5rem 0;
 }
 .profile-block p { color: var(--text2); font-size: 0.97rem; line-height: 1.8; }
-.profile-block strong { color: var(--accent); font-weight: 600; }
+.profile-block strong { color: var(--bio); font-weight: 600; }
 
-/* Section labels */
+/* libellés de section */
 .sec-label {
   font-family: var(--mono); font-size: 10px; letter-spacing: 0.25em;
-  text-transform: uppercase; color: var(--accent);
+  text-transform: uppercase; color: var(--bio);
   display: flex; align-items: center; gap: 1rem; margin-bottom: 1.2rem;
 }
 .sec-label::after {
   content: ''; flex: 1; height: 1px;
-  background: linear-gradient(90deg, rgba(91,157,255,0.3), transparent);
+  background: linear-gradient(90deg, rgba(31,157,98,0.3), transparent);
 }
 
-/* Skills grid */
+/* grille des compétences */
 .skills-grid {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(210px,1fr));
   gap: 1rem; margin-bottom: 2rem;
@@ -229,7 +220,7 @@ nav {
   border-radius: 12px; padding: 1.2rem;
   transition: border-color 0.25s, transform 0.25s;
 }
-.skill-card:hover { border-color: rgba(91,157,255,0.25); transform: translateY(-2px); }
+.skill-card:hover { border-color: rgba(31,157,98,0.25); transform: translateY(-2px); }
 .skill-card-head {
   font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em;
   text-transform: uppercase; color: var(--text3); margin-bottom: 0.8rem;
@@ -239,29 +230,27 @@ nav {
   font-family: var(--mono); font-size: 11px; padding: 2px 8px;
   border-radius: 4px; border: 1px solid;
 }
-.stag-blue   { color: var(--accent); border-color: rgba(91,157,255,0.3); background: rgba(91,157,255,0.06); }
-.stag-violet { color: var(--violet); border-color: rgba(167,139,250,0.3); background: rgba(167,139,250,0.06); }
-.stag-cyan   { color: var(--cyan);   border-color: rgba(56,225,212,0.3);  background: rgba(56,225,212,0.06); }
-.stag-soft   { color: var(--text2);  border-color: var(--border);         background: var(--card2); font-family: var(--body); }
+.stag-blue  { color: var(--elec);  border-color: rgba(239,125,147,0.3); background: rgba(239,125,147,0.06); }
+.stag-green { color: var(--bio);   border-color: rgba(31,157,98,0.3);  background: rgba(31,157,98,0.06); }
+.stag-gold  { color: var(--solar); border-color: rgba(232,114,159,0.3);  background: rgba(232,114,159,0.06); }
+.stag-soft  { color: var(--text2); border-color: var(--border);         background: var(--card2); font-family: var(--body); }
 
 /* Languages */
 .lang-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.85rem; }
 .lang-name { min-width: 72px; font-size: 0.9rem; color: var(--text); }
-.lang-bar-bg { flex: 1; height: 3px; background: rgba(255,255,255,0.07); border-radius: 2px; overflow: hidden; }
-.lang-bar { height: 3px; background: linear-gradient(90deg, var(--accent), var(--violet)); border-radius: 2px; }
+.lang-bar-bg { flex: 1; height: 3px; background: rgba(45,40,50,0.10); border-radius: 2px; overflow: hidden; }
+.lang-bar { height: 3px; background: linear-gradient(90deg, var(--bio), var(--elec)); border-radius: 2px; }
 .lang-lvl { font-family: var(--mono); font-size: 10px; color: var(--text3); min-width: 88px; text-align: right; }
 
 /* Interests */
 .interest-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 .int-badge {
   font-size: 12.5px; padding: 0.35rem 0.9rem; border-radius: 999px;
-  border: 1px solid rgba(91,157,255,0.22); background: rgba(91,157,255,0.05);
-  color: #a8c8ff;
+  border: 1px solid rgba(31,157,98,0.22); background: rgba(31,157,98,0.05);
+  color: #1b7a4d;
 }
 
-/* ══════════════════════════════
-   SECTION — PARCOURS (CV)
-══════════════════════════════ */
+/* parcours (cv) */
 .timeline { display: flex; flex-direction: column; gap: 1px; }
 .tl-entry {
   display: flex; gap: 1.4rem; align-items: flex-start;
@@ -274,10 +263,10 @@ nav {
 .tl-entry::before {
   content: ''; position: absolute; left: -5px; top: 1.8rem;
   width: 9px; height: 9px; border-radius: 50%;
-  background: var(--bg); border: 2px solid var(--accent);
+  background: var(--bg); border: 2px solid var(--bio);
   transition: background 0.2s;
 }
-.tl-entry:hover::before { background: var(--accent); }
+.tl-entry:hover::before { background: var(--bio); }
 .tl-icon {
   width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
@@ -297,21 +286,21 @@ nav {
   font-family: var(--mono); font-size: 10px; color: var(--text3);
   white-space: nowrap;
 }
-.tl-org { font-size: 0.85rem; color: var(--accent); margin-bottom: 0.4rem; font-weight: 500; }
+.tl-org { font-size: 0.85rem; color: var(--elec); margin-bottom: 0.4rem; font-weight: 500; }
 .tl-desc { font-size: 0.88rem; color: var(--text2); line-height: 1.65; }
 .tl-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.7rem; }
 .ttag {
   font-family: var(--mono); font-size: 10px; padding: 2px 7px;
-  border-radius: 4px; border: 1px solid rgba(91,157,255,0.2);
-  background: rgba(91,157,255,0.05); color: #a8c8ff;
+  border-radius: 4px; border: 1px solid rgba(31,157,98,0.2);
+  background: rgba(31,157,98,0.05); color: #1b7a4d;
 }
 .ttag.note {
-  border-color: rgba(167,139,250,0.28);
-  background: rgba(167,139,250,0.06); color: var(--violet);
+  border-color: rgba(239,125,147,0.25);
+  background: rgba(239,125,147,0.05); color: var(--elec);
 }
 .ttag.gold {
-  border-color: rgba(240,184,110,0.28);
-  background: rgba(240,184,110,0.06); color: var(--string);
+  border-color: rgba(232,114,159,0.25);
+  background: rgba(232,114,159,0.05); color: var(--solar);
 }
 
 .cv-section { margin-bottom: 3.5rem; }
@@ -319,11 +308,9 @@ nav {
   font-family: var(--display); font-size: clamp(1.6rem, 3.5vw, 2.4rem);
   font-weight: 700; color: var(--text); margin-bottom: 0.5rem;
 }
-.cv-title span { color: var(--accent); }
+.cv-title span { color: var(--bio); }
 
-/* ══════════════════════════════
-   SECTION — PROJETS
-══════════════════════════════ */
+/* projets */
 .proj-grid {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(400px,1fr));
   gap: 1.5rem; margin: 1.5rem 0;
@@ -337,53 +324,49 @@ nav {
 }
 .proj-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 28px 60px rgba(0,0,0,0.45);
+  box-shadow: 0 28px 60px rgba(60,40,55,0.12);
 }
-.proj-card.blue:hover   { border-color: rgba(91,157,255,0.3); }
-.proj-card.violet:hover { border-color: rgba(167,139,250,0.3); }
-.proj-card.cyan:hover   { border-color: rgba(56,225,212,0.3); }
+.proj-card.solar:hover { border-color: rgba(232,114,159,0.3); }
+.proj-card.bio:hover   { border-color: rgba(31,157,98,0.3); }
 
 /* Project hero banner */
 .proj-banner {
   position: relative; height: 170px; overflow: hidden;
   display: flex; align-items: flex-end; padding: 1.4rem;
 }
-.proj-banner-bg { position: absolute; inset: 0; }
-.blue .proj-banner-bg {
-  background: radial-gradient(ellipse at 30% 50%, rgba(91,157,255,0.18) 0%, transparent 70%),
-              linear-gradient(135deg, #0c1628, #001026);
+.proj-banner-bg {
+  position: absolute; inset: 0;
 }
-.violet .proj-banner-bg {
-  background: radial-gradient(ellipse at 30% 50%, rgba(167,139,250,0.16) 0%, transparent 70%),
-              linear-gradient(135deg, #0c1628, #16002a);
+.solar .proj-banner-bg {
+  background: radial-gradient(ellipse at 30% 50%, rgba(232,114,159,0.18) 0%, transparent 70%),
+              linear-gradient(135deg, #ffffff, #fdeef4);
 }
-.cyan .proj-banner-bg {
-  background: radial-gradient(ellipse at 30% 50%, rgba(56,225,212,0.15) 0%, transparent 70%),
-              linear-gradient(135deg, #0c1628, #00201d);
+.bio .proj-banner-bg {
+  background: radial-gradient(ellipse at 30% 50%, rgba(31,157,98,0.15) 0%, transparent 70%),
+              linear-gradient(135deg, #ffffff, #ecf7f1);
 }
+/* Grid pattern in banner */
 .proj-banner-grid {
   position: absolute; inset: 0; opacity: 0.08;
   background-image:
-    linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px);
+    linear-gradient(rgba(45,40,50,0.30) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(45,40,50,0.30) 1px, transparent 1px);
   background-size: 28px 28px;
 }
 .proj-icon-big {
   position: relative; font-size: 3.5rem; margin-right: 1rem; line-height: 1;
   filter: drop-shadow(0 0 20px currentColor);
 }
-.blue   .proj-icon-big { color: var(--accent); }
-.violet .proj-icon-big { color: var(--violet); }
-.cyan   .proj-icon-big { color: var(--cyan); }
+.solar .proj-icon-big { color: var(--solar); }
+.bio   .proj-icon-big { color: var(--bio); }
 .proj-banner-text { position: relative; flex: 1; }
 .proj-badge {
   display: inline-block; font-family: var(--mono); font-size: 9.5px;
   padding: 2px 8px; border-radius: 4px; letter-spacing: 0.1em;
   text-transform: uppercase; margin-bottom: 0.5rem;
 }
-.blue   .proj-badge { background: rgba(91,157,255,0.13); color: var(--accent); border: 1px solid rgba(91,157,255,0.3); }
-.violet .proj-badge { background: rgba(167,139,250,0.13); color: var(--violet); border: 1px solid rgba(167,139,250,0.3); }
-.cyan   .proj-badge { background: rgba(56,225,212,0.12); color: var(--cyan);  border: 1px solid rgba(56,225,212,0.3); }
+.solar .proj-badge { background: rgba(232,114,159,0.15); color: var(--solar); border: 1px solid rgba(232,114,159,0.3); }
+.bio   .proj-badge { background: rgba(31,157,98,0.12); color: var(--bio);   border: 1px solid rgba(31,157,98,0.3); }
 .proj-name {
   font-family: var(--display); font-weight: 700; font-size: 1.15rem;
   color: var(--text); line-height: 1.25;
@@ -396,14 +379,15 @@ nav {
 /* Mini stats inside project */
 .proj-stats {
   display: grid; grid-template-columns: repeat(4,1fr);
-  gap: 1px; background: rgba(255,255,255,0.05);
+  gap: 1px; background: rgba(45,40,50,0.07);
   border-radius: 10px; overflow: hidden; margin-bottom: 1.2rem;
 }
 .pstat { background: var(--bg2); padding: 0.75rem 0.5rem; text-align: center; }
-.pstat-val { font-family: var(--display); font-size: 1.15rem; font-weight: 800; line-height: 1; }
-.blue   .pstat-val { color: var(--accent); }
-.violet .pstat-val { color: var(--violet); }
-.cyan   .pstat-val { color: var(--cyan); }
+.pstat-val {
+  font-family: var(--display); font-size: 1.15rem; font-weight: 800; line-height: 1;
+}
+.solar .pstat-val { color: var(--solar); }
+.bio   .pstat-val { color: var(--bio); }
 .pstat-label { font-size: 9px; font-family: var(--mono); color: var(--text3); margin-top: 2px; letter-spacing: 0.05em; }
 
 /* Chain flow */
@@ -412,13 +396,11 @@ nav {
   padding: 0.75rem 1rem; border-radius: 8px; margin-bottom: 1.2rem;
   font-family: var(--mono); font-size: 10.5px;
 }
-.blue   .chain { background: rgba(91,157,255,0.05); border: 1px solid rgba(91,157,255,0.12); }
-.violet .chain { background: rgba(167,139,250,0.05); border: 1px solid rgba(167,139,250,0.12); }
-.cyan   .chain { background: rgba(56,225,212,0.04); border: 1px solid rgba(56,225,212,0.12); }
+.solar .chain { background: rgba(232,114,159,0.05); border: 1px solid rgba(232,114,159,0.12); }
+.bio   .chain { background: rgba(31,157,98,0.04); border: 1px solid rgba(31,157,98,0.12); }
 .chain-node { padding: 2px 7px; border-radius: 4px; border: 1px solid; }
-.blue   .chain-node { color: var(--accent); border-color: rgba(91,157,255,0.3); }
-.violet .chain-node { color: var(--violet); border-color: rgba(167,139,250,0.3); }
-.cyan   .chain-node { color: var(--cyan);   border-color: rgba(56,225,212,0.3); }
+.solar .chain-node { color: var(--solar); border-color: rgba(232,114,159,0.3); }
+.bio   .chain-node { color: var(--bio);   border-color: rgba(31,157,98,0.3); }
 .chain-arr { color: var(--text3); font-size: 10px; }
 
 .proj-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
@@ -426,26 +408,8 @@ nav {
   font-family: var(--mono); font-size: 10.5px; padding: 2px 8px;
   border-radius: 4px; border: 1px solid;
 }
-.blue   .ptag { color: var(--accent); border-color: rgba(91,157,255,0.25); background: rgba(91,157,255,0.05); }
-.violet .ptag { color: var(--violet); border-color: rgba(167,139,250,0.25); background: rgba(167,139,250,0.05); }
-.cyan   .ptag { color: var(--cyan);   border-color: rgba(56,225,212,0.25); background: rgba(56,225,212,0.05); }
-
-/* Placeholder project card */
-.proj-card.placeholder {
-  border: 1px dashed rgba(91,157,255,0.25);
-  background: rgba(91,157,255,0.02);
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  text-align: center; padding: 2.5rem 1.6rem; min-height: 300px;
-}
-.placeholder-plus {
-  font-family: var(--display); font-size: 2.4rem; color: var(--accent);
-  width: 64px; height: 64px; border-radius: 16px;
-  border: 1px dashed rgba(91,157,255,0.4); background: rgba(91,157,255,0.06);
-  display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;
-}
-.placeholder-title { font-family: var(--display); font-weight: 700; color: var(--text); margin-bottom: 0.5rem; }
-.placeholder-desc { font-size: 0.85rem; color: var(--text2); line-height: 1.6; max-width: 280px; }
-.placeholder-hint { font-family: var(--mono); font-size: 10px; color: var(--text3); margin-top: 0.9rem; letter-spacing: 0.05em; }
+.solar .ptag { color: var(--solar); border-color: rgba(232,114,159,0.25); background: rgba(232,114,159,0.05); }
+.bio   .ptag { color: var(--bio);   border-color: rgba(31,157,98,0.25); background: rgba(31,157,98,0.05); }
 
 /* Method cards */
 .method-grid {
@@ -460,15 +424,15 @@ nav {
 .method-title { font-family: var(--display); font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 0.35rem; }
 .method-desc { font-size: 0.82rem; color: var(--text2); line-height: 1.6; }
 
-/* ══════════════════════════════
-   SECTION — CONTACT
-══════════════════════════════ */
-.contact-hero { text-align: center; padding: 3rem 0 2rem; }
+/* contact */
+.contact-hero {
+  text-align: center; padding: 3rem 0 2rem;
+}
 .contact-title {
   font-family: var(--display); font-size: clamp(2.2rem,5vw,4rem);
   font-weight: 800; color: var(--text); line-height: 1.1; margin-bottom: 0.8rem;
 }
-.contact-title span { color: var(--accent); }
+.contact-title span { color: var(--bio); }
 .contact-sub { font-size: 1rem; color: var(--text2); max-width: 520px; margin: 0 auto 2.5rem; }
 
 .contact-grid {
@@ -479,12 +443,11 @@ nav {
   background: var(--card); border: 1px solid var(--border);
   border-radius: 14px; padding: 1.4rem;
   transition: border-color 0.2s, transform 0.2s;
-  text-decoration: none; display: block;
 }
-.contact-card:hover { border-color: rgba(91,157,255,0.3); transform: translateY(-2px); }
+.contact-card:hover { border-color: rgba(31,157,98,0.3); transform: translateY(-2px); }
 .ccard-icon { font-size: 1.6rem; margin-bottom: 0.7rem; }
 .ccard-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text3); margin-bottom: 0.3rem; }
-.ccard-val { font-size: 0.9rem; color: var(--accent); font-weight: 500; word-break: break-all; }
+.ccard-val { font-size: 0.9rem; color: var(--bio); font-weight: 500; word-break: break-all; }
 .ccard-val.neutral { color: var(--text); }
 
 /* Avatar identity card */
@@ -495,21 +458,21 @@ nav {
 }
 .avatar {
   width: 88px; height: 88px; border-radius: 50%; flex-shrink: 0;
-  background: linear-gradient(135deg, var(--accent), var(--violet), var(--cyan));
+  background: linear-gradient(135deg, var(--bio), var(--elec), var(--pulse));
   display: flex; align-items: center; justify-content: center;
-  font-family: var(--display); font-size: 2rem; font-weight: 800; color: var(--bg);
+  font-family: var(--display); font-size: 2rem; font-weight: 800; color: #ffffff;
   position: relative;
 }
 .avatar::after {
   content: ''; position: absolute; inset: -4px; border-radius: 50%;
-  border: 2px solid var(--accent); opacity: 0.4;
+  border: 2px solid var(--bio); opacity: 0.4;
   animation: pulseRing 2.5s ease-out infinite;
 }
 .identity-name {
   font-family: var(--display); font-size: 1.6rem; font-weight: 800;
   color: var(--text); line-height: 1.1; margin-bottom: 0.25rem;
 }
-.identity-name em { color: var(--accent); font-style: normal; }
+.identity-name em { color: var(--bio); font-style: normal; }
 .identity-sub { font-family: var(--mono); font-size: 11px; color: var(--text3); letter-spacing: 0.1em; }
 
 /* Divider */
@@ -524,7 +487,7 @@ footer {
   font-family: var(--mono); font-size: 10px; color: var(--text3);
   border-top: 1px solid var(--border); letter-spacing: 0.1em;
 }
-footer em { color: var(--accent); font-style: normal; }
+footer em { color: var(--bio); font-style: normal; }
 </style>
 </head>
 <body>
@@ -532,7 +495,7 @@ footer em { color: var(--accent); font-style: normal; }
 <div id="bar"></div>
 
 <nav>
-  <a href="#" class="nav-brand" onclick="show('about');return false;"><span class="br">&lt;</span>B<em>eddiaf</em><span class="br">/&gt;</span></a>
+  <a href="#" class="nav-brand" onclick="show('about');return false;">B<em>eddiaf</em></a>
   <div class="nav-tabs">
     <button class="tab-btn active" onclick="show('about')">À propos</button>
     <button class="tab-btn"        onclick="show('cv')">Parcours</button>
@@ -541,27 +504,35 @@ footer em { color: var(--accent); font-style: normal; }
   </div>
 </nav>
 
-<!-- ══════════════════════════════════════════
-     À PROPOS
-══════════════════════════════════════════ -->
+<!-- à propos -->
 <section id="about" class="section active">
 
-  <div class="hero-eyebrow anim d1">Portfolio · Développement web &amp; informatique · 2025–26</div>
+  <div class="hero-eyebrow anim d1">Portfolio · L1 IEEEA · Rouen 2025–26</div>
 
   <h1 class="hero-name anim d2">
     Mohamed Anes<br><span class="hi">Beddiaf</span>
   </h1>
-  <p class="hero-sub anim d3"><span class="kw">const</span> profil = <span class="fn">developpeur</span>(<span style="color:var(--string)">'web · informatique · programmation'</span>);</p>
+  <p class="hero-sub anim d3">Informatique · Électronique · Énergie Électrique · Automatique</p>
 
-  <!-- Terminal hero -->
-  <div class="terminal anim d4">
-    <div class="term-bar">
-      <span class="term-dot r"></span>
-      <span class="term-dot y"></span>
-      <span class="term-dot g"></span>
-      <span class="term-title">beddiaf@portfolio: ~</span>
-    </div>
-    <div class="term-body" id="term"></div>
+  <!-- ECG animation -->
+  <div class="ecg-container anim d4">
+    <svg class="ecg-svg" viewBox="0 0 900 56" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path id="ecgp"
+        d="M0,28 L60,28 L75,28 L80,6 L86,50 L92,14 L97,28
+           L160,28 L175,28 L180,6 L186,50 L192,14 L197,28
+           L260,28 L275,28 L280,6 L286,50 L292,14 L297,28
+           L360,28 L375,28 L380,6 L386,50 L392,14 L397,28
+           L460,28 L475,28 L480,6 L486,50 L492,14 L497,28
+           L560,28 L575,28 L580,6 L586,50 L592,14 L597,28
+           L660,28 L675,28 L680,6 L686,50 L692,14 L697,28
+           L760,28 L775,28 L780,6 L786,50 L792,14 L797,28
+           L860,28 L900,28"
+        stroke="#1f9d62" stroke-width="1.8" fill="none"
+        stroke-dasharray="900" stroke-dashoffset="900"
+        style="animation: drawLine 3s 0.6s ease forwards;"
+      />
+    </svg>
+    <div class="ecg-label"><div class="ecg-dot"></div>ECG en direct</div>
   </div>
 
   <!-- Stats -->
@@ -569,17 +540,17 @@ footer em { color: var(--accent); font-style: normal; }
     <div class="stat">
       <div class="stat-val">17.95</div>
       <div class="stat-unit">/20</div>
-      <div class="stat-label">Bac — Mention TB</div>
+      <div class="stat-label">Bac SVT — TB</div>
     </div>
     <div class="stat">
       <div class="stat-val">30</div>
       <div class="stat-unit">ECTS</div>
-      <div class="stat-label">S1 validé</div>
+      <div class="stat-label">S1 Validé</div>
     </div>
     <div class="stat">
-      <div class="stat-val">6+</div>
-      <div class="stat-unit">langages</div>
-      <div class="stat-label">C · Python · JS…</div>
+      <div class="stat-val">2</div>
+      <div class="stat-unit">papiers</div>
+      <div class="stat-label">Publiés</div>
     </div>
     <div class="stat">
       <div class="stat-val">3</div>
@@ -591,7 +562,7 @@ footer em { color: var(--accent); font-style: normal; }
   <!-- Profile -->
   <div class="profile-block anim d6">
     <p>
-      Étudiant en informatique à l'Université de Rouen Normandie, passionné de <strong>développement web</strong> et de <strong>programmation</strong>. J'aime concevoir des interfaces propres, écrire du code clair et transformer une idée en application qui fonctionne. Issu d'un bac scientifique <strong>17,95/20 Mention TB</strong> et d'une classe préparatoire sélective, j'ai des bases solides en <strong>algorithmique, logique et mathématiques</strong>, complétées par des projets techniques menés de bout en bout (front-end, back-end, embarqué, data). Mon objectif : intégrer un <strong>Bachelor 2 — ou un Bachelor 2+3 accéléré</strong> — en informatique / développement web, et continuer à monter en compétence sur des stacks modernes.
+      Étudiant en <strong>L1 IEEEA</strong> à l'Université de Rouen Normandie, je construis un parcours vers l'<strong>informatique médicale et l'IA en santé</strong>. Issu d'un bac SVT <strong>17,95/20 Mention TB</strong> (classe prépa ENSMA), j'ai développé une double compétence en <strong>systèmes embarqués IoT</strong> et <strong>traitement du signal biomédical</strong> à travers deux projets scientifiques aboutis. Je vise une intégration en <strong>L2 Informatique avec option LAS</strong>.
     </p>
   </div>
 
@@ -602,50 +573,39 @@ footer em { color: var(--accent); font-style: normal; }
     <div class="sec-label">Compétences techniques</div>
     <div class="skills-grid">
       <div class="skill-card">
-        <div class="skill-card-head">Langages</div>
+        <div class="skill-card-head">Programmation</div>
         <div class="tag-list">
-          <span class="stag stag-violet">C</span>
-          <span class="stag stag-violet">Python</span>
-          <span class="stag stag-violet">JavaScript</span>
-          <span class="stag stag-violet">C++ (Arduino)</span>
-          <span class="stag stag-violet">SQL (bases)</span>
-        </div>
-      </div>
-      <div class="skill-card">
-        <div class="skill-card-head">Développement web</div>
-        <div class="tag-list">
-          <span class="stag stag-blue">HTML5</span>
-          <span class="stag stag-blue">CSS3</span>
+          <span class="stag stag-blue">C</span>
+          <span class="stag stag-blue">Python</span>
+          <span class="stag stag-blue">HTML/CSS</span>
           <span class="stag stag-blue">JavaScript</span>
-          <span class="stag stag-blue">Responsive design</span>
-          <span class="stag stag-blue">UI / animations</span>
+          <span class="stag stag-blue">Arduino C++</span>
         </div>
       </div>
       <div class="skill-card">
-        <div class="skill-card-head">Outils &amp; workflow</div>
+        <div class="skill-card-head">Simulation & CAO</div>
         <div class="tag-list">
-          <span class="stag stag-cyan">Git / GitHub</span>
-          <span class="stag stag-cyan">VS Code</span>
-          <span class="stag stag-cyan">Terminal / Linux</span>
-          <span class="stag stag-cyan">Debug</span>
+          <span class="stag stag-green">MATLAB</span>
+          <span class="stag stag-green">Simulink</span>
+          <span class="stag stag-green">Proteus</span>
+          <span class="stag stag-green">Tinkercad</span>
         </div>
       </div>
       <div class="skill-card">
-        <div class="skill-card-head">Algorithmique &amp; data</div>
+        <div class="skill-card-head">Systèmes embarqués</div>
         <div class="tag-list">
-          <span class="stag stag-blue">Structures de données</span>
-          <span class="stag stag-blue">Logique</span>
-          <span class="stag stag-blue">MATLAB / Simulink</span>
-          <span class="stag stag-blue">Traitement du signal</span>
+          <span class="stag stag-gold">Arduino Mega</span>
+          <span class="stag stag-gold">Arduino UNO</span>
+          <span class="stag stag-gold">BT HC-06</span>
+          <span class="stag stag-gold">Capteurs IoT</span>
         </div>
       </div>
       <div class="skill-card">
-        <div class="skill-card-head">Mobile &amp; embarqué</div>
+        <div class="skill-card-head">Mobile & Web</div>
         <div class="tag-list">
-          <span class="stag stag-cyan">App Inventor</span>
-          <span class="stag stag-cyan">Android</span>
-          <span class="stag stag-cyan">Arduino / IoT</span>
-          <span class="stag stag-cyan">Proteus / Tinkercad</span>
+          <span class="stag stag-blue">MIT App Inventor</span>
+          <span class="stag stag-blue">Android</span>
+          <span class="stag stag-blue">Dev web</span>
         </div>
       </div>
       <div class="skill-card">
@@ -685,20 +645,18 @@ footer em { color: var(--accent); font-style: normal; }
   <div class="anim d3">
     <div class="sec-label">Domaines d'intérêt</div>
     <div class="interest-grid">
-      <span class="int-badge">Développement web (front &amp; back)</span>
-      <span class="int-badge">Programmation &amp; algorithmique</span>
-      <span class="int-badge">UI / UX &amp; design d'interface</span>
-      <span class="int-badge">Applications mobiles</span>
-      <span class="int-badge">Systèmes embarqués &amp; IoT</span>
-      <span class="int-badge">Open source &amp; veille tech</span>
+      <span class="int-badge">Informatique médicale & IA santé</span>
+      <span class="int-badge">Systèmes embarqués & IoT</span>
+      <span class="int-badge">Signal biomédical — EMG/ECG/EEG</span>
+      <span class="int-badge">Sciences médicales — parcours LAS</span>
+      <span class="int-badge">Développement web & mobile</span>
+      <span class="int-badge">Énergies renouvelables & IoT</span>
     </div>
   </div>
 
 </section>
 
-<!-- ══════════════════════════════════════════
-     PARCOURS CV
-══════════════════════════════════════════ -->
+<!-- parcours cv -->
 <section id="cv" class="section">
 
   <div class="cv-section">
@@ -707,16 +665,15 @@ footer em { color: var(--accent); font-style: normal; }
     <div class="timeline">
 
       <div class="tl-entry anim d3">
-        <div class="tl-icon">🎓</div>
         <div class="tl-body">
           <div class="tl-head">
-            <span class="tl-title">Licence en Informatique &amp; sciences de l'ingénieur (IEEEA)</span>
+            <span class="tl-title">L1 Informatique, Électronique, Énergie Électrique et Automatique</span>
             <span class="tl-date">sept. 2025 – présent</span>
           </div>
           <div class="tl-org">Université de Rouen Normandie — France</div>
-          <div class="tl-desc">Semestre 1 validé (30 ECTS). Cours clés en informatique : algorithmique et programmation en C, logique combinatoire, structures algébriques. Meilleurs résultats : RSDD 19,25/20 · Projet pro 18/20 · Culture générale 16,75 · Anglais 15,5 · NTIC 15,12.</div>
+          <div class="tl-desc">Semestre 1 validé avec 30 ECTS. Meilleurs résultats : RSDD 19,25/20 · Projet orientation pro 18/20 · Culture générale 16,75 · Anglais 15,5 · NTIC 15,12.</div>
           <div class="tl-tags">
-            <span class="ttag note">Admis · 30 ECTS · S1</span>
+            <span class="ttag note">12,39/20 · Admis · 30 ECTS</span>
             <span class="ttag">Algorithmique C</span>
             <span class="ttag">Logique combinatoire</span>
             <span class="ttag">Structures algébriques</span>
@@ -725,37 +682,36 @@ footer em { color: var(--accent); font-style: normal; }
       </div>
 
       <div class="tl-entry anim d4">
-        <div class="tl-icon">📐</div>
         <div class="tl-body">
           <div class="tl-head">
             <span class="tl-title">Classe préparatoire — Mathématiques appliquées</span>
             <span class="tl-date">sept. 2024 – juil. 2025</span>
           </div>
           <div class="tl-org">École Nationale Supérieure de Mathématiques (ENSMA) — Alger, Algérie</div>
-          <div class="tl-desc">Sélection nationale compétitive. Formation intensive en mathématiques avancées, algèbre, analyse et informatique. Membre actif de deux clubs : Möbius (groupe IT / développement web) et PRASINO (pôle médias &amp; visuel).</div>
+          <div class="tl-desc">Sélection nationale compétitive. Formation intensive en mathématiques avancées, algèbre, analyse réelle et informatique. Membre actif de deux clubs scientifiques (PRASINO — médias, Möbius — IT).</div>
           <div class="tl-tags">
             <span class="ttag">Algèbre avancée</span>
             <span class="ttag">Analyse mathématique</span>
-            <span class="ttag">Möbius Club (IT / web)</span>
             <span class="ttag">PRASINO Club</span>
+            <span class="ttag">Möbius Club (IT)</span>
           </div>
         </div>
       </div>
 
       <div class="tl-entry anim d5">
-        <div class="tl-icon">🏅</div>
         <div class="tl-body">
           <div class="tl-head">
-            <span class="tl-title">Baccalauréat scientifique — Mention Très Bien</span>
+            <span class="tl-title">Baccalauréat Sciences de la Vie et de la Terre (SVT)</span>
             <span class="tl-date">2024</span>
           </div>
           <div class="tl-org">Lycée Frères Aachi Kaïs — Kaïs, Khenchela, Algérie</div>
-          <div class="tl-desc">Formation scientifique pluridisciplinaire (Maths, Physique-Chimie, SVT). Excellents résultats en matières scientifiques — base solide pour un parcours en informatique.</div>
+          <div class="tl-desc">Mention Très Bien. Formation scientifique pluridisciplinaire SVT + Mathématiques + Physique-Chimie. Base idéale pour la double compétence médico-technologique.</div>
           <div class="tl-tags">
             <span class="ttag gold">17,95/20 — Mention TB</span>
+            <span class="ttag gold">SVT : 18,5/20</span>
             <span class="ttag gold">Physique : 20/20</span>
             <span class="ttag gold">Maths : 19/20</span>
-            <span class="ttag">Profil scientifique</span>
+            <span class="ttag">Profil médic-tech</span>
           </div>
         </div>
       </div>
@@ -766,61 +722,44 @@ footer em { color: var(--accent); font-style: normal; }
   <div class="divider"></div>
 
   <div class="cv-section">
-    <div class="sec-label anim d1">02 — Projets techniques</div>
-    <h2 class="cv-title anim d2">Réalisations <span>concrètes</span></h2>
+    <div class="sec-label anim d1">02 — Projets scientifiques</div>
+    <h2 class="cv-title anim d2">Travaux <span>techniques</span></h2>
     <div class="timeline">
 
       <div class="tl-entry anim d3">
-        <div class="tl-icon">🌐</div>
         <div class="tl-body">
           <div class="tl-head">
-            <span class="tl-title">Ce portfolio — site web from scratch</span>
-            <span class="tl-date">2025 – 2026</span>
+            <span class="tl-title">Système de Surveillance Photovoltaïque Intelligent via Android</span>
+            <span class="tl-date">nov. 2025 – févr. 2026</span>
           </div>
-          <div class="tl-org">Développement web · HTML / CSS / JavaScript</div>
-          <div class="tl-desc">Site one-page entièrement codé à la main : navigation par onglets en JavaScript, animations CSS, terminal animé, design responsive, palette &amp; thème personnalisés. Aucun framework, aucun template.</div>
+          <div class="tl-org" style="color:var(--solar);">Papier scientifique publié — IoT & Énergie renouvelable</div>
+          <div class="tl-desc">IoT complet de monitoring en temps réel : multi-capteurs (B25, ACS712, BH1750, DHT22) via Arduino Mega, Bluetooth HC-06, app Android MIT App Inventor. Simulation Tinkercad + prototype physique réel.</div>
           <div class="tl-tags">
-            <span class="ttag">HTML5</span>
-            <span class="ttag">CSS3</span>
-            <span class="ttag">JavaScript</span>
-            <span class="ttag note">Responsive</span>
+            <span class="ttag">Arduino Mega</span>
+            <span class="ttag">IoT</span>
+            <span class="ttag">Bluetooth HC-06</span>
+            <span class="ttag">MIT App Inventor</span>
+            <span class="ttag">Tinkercad</span>
+            <span class="ttag note">Papier scientifique EN</span>
           </div>
         </div>
       </div>
 
       <div class="tl-entry anim d4">
-        <div class="tl-icon">📱</div>
         <div class="tl-body">
           <div class="tl-head">
-            <span class="tl-title">Application de monitoring temps réel (IoT)</span>
-            <span class="tl-date">nov. 2025 – févr. 2026</span>
-          </div>
-          <div class="tl-org">App mobile + embarqué · Programmation</div>
-          <div class="tl-desc">Chaîne logicielle complète : acquisition multi-capteurs sur Arduino Mega (code C/C++), transmission Bluetooth, et application Android (App Inventor) affichant les données en temps réel. Du capteur jusqu'à l'interface utilisateur.</div>
-          <div class="tl-tags">
-            <span class="ttag">Arduino C++</span>
-            <span class="ttag">App Inventor</span>
-            <span class="ttag">Android</span>
-            <span class="ttag">Bluetooth</span>
-            <span class="ttag note">Temps réel</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="tl-entry anim d5">
-        <div class="tl-icon">📊</div>
-        <div class="tl-body">
-          <div class="tl-head">
-            <span class="tl-title">Acquisition &amp; traitement numérique du signal</span>
+            <span class="tl-title">Acquisition & Traitement de Signaux Physiologiques (EMG/ECG/EEG)</span>
             <span class="tl-date">oct. – déc. 2025</span>
           </div>
-          <div class="tl-org">Programmation · MATLAB / Simulink · Embarqué</div>
-          <div class="tl-desc">Chaîne d'acquisition et de filtrage de signaux : conception des filtres analogiques et numériques, traitement et visualisation sous MATLAB/Simulink, et pilotage d'un actionneur via Arduino. Validation complète en simulation (Proteus).</div>
+          <div class="tl-org" style="color:var(--bio);">Papier scientifique publié — Biomédical & Prothèses</div>
+          <div class="tl-desc">Acquisition via électrodes Ag/AgCl, amplification ×10 (AOP 741), filtrage analogique + numérique (MATLAB/Simulink), alimentation 9V stabilisée, commande moteur pas à pas (Arduino UNO). Validation complète sous Proteus.</div>
           <div class="tl-tags">
-            <span class="ttag">MATLAB / Simulink</span>
-            <span class="ttag">Traitement du signal</span>
-            <span class="ttag">Arduino</span>
+            <span class="ttag">EMG / ECG / EEG</span>
+            <span class="ttag">AOP 741</span>
+            <span class="ttag">MATLAB/Simulink</span>
             <span class="ttag">Proteus</span>
+            <span class="ttag">Arduino UNO</span>
+            <span class="ttag note">Applications biomédicales</span>
           </div>
         </div>
       </div>
@@ -831,36 +770,33 @@ footer em { color: var(--accent); font-style: normal; }
   <div class="divider"></div>
 
   <div class="cv-section">
-    <div class="sec-label anim d1">03 — Engagement &amp; distinctions</div>
-    <h2 class="cv-title anim d2">Activités <span>associatives</span></h2>
+    <div class="sec-label anim d1">03 — Associations</div>
+    <h2 class="cv-title anim d2">Engagement <span>associatif</span></h2>
     <div class="timeline">
 
       <div class="tl-entry anim d3">
-        <div class="tl-icon">💻</div>
+        <div class="tl-body">
+          <div class="tl-head">
+            <span class="tl-title">PRASINO Club — ENSMA</span>
+            <span class="tl-date">2024–2025</span>
+          </div>
+          <div class="tl-org">Responsable pôle médias & visuel</div>
+          <div class="tl-desc">Gestion de la communication visuelle, création de contenus et coordination des événements médiatiques du club scientifique de l'ENSMA.</div>
+        </div>
+      </div>
+
+      <div class="tl-entry anim d4">
         <div class="tl-body">
           <div class="tl-head">
             <span class="tl-title">Möbius Club — ENSMA</span>
             <span class="tl-date">2024–2025</span>
           </div>
           <div class="tl-org">Groupe IT · Développement web</div>
-          <div class="tl-desc">Projets collaboratifs web, formations techniques et entraide entre membres au sein du groupe informatique du club.</div>
-        </div>
-      </div>
-
-      <div class="tl-entry anim d4">
-        <div class="tl-icon">🎨</div>
-        <div class="tl-body">
-          <div class="tl-head">
-            <span class="tl-title">PRASINO Club — ENSMA</span>
-            <span class="tl-date">2024–2025</span>
-          </div>
-          <div class="tl-org">Responsable pôle médias &amp; visuel</div>
-          <div class="tl-desc">Gestion de la communication visuelle, création de contenus et coordination des événements médiatiques du club scientifique.</div>
+          <div class="tl-desc">Projets collaboratifs web et formations techniques dans le groupe informatique du club.</div>
         </div>
       </div>
 
       <div class="tl-entry anim d5">
-        <div class="tl-icon">🏆</div>
         <div class="tl-body">
           <div class="tl-head">
             <span class="tl-title">Compétitions inter-lycées</span>
@@ -876,196 +812,136 @@ footer em { color: var(--accent); font-style: normal; }
 
 </section>
 
-<!-- ══════════════════════════════════════════
-     PROJETS
-══════════════════════════════════════════ -->
+<!-- projets -->
 <section id="projects" class="section">
 
-  <div class="sec-label anim d1">Projets</div>
-  <h2 class="cv-title anim d2">Ce que j'ai <span>construit</span></h2>
-  <p class="anim d3" style="color:var(--text2); margin-bottom:2rem; max-width:620px;">Des projets menés de A à Z — conception, code, tests et documentation. D'autres projets web arrivent (emplacements ci-dessous à compléter).</p>
+  <div class="sec-label anim d1">Projets scientifiques</div>
+  <h2 class="cv-title anim d2">Deux publications <span>techniques</span></h2>
+  <p class="anim d3" style="color:var(--text2); margin-bottom:2rem; max-width:620px;">Deux projets menés de A à Z — conception, simulation, prototype, validation et papier scientifique.</p>
 
   <div class="proj-grid">
 
-    <!-- ── PORTFOLIO WEB ── -->
-    <div class="proj-card blue anim d3">
+    <!-- ── PROJET PV ── -->
+    <div class="proj-card solar anim d3">
       <div class="proj-banner">
         <div class="proj-banner-bg"></div>
         <div class="proj-banner-grid"></div>
-        <div class="proj-icon-big">🌐</div>
         <div class="proj-banner-text">
-          <div class="proj-badge">Web · Front-end</div>
-          <div class="proj-name">Portfolio développeur (ce site)</div>
-          <div class="proj-period">2025 – 2026 · HTML / CSS / JS</div>
+          <div class="proj-badge">IoT · Énergie</div>
+          <div class="proj-name">Surveillance Photovoltaïque Intelligente</div>
+          <div class="proj-period">nov. 2025 – févr. 2026 · Papier scientifique EN</div>
         </div>
       </div>
       <div class="proj-body">
-        <p class="proj-desc">Site one-page codé entièrement à la main, sans framework ni template. Navigation par onglets en JavaScript, animations CSS, terminal animé, thème &amp; coloration syntaxique personnalisés, et design 100% responsive.</p>
+        <p class="proj-desc">Système IoT complet de monitoring en temps réel d'un panneau photovoltaïque. Acquisition multi-capteurs (B25, ACS712, BH1750, DHT22) via Arduino Mega, transmission Bluetooth HC-06, visualisation sur application Android MIT App Inventor. Simulation Tinkercad puis prototype physique.</p>
 
         <div class="proj-stats">
-          <div class="pstat blue"><div class="pstat-val">0</div><div class="pstat-label">Framework</div></div>
-          <div class="pstat blue"><div class="pstat-val">4</div><div class="pstat-label">Sections</div></div>
-          <div class="pstat blue"><div class="pstat-val">100%</div><div class="pstat-label">Responsive</div></div>
-          <div class="pstat blue"><div class="pstat-val">JS</div><div class="pstat-label">Vanilla</div></div>
+          <div class="pstat solar"><div class="pstat-val">4</div><div class="pstat-label">Capteurs</div></div>
+          <div class="pstat solar"><div class="pstat-val">54</div><div class="pstat-label">Pins Mega</div></div>
+          <div class="pstat solar"><div class="pstat-val">25V</div><div class="pstat-label">Tension max</div></div>
+          <div class="pstat solar"><div class="pstat-val">BT</div><div class="pstat-label">Sans fil</div></div>
         </div>
 
-        <div class="chain blue">
-          <span class="chain-node">HTML</span>
+        <div class="chain solar">
+          <span class="chain-node">DHT22 / BH1750 / B25 / ACS712</span>
           <span class="chain-arr">→</span>
-          <span class="chain-node">CSS</span>
+          <span class="chain-node">Arduino Mega</span>
           <span class="chain-arr">→</span>
-          <span class="chain-node">JavaScript</span>
+          <span class="chain-node">HC-06 BT</span>
           <span class="chain-arr">→</span>
-          <span class="chain-node">Responsive</span>
+          <span class="chain-node">Android App</span>
         </div>
 
         <div class="proj-tags">
-          <span class="ptag">HTML5</span>
-          <span class="ptag">CSS3</span>
-          <span class="ptag">JavaScript</span>
-          <span class="ptag">Animations</span>
-          <span class="ptag">UI design</span>
+          <span class="ptag">Arduino Mega</span>
+          <span class="ptag">Bluetooth HC-06</span>
+          <span class="ptag">MIT App Inventor</span>
+          <span class="ptag">DHT22</span>
+          <span class="ptag">BH1750</span>
+          <span class="ptag">ACS712</span>
+          <span class="ptag">B25</span>
+          <span class="ptag">Tinkercad</span>
         </div>
       </div>
     </div>
 
-    <!-- ── APP IOT ── -->
-    <div class="proj-card cyan anim d4">
+    <!-- ── PROJET SIGNAL ── -->
+    <div class="proj-card bio anim d4">
       <div class="proj-banner">
         <div class="proj-banner-bg"></div>
         <div class="proj-banner-grid"></div>
-        <div class="proj-icon-big">📱</div>
         <div class="proj-banner-text">
-          <div class="proj-badge">Mobile · IoT</div>
-          <div class="proj-name">App de monitoring temps réel</div>
-          <div class="proj-period">nov. 2025 – févr. 2026 · App + embarqué</div>
+          <div class="proj-badge">Biomédical · Prothèses</div>
+          <div class="proj-name">Acquisition & Traitement de Signaux Physiologiques</div>
+          <div class="proj-period">oct. – déc. 2025 · Papier scientifique</div>
         </div>
       </div>
       <div class="proj-body">
-        <p class="proj-desc">Chaîne logicielle complète : acquisition multi-capteurs programmée sur Arduino Mega (C/C++), transmission Bluetooth, et application Android développée sous App Inventor affichant les mesures en temps réel. Du matériel jusqu'à l'interface.</p>
+        <p class="proj-desc">Système d'acquisition de signaux EMG/ECG/EEG via électrodes Ag/AgCl, amplification différentielle ×10 (AOP 741), filtrage analogique + numérique validé sous MATLAB/Simulink, alimentation 9V stabilisée, commande d'un moteur pas à pas (Arduino UNO). Validation complète sous Proteus. Application aux prothèses assistées et interfaces homme-machine.</p>
 
         <div class="proj-stats">
-          <div class="pstat cyan"><div class="pstat-val">4</div><div class="pstat-label">Capteurs</div></div>
-          <div class="pstat cyan"><div class="pstat-val">BT</div><div class="pstat-label">Sans fil</div></div>
-          <div class="pstat cyan"><div class="pstat-val">RT</div><div class="pstat-label">Temps réel</div></div>
-          <div class="pstat cyan"><div class="pstat-val">1</div><div class="pstat-label">App Android</div></div>
+          <div class="pstat bio"><div class="pstat-val">×10</div><div class="pstat-label">Gain AOP</div></div>
+          <div class="pstat bio"><div class="pstat-val">9V</div><div class="pstat-label">Alimentation</div></div>
+          <div class="pstat bio"><div class="pstat-val">5</div><div class="pstat-label">Étages</div></div>
+          <div class="pstat bio"><div class="pstat-val">50Hz</div><div class="pstat-label">Rejet réseau</div></div>
         </div>
 
-        <div class="chain cyan">
-          <span class="chain-node">Capteurs</span>
+        <div class="chain bio">
+          <span class="chain-node">Électrodes Ag/AgCl</span>
           <span class="chain-arr">→</span>
-          <span class="chain-node">Arduino C++</span>
+          <span class="chain-node">AOP 741 ×10</span>
           <span class="chain-arr">→</span>
-          <span class="chain-node">Bluetooth</span>
+          <span class="chain-node">Filtre coupe-bande</span>
           <span class="chain-arr">→</span>
-          <span class="chain-node">App Android</span>
+          <span class="chain-node">Arduino UNO</span>
+          <span class="chain-arr">→</span>
+          <span class="chain-node">Moteur pas-à-pas</span>
         </div>
 
         <div class="proj-tags">
-          <span class="ptag">Arduino C++</span>
-          <span class="ptag">App Inventor</span>
-          <span class="ptag">Android</span>
-          <span class="ptag">Bluetooth</span>
-          <span class="ptag">IoT</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- ── DSP ── -->
-    <div class="proj-card violet anim d5">
-      <div class="proj-banner">
-        <div class="proj-banner-bg"></div>
-        <div class="proj-banner-grid"></div>
-        <div class="proj-icon-big">📊</div>
-        <div class="proj-banner-text">
-          <div class="proj-badge">Data · Signal</div>
-          <div class="proj-name">Acquisition &amp; traitement du signal</div>
-          <div class="proj-period">oct. – déc. 2025 · MATLAB / Arduino</div>
-        </div>
-      </div>
-      <div class="proj-body">
-        <p class="proj-desc">Chaîne d'acquisition et de filtrage de signaux : conception de filtres analogiques et numériques, traitement et visualisation des données sous MATLAB/Simulink, et pilotage d'un actionneur via Arduino. Validation complète en simulation Proteus.</p>
-
-        <div class="proj-stats">
-          <div class="pstat violet"><div class="pstat-val">5</div><div class="pstat-label">Étages</div></div>
-          <div class="pstat violet"><div class="pstat-val">2</div><div class="pstat-label">Filtres</div></div>
-          <div class="pstat violet"><div class="pstat-val">×10</div><div class="pstat-label">Gain</div></div>
-          <div class="pstat violet"><div class="pstat-val">SIM</div><div class="pstat-label">Validé</div></div>
-        </div>
-
-        <div class="chain violet">
-          <span class="chain-node">Acquisition</span>
-          <span class="chain-arr">→</span>
-          <span class="chain-node">Filtrage</span>
-          <span class="chain-arr">→</span>
-          <span class="chain-node">MATLAB</span>
-          <span class="chain-arr">→</span>
-          <span class="chain-node">Arduino</span>
-        </div>
-
-        <div class="proj-tags">
-          <span class="ptag">MATLAB / Simulink</span>
-          <span class="ptag">Traitement signal</span>
-          <span class="ptag">Arduino</span>
+          <span class="ptag">EMG / ECG / EEG</span>
+          <span class="ptag">AOP 741</span>
+          <span class="ptag">MATLAB/Simulink</span>
           <span class="ptag">Proteus</span>
+          <span class="ptag">Arduino UNO</span>
+          <span class="ptag">Filtre réjecteur 50Hz</span>
+          <span class="ptag">Prothèses bioniques</span>
         </div>
       </div>
-    </div>
-
-    <!-- ── PLACEHOLDER 1 ── -->
-    <div class="proj-card placeholder anim d6">
-      <div class="placeholder-plus">+</div>
-      <div class="placeholder-title">Projet web à venir</div>
-      <div class="placeholder-desc">Emplacement réservé pour un de tes projets web / GitHub. Envoie-moi le nom, la description, la stack et le lien — je le mets en forme ici.</div>
-      <div class="placeholder-hint">// à compléter</div>
-    </div>
-
-    <!-- ── PLACEHOLDER 2 ── -->
-    <div class="proj-card placeholder anim d7">
-      <div class="placeholder-plus">+</div>
-      <div class="placeholder-title">Projet web à venir</div>
-      <div class="placeholder-desc">Deuxième emplacement pour un projet perso, un site réalisé ou une app. Donne-moi les détails et je l'ajoute au même format que les autres cartes.</div>
-      <div class="placeholder-hint">// à compléter</div>
     </div>
 
   </div>
 
   <div class="divider"></div>
 
-  <div class="sec-label anim d1">Méthode de travail</div>
+  <div class="sec-label anim d1">Méthodologie</div>
   <div class="method-grid">
     <div class="method-card anim d2">
-      <div class="method-icon">🧩</div>
       <div class="method-title">Concevoir</div>
-      <div class="method-desc">Comprendre le besoin, découper le problème, choisir la bonne approche avant de coder.</div>
+      <div class="method-desc">Cahier des charges, schémas synoptiques, choix des composants selon contraintes.</div>
     </div>
     <div class="method-card anim d3">
-      <div class="method-icon">⌨️</div>
-      <div class="method-title">Coder</div>
-      <div class="method-desc">Écrire un code clair, lisible et réutilisable. Versionné avec Git.</div>
+      <div class="method-title">Simuler</div>
+      <div class="method-desc">MATLAB/Simulink + Proteus avant tout prototype physique.</div>
     </div>
     <div class="method-card anim d4">
-      <div class="method-icon">🧪</div>
-      <div class="method-title">Tester</div>
-      <div class="method-desc">Simuler, déboguer et valider avant de livrer quoi que ce soit.</div>
+      <div class="method-title">Prototyper</div>
+      <div class="method-desc">Tinkercad virtuel puis prototype réel sur breadboard.</div>
     </div>
     <div class="method-card anim d5">
-      <div class="method-icon">📝</div>
-      <div class="method-title">Documenter</div>
-      <div class="method-desc">Expliquer le projet clairement, en français comme en anglais.</div>
+      <div class="method-title">Publier</div>
+      <div class="method-desc">Rédaction papier scientifique en français et anglais.</div>
     </div>
   </div>
 
 </section>
 
-<!-- ══════════════════════════════════════════
-     CONTACT
-══════════════════════════════════════════ -->
+<!-- contact -->
 <section id="contact" class="section">
 
   <div class="contact-hero">
     <h1 class="contact-title anim d1">Entrons en <span>contact</span></h1>
-    <p class="contact-sub anim d2">Candidat motivé pour un Bachelor 2 (ou 2+3 accéléré) en informatique / dév web. Disponible pour échanges, stages et collaborations sur des projets tech.</p>
+    <p class="contact-sub anim d2">Disponible pour des opportunités de stage, des échanges académiques ou des collaborations sur des projets tech & santé.</p>
   </div>
 
   <div class="identity anim d3">
@@ -1077,46 +953,38 @@ footer em { color: var(--accent); font-style: normal; }
   </div>
 
   <div class="contact-grid anim d4">
-    <a class="contact-card" href="mailto:beddiafmohamedanes@gmail.com">
-      <div class="ccard-icon">📧</div>
+    <div class="contact-card">
       <div class="ccard-label">Email</div>
       <div class="ccard-val">beddiafmohamedanes@gmail.com</div>
-    </a>
-    <a class="contact-card" href="https://linkedin.com/in/mohamed-anes-beddiaf" target="_blank" rel="noopener">
-      <div class="ccard-icon">🔗</div>
-      <div class="ccard-label">LinkedIn</div>
-      <div class="ccard-val">linkedin.com/in/mohamed-anes-beddiaf</div>
-    </a>
-    <div class="contact-card">
-      <div class="ccard-icon">📍</div>
-      <div class="ccard-label">Localisation</div>
-      <div class="ccard-val neutral">Rouen, France · Mobilité internationale</div>
     </div>
     <div class="contact-card">
-      <div class="ccard-icon">🎯</div>
-      <div class="ccard-label">Objectif</div>
-      <div class="ccard-val neutral">Bachelor 2 / 2+3 accéléré · Dév web · Informatique</div>
+      <div class="ccard-label">LinkedIn</div>
+      <div class="ccard-val">linkedin.com/in/mohamed-anes-beddiaf</div>
+    </div>
+    <div class="contact-card">
+      <div class="ccard-label">Localisation</div>
+      <div class="ccard-val neutral">Rouen, France · Mobilité internationale</div>
     </div>
   </div>
 
   <div class="divider"></div>
 
   <div class="anim d5">
-    <div class="sec-label">Formation &amp; diplômes</div>
+    <div class="sec-label">Formation & diplômes</div>
     <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:0.8rem; margin-top:1rem;">
       <div class="method-card">
         <div style="font-family:var(--mono);font-size:10px;color:var(--text3);margin-bottom:0.4rem;">Actuellement</div>
-        <div style="font-size:0.9rem;font-weight:600;color:var(--accent);">Licence informatique (IEEEA)</div>
+        <div style="font-size:0.9rem;font-weight:600;color:var(--bio);">L1 IEEEA</div>
         <div style="font-size:0.82rem;color:var(--text2);">Université de Rouen Normandie</div>
       </div>
       <div class="method-card">
         <div style="font-family:var(--mono);font-size:10px;color:var(--text3);margin-bottom:0.4rem;">2024–2025</div>
-        <div style="font-size:0.9rem;font-weight:600;color:var(--violet);">Classe prépa ENSMA</div>
+        <div style="font-size:0.9rem;font-weight:600;color:var(--elec);">Classe prépa ENSMA</div>
         <div style="font-size:0.82rem;color:var(--text2);">Maths appliquées — Alger</div>
       </div>
       <div class="method-card">
         <div style="font-family:var(--mono);font-size:10px;color:var(--text3);margin-bottom:0.4rem;">2024</div>
-        <div style="font-size:0.9rem;font-weight:600;color:var(--string);">Bac scientifique 17,95/20 TB</div>
+        <div style="font-size:0.9rem;font-weight:600;color:var(--solar);">Bac SVT 17,95/20 TB</div>
         <div style="font-size:0.82rem;color:var(--text2);">Lycée Kaïs, Khenchela</div>
       </div>
     </div>
@@ -1125,79 +993,18 @@ footer em { color: var(--accent); font-style: normal; }
 </section>
 
 <footer>
-  Portfolio codé en HTML / CSS / JS par <em>BEDDIAF Mohamed Anes</em> · Rouen · 2025–2026
-  · Ce site est lui-même une démo de mes compétences en développement web
+  Portfolio · <em>BEDDIAF Mohamed Anes</em> · Rouen · 2025–2026
 </footer>
 
 <script>
-// Progress bar
+// barre de progression au scroll
 window.addEventListener('scroll', () => {
   const s = document.documentElement;
   document.getElementById('bar').style.width =
     (s.scrollTop / (s.scrollHeight - s.clientHeight) * 100) + '%';
 });
 
-// ── Terminal typewriter ──
-const termLines = [
-  { p: 'beddiaf@portfolio:~$ ', t: 'whoami' },
-  { p: '', t: 'Mohamed Anes Beddiaf — étudiant développeur web & informatique', out: true },
-  { p: 'beddiaf@portfolio:~$ ', t: 'cat objectif.txt' },
-  { p: '', t: 'Intégrer un Bachelor 2 (ou 2+3 accéléré) en informatique / dev web', out: true },
-  { p: 'beddiaf@portfolio:~$ ', t: 'ls competences/' },
-  { p: '', t: 'web/   programmation/   algorithmique/   systemes/', out: true },
-  { p: 'beddiaf@portfolio:~$ ', t: '', cursor: true }
-];
-
-function runTerminal() {
-  const term = document.getElementById('term');
-  if (!term) return;
-  term.innerHTML = '';
-  let li = 0;
-  function nextLine() {
-    if (li >= termLines.length) return;
-    const data = termLines[li];
-    const line = document.createElement('div');
-    line.className = 'term-line';
-    const promptSpan = document.createElement('span');
-    promptSpan.className = 'term-prompt';
-    promptSpan.textContent = data.p;
-    line.appendChild(promptSpan);
-    const textSpan = document.createElement('span');
-    textSpan.className = data.out ? 'term-out' : '';
-    line.appendChild(textSpan);
-    term.appendChild(line);
-
-    if (data.cursor) {
-      const cur = document.createElement('span');
-      cur.className = 'term-cursor';
-      line.appendChild(cur);
-      return;
-    }
-
-    if (data.out) {
-      // output prints instantly with a small delay
-      textSpan.textContent = data.t;
-      li++;
-      setTimeout(nextLine, 320);
-    } else {
-      // command types char by char
-      let ci = 0;
-      (function typeChar() {
-        if (ci <= data.t.length) {
-          textSpan.textContent = data.t.slice(0, ci);
-          ci++;
-          setTimeout(typeChar, 45);
-        } else {
-          li++;
-          setTimeout(nextLine, 280);
-        }
-      })();
-    }
-  }
-  nextLine();
-}
-
-// Tab switching
+// changement d'onglet
 function show(id) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -1206,10 +1013,9 @@ function show(id) {
   document.querySelectorAll('.tab-btn')[map[id]].classList.add('active');
   window.scrollTo({ top: 0 });
   setTimeout(triggerAnims, 60);
-  if (id === 'about') runTerminal();
 }
 
-// Scroll-triggered reveal
+// apparition des blocs au scroll
 function triggerAnims() {
   const els = document.querySelectorAll('.section.active .anim');
   const io = new IntersectionObserver(entries => {
@@ -1218,7 +1024,7 @@ function triggerAnims() {
   els.forEach(el => io.observe(el));
 }
 triggerAnims();
-runTerminal();
 </script>
 </body>
 </html>
+                                                                                                                                                                                      

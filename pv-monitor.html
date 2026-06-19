@@ -5,25 +5,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PV Monitoring System — BEDDIAF Mohamed Anes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --sun: #F4A900;
-  --sun2: #FFD166;
-  --sky: #0B1E3D;
-  --sky2: #0E2750;
-  --sky3: #1A3A6B;
-  --teal: #00C9B1;
-  --teal2: #00F5DC;
-  --white: #F0F4FF;
-  --muted: #8AA0C0;
-  --dark: #060E1E;
-  --card: rgba(14,39,80,0.7);
-  --border: rgba(0,201,177,0.15);
-  --border2: rgba(244,169,0,0.3);
-  --sans: 'DM Sans', sans-serif;
-  --display: 'Syne', sans-serif;
-  --mono: 'JetBrains Mono', monospace;
+  /* thème clair, vert & rose — assorti au portfolio */
+  --sun:   #d14b86;        /* rose (la variable garde son ancien nom) */
+  --sun2:  #bf4f7e;
+  --sky:   #f8ebf0;
+  --sky2:  #f2e2ea;
+  --sky3:  #ecd8e3;
+  --teal:  #178a53;        /* vert principal */
+  --teal2: #1b7a4d;
+  --white: #283330;        /* texte sombre */
+  --muted: #5e6b64;
+  --dark:  #fdf4f7;        /* fond clair */
+  --card:  rgba(255,255,255,0.82);
+  --border: rgba(45,30,45,0.10);
+  --border2: rgba(209,75,134,0.25);
+  --sans: 'Inter', sans-serif;
+  --display: 'Fraunces', serif;
+  --mono: 'IBM Plex Mono', monospace;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -39,25 +40,25 @@ body {
   overflow-x: hidden;
 }
 
-/* ─── CURSOR ─── */
+/* cursor */
 *, a { cursor: default; }
 a, button { cursor: pointer; }
 
-/* ─── SCROLLBAR ─── */
+/* scrollbar */
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: var(--dark); }
 ::-webkit-scrollbar-thumb { background: var(--teal); border-radius: 3px; }
 
-/* ─── CANVAS BG ─── */
+/* canvas bg */
 #bg-canvas {
   position: fixed;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.4;
+  opacity: 0.2;
 }
 
-/* ─── NAV ─── */
+/* nav */
 nav {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -66,7 +67,7 @@ nav {
   align-items: center;
   justify-content: space-between;
   padding: 1rem 3rem;
-  background: rgba(6,14,30,0.85);
+  background: rgba(253,244,247,0.85);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--border);
   transition: all 0.3s;
@@ -92,7 +93,7 @@ nav {
 }
 .nav-links a:hover { color: var(--teal2); }
 
-/* ─── HERO ─── */
+/* hero */
 .hero {
   position: relative;
   min-height: 100vh;
@@ -156,9 +157,9 @@ nav {
   border: 1px solid;
   letter-spacing: 0.04em;
 }
-.badge-teal { color: var(--teal2); border-color: rgba(0,245,220,0.3); background: rgba(0,201,177,0.08); }
-.badge-sun { color: var(--sun2); border-color: rgba(244,169,0,0.3); background: rgba(244,169,0,0.08); }
-.badge-white { color: var(--white); border-color: rgba(240,244,255,0.2); background: rgba(240,244,255,0.04); }
+.badge-teal { color: var(--teal2); border-color: rgba(31,157,98,0.3); background: rgba(31,157,98,0.08); }
+.badge-sun { color: var(--sun2); border-color: rgba(209,75,134,0.3); background: rgba(209,75,134,0.08); }
+.badge-white { color: var(--white); border-color: rgba(45,40,50,0.2); background: rgba(45,40,50,0.04); }
 
 .scroll-hint {
   position: absolute;
@@ -182,7 +183,7 @@ nav {
   background: linear-gradient(to bottom, transparent, var(--teal));
 }
 
-/* ─── SUN ORBS ─── */
+/* sun orbs */
 .orb {
   position: absolute;
   border-radius: 50%;
@@ -192,17 +193,17 @@ nav {
 .orb-1 {
   width: 500px; height: 500px;
   top: -100px; left: -150px;
-  background: radial-gradient(circle, rgba(244,169,0,0.18) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(209,75,134,0.18) 0%, transparent 70%);
   animation: drift 12s ease-in-out infinite;
 }
 .orb-2 {
   width: 400px; height: 400px;
   bottom: -80px; right: -100px;
-  background: radial-gradient(circle, rgba(0,201,177,0.15) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(31,157,98,0.15) 0%, transparent 70%);
   animation: drift 15s ease-in-out infinite reverse;
 }
 
-/* ─── SECTION WRAPPER ─── */
+/* section wrapper */
 .section {
   position: relative;
   z-index: 1;
@@ -237,7 +238,7 @@ nav {
 .section-title em { color: var(--sun); font-style: normal; }
 .section-desc { color: var(--muted); max-width: 600px; font-size: 1rem; margin-bottom: 3rem; }
 
-/* ─── DIVIDER ─── */
+/* divider */
 .divider {
   width: 100%;
   height: 1px;
@@ -247,7 +248,7 @@ nav {
   z-index: 1;
 }
 
-/* ─── OVERVIEW CARDS ─── */
+/* overview cards */
 .overview-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -272,7 +273,7 @@ nav {
   opacity: 0;
   transition: opacity 0.3s;
 }
-.ov-card:hover { transform: translateY(-4px); border-color: rgba(0,201,177,0.35); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+.ov-card:hover { transform: translateY(-4px); border-color: rgba(31,157,98,0.35); box-shadow: 0 20px 40px rgba(60,40,55,0.10); }
 .ov-card:hover::before { opacity: 1; }
 .ov-icon {
   width: 48px; height: 48px;
@@ -280,14 +281,14 @@ nav {
   display: flex; align-items: center; justify-content: center;
   font-size: 22px;
   margin-bottom: 1.2rem;
-  background: rgba(0,201,177,0.1);
+  background: rgba(31,157,98,0.1);
   border: 1px solid var(--border);
 }
-.ov-icon.sun { background: rgba(244,169,0,0.1); }
+.ov-icon.sun { background: rgba(209,75,134,0.1); }
 .ov-title { font-family: var(--display); font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--white); }
 .ov-text { font-size: 14px; color: var(--muted); line-height: 1.65; }
 
-/* ─── ARCH FLOW ─── */
+/* arch flow */
 .arch-flow {
   display: flex;
   align-items: center;
@@ -311,7 +312,7 @@ nav {
   transition: all 0.3s;
   position: relative;
 }
-.flow-node:hover { border-color: rgba(0,245,220,0.4); transform: scale(1.04); }
+.flow-node:hover { border-color: rgba(31,157,98,0.4); transform: scale(1.04); }
 .flow-node .fn-icon { font-size: 26px; margin-bottom: 0.3rem; }
 .flow-node .fn-label { font-size: 13px; font-weight: 600; font-family: var(--display); color: var(--white); }
 .flow-node .fn-sub { font-size: 11px; color: var(--muted); font-family: var(--mono); }
@@ -332,7 +333,7 @@ nav {
   font-size: 12px;
 }
 
-/* ─── SENSOR CARDS ─── */
+/* sensor cards */
 .sensors-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -355,11 +356,11 @@ nav {
   font-family: var(--display);
   font-size: 5rem;
   font-weight: 800;
-  color: rgba(255,255,255,0.03);
+  color: rgba(45,40,50,0.035);
   pointer-events: none;
   line-height: 1;
 }
-.sensor-card:hover { transform: translateY(-5px); border-color: rgba(244,169,0,0.3); box-shadow: 0 24px 48px rgba(0,0,0,0.35); }
+.sensor-card:hover { transform: translateY(-5px); border-color: rgba(209,75,134,0.3); box-shadow: 0 24px 48px rgba(60,40,55,0.12); }
 .sensor-header {
   display: flex;
   align-items: flex-start;
@@ -368,8 +369,8 @@ nav {
 }
 .sensor-badge {
   padding: 0.3rem 0.8rem;
-  background: rgba(244,169,0,0.12);
-  border: 1px solid rgba(244,169,0,0.25);
+  background: rgba(209,75,134,0.12);
+  border: 1px solid rgba(209,75,134,0.25);
   border-radius: 8px;
   font-size: 12px;
   font-family: var(--mono);
@@ -386,7 +387,7 @@ nav {
   align-items: center;
   font-size: 13px;
   padding: 0.4rem 0;
-  border-bottom: 1px solid rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(45,40,50,0.07);
 }
 .sensor-specs li:last-child { border-bottom: none; }
 .spec-key { color: var(--muted); font-family: var(--mono); font-size: 12px; }
@@ -397,15 +398,15 @@ nav {
   gap: 0.4rem;
   margin-top: 1rem;
   padding: 0.35rem 0.8rem;
-  background: rgba(0,201,177,0.08);
-  border: 1px solid rgba(0,201,177,0.2);
+  background: rgba(31,157,98,0.08);
+  border: 1px solid rgba(31,157,98,0.2);
   border-radius: 8px;
   font-size: 12px;
   font-family: var(--mono);
   color: var(--teal2);
 }
 
-/* ─── BLUETOOTH SECTION ─── */
+/* bluetooth section */
 .bt-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -423,11 +424,11 @@ nav {
 .bt-title { font-family: var(--display); font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; }
 .at-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; }
 .at-table th { text-align: left; color: var(--sun2); padding: 0.5rem 0.8rem; border-bottom: 1px solid var(--border2); font-weight: 500; }
-.at-table td { padding: 0.5rem 0.8rem; border-bottom: 1px solid rgba(255,255,255,0.04); color: var(--muted); }
+.at-table td { padding: 0.5rem 0.8rem; border-bottom: 1px solid rgba(45,40,50,0.07); color: var(--muted); }
 .at-table tr:last-child td { border-bottom: none; }
 .at-table td:first-child { color: var(--teal2); }
 
-/* ─── STEPS ─── */
+/* steps */
 .steps { display: flex; flex-direction: column; gap: 1.5rem; }
 .step-item {
   display: flex;
@@ -450,11 +451,11 @@ nav {
   background: linear-gradient(to bottom, var(--teal), var(--sun));
   border-radius: 3px 0 0 3px;
 }
-.step-item:hover { transform: translateX(5px); border-color: rgba(0,201,177,0.3); }
+.step-item:hover { transform: translateX(5px); border-color: rgba(31,157,98,0.3); }
 .step-num {
   width: 40px; height: 40px;
   border-radius: 12px;
-  background: linear-gradient(135deg, rgba(0,201,177,0.2), rgba(244,169,0,0.2));
+  background: linear-gradient(135deg, rgba(31,157,98,0.2), rgba(209,75,134,0.2));
   border: 1px solid var(--border);
   display: flex; align-items: center; justify-content: center;
   font-family: var(--display); font-size: 1rem; font-weight: 800;
@@ -465,7 +466,7 @@ nav {
 .step-title { font-family: var(--display); font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 0.4rem; }
 .step-text { font-size: 14px; color: var(--muted); }
 
-/* ─── STATS STRIP ─── */
+/* stats strip */
 .stats-strip {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -483,7 +484,7 @@ nav {
   backdrop-filter: blur(8px);
   transition: background 0.3s;
 }
-.stat-item:hover { background: rgba(14,39,80,0.95); }
+.stat-item:hover { background: rgba(248,235,240,0.95); }
 .stat-num {
   font-family: var(--display);
   font-size: 2.2rem;
@@ -495,7 +496,7 @@ nav {
 .stat-unit { font-size: 14px; font-family: var(--mono); color: var(--teal2); }
 .stat-desc { font-size: 13px; color: var(--muted); margin-top: 0.3rem; }
 
-/* ─── METHODOLOGY ─── */
+/* methodology */
 .method-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -524,7 +525,7 @@ nav {
 .method-text ul { padding-left: 1.4rem; margin-top: 0.8rem; }
 .method-text ul li { font-size: 14px; color: var(--muted); margin-bottom: 0.4rem; }
 
-/* ─── AUTHOR ─── */
+/* author */
 .author-section {
   position: relative;
   z-index: 1;
@@ -583,7 +584,7 @@ nav {
   margin-top: 1.5rem;
 }
 
-/* ─── FOOTER ─── */
+/* footer */
 footer {
   position: relative;
   z-index: 1;
@@ -596,7 +597,7 @@ footer {
 }
 footer span { color: var(--sun); }
 
-/* ─── ANIMATIONS ─── */
+/* animations */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(24px); }
   to { opacity: 1; transform: translateY(0); }
@@ -615,11 +616,11 @@ footer span { color: var(--sun); }
   to { transform: rotate(360deg); }
 }
 @keyframes pulse-border {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(0,201,177,0); }
-  50% { box-shadow: 0 0 0 6px rgba(0,201,177,0.12); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(31,157,98,0); }
+  50% { box-shadow: 0 0 0 6px rgba(31,157,98,0.12); }
 }
 
-/* ─── REVEAL ON SCROLL ─── */
+/* reveal on scroll */
 .reveal {
   opacity: 0;
   transform: translateY(30px);
@@ -634,7 +635,7 @@ footer span { color: var(--sun); }
 .reveal-delay-3 { transition-delay: 0.3s; }
 .reveal-delay-4 { transition-delay: 0.4s; }
 
-/* ─── PROGRESS BAR ─── */
+/* progress bar */
 #progress-bar {
   position: fixed;
   top: 0; left: 0;
@@ -644,7 +645,7 @@ footer span { color: var(--sun); }
   transition: width 0.1s;
 }
 
-/* ─── MOBILE ─── */
+/* mobile */
 @media(max-width:768px){
   nav { padding: 1rem 1.5rem; }
   .nav-links { gap: 1rem; }
@@ -663,7 +664,7 @@ footer span { color: var(--sun); }
 <!-- Particle BG -->
 <canvas id="bg-canvas"></canvas>
 
-<!-- NAV -->
+<!-- nav -->
 <nav id="main-nav">
   <a href="#hero" class="nav-logo">PV<span>Monitor</span></a>
   <ul class="nav-links">
@@ -675,7 +676,7 @@ footer span { color: var(--sun); }
   </ul>
 </nav>
 
-<!-- HERO -->
+<!-- hero -->
 <section class="hero" id="hero">
   <div class="orb orb-1"></div>
   <div class="orb orb-2"></div>
@@ -687,18 +688,18 @@ footer span { color: var(--sun); }
   </h1>
   <p class="hero-sub">A complete embedded system that measures, transmits, and displays photovoltaic panel parameters in real time through a Bluetooth-connected Android application.</p>
   <div class="hero-badges">
-    <span class="badge badge-teal">⚡ Arduino Mega</span>
-    <span class="badge badge-sun">☀️ PV Monitoring</span>
-    <span class="badge badge-white">📱 Android / MIT App Inventor</span>
-    <span class="badge badge-teal">🔵 HC-06 Bluetooth</span>
+    <span class="badge badge-teal">Arduino Mega</span>
+    <span class="badge badge-sun">PV Monitoring</span>
+    <span class="badge badge-white">Android / MIT App Inventor</span>
+    <span class="badge badge-teal">HC-06 Bluetooth</span>
   </div>
   <div class="scroll-hint">SCROLL</div>
 </section>
 
-<!-- DIVIDER -->
+<!-- divider -->
 <div class="divider"></div>
 
-<!-- STATS -->
+<!-- stats -->
 <div class="section">
   <div class="stats-strip reveal">
     <div class="stat-item">
@@ -724,7 +725,7 @@ footer span { color: var(--sun); }
   </div>
 </div>
 
-<!-- OVERVIEW -->
+<!-- overview -->
 <section id="overview">
 <div class="section">
   <div class="section-label">01 — Project Overview</div>
@@ -733,22 +734,18 @@ footer span { color: var(--sun); }
 
   <div class="overview-grid">
     <div class="ov-card reveal reveal-delay-1">
-      <div class="ov-icon">⚡</div>
       <div class="ov-title">Data Acquisition</div>
       <div class="ov-text">The Arduino Mega collects voltage, current, power output, ambient temperature, humidity and light intensity simultaneously using four dedicated sensors.</div>
     </div>
     <div class="ov-card reveal reveal-delay-2">
-      <div class="ov-icon sun">🔵</div>
       <div class="ov-title">Wireless Transmission</div>
       <div class="ov-text">Measured data is streamed wirelessly via HC-06 Bluetooth module to a paired Android smartphone, enabling cable-free monitoring in real conditions.</div>
     </div>
     <div class="ov-card reveal reveal-delay-3">
-      <div class="ov-icon">📱</div>
       <div class="ov-title">Android Visualization</div>
       <div class="ov-text">A custom app built with MIT App Inventor receives and displays all parameters in real time, offering an intuitive interface for performance analysis.</div>
     </div>
     <div class="ov-card reveal reveal-delay-4">
-      <div class="ov-icon sun">☀️</div>
       <div class="ov-title">PV Performance</div>
       <div class="ov-text">The combined data reveals how environmental conditions — sunlight, temperature, humidity — directly affect the photovoltaic panel efficiency at any moment.</div>
     </div>
@@ -758,7 +755,7 @@ footer span { color: var(--sun); }
 
 <div class="divider"></div>
 
-<!-- ARCHITECTURE FLOW -->
+<!-- architecture flow -->
 <div class="section" id="hardware">
   <div class="section-label">02 — System Architecture</div>
   <h2 class="section-title reveal">How it all <em>connects</em></h2>
@@ -766,25 +763,21 @@ footer span { color: var(--sun); }
 
   <div class="arch-flow reveal">
     <div class="flow-node">
-      <div class="fn-icon">🌡️</div>
       <div class="fn-label">Sensors</div>
       <div class="fn-sub">DHT22 · BH1750<br>ACS712 · B25</div>
     </div>
     <div class="flow-arrow"></div>
     <div class="flow-node">
-      <div class="fn-icon">🖥️</div>
       <div class="fn-label">Arduino Mega</div>
       <div class="fn-sub">ATmega2560<br>54 I/O pins</div>
     </div>
     <div class="flow-arrow"></div>
     <div class="flow-node">
-      <div class="fn-icon">🔵</div>
       <div class="fn-label">HC-06</div>
       <div class="fn-sub">Bluetooth<br>Serial</div>
     </div>
     <div class="flow-arrow"></div>
     <div class="flow-node">
-      <div class="fn-icon">📱</div>
       <div class="fn-label">Smartphone</div>
       <div class="fn-sub">Android App<br>MIT App Inventor</div>
     </div>
@@ -795,12 +788,12 @@ footer span { color: var(--sun); }
     <div class="method-visual">
       <svg class="circuit-svg" viewBox="0 0 320 200" fill="none" xmlns="http://www.w3.org/2000/svg">
         <!-- Board -->
-        <rect x="40" y="30" width="240" height="140" rx="10" fill="#0E2750" stroke="#00C9B1" stroke-width="1.5"/>
-        <!-- USB -->
-        <rect x="10" y="80" width="35" height="40" rx="5" fill="#1A3A6B" stroke="#00C9B1" stroke-width="1"/>
-        <text x="27" y="104" font-family="JetBrains Mono,monospace" font-size="7" fill="#00C9B1" text-anchor="middle">USB</text>
+        <rect x="40" y="30" width="240" height="140" rx="10" fill="#20232e" stroke="#178a53" stroke-width="1.5"/>
+        <!-- usb -->
+        <rect x="10" y="80" width="35" height="40" rx="5" fill="#2e3340" stroke="#178a53" stroke-width="1"/>
+        <text x="27" y="104" font-family="IBM Plex Mono,monospace" font-size="7" fill="#178a53" text-anchor="middle">USB</text>
         <!-- Pins top -->
-        <g fill="#F4A900">
+        <g fill="#d14b86">
           <rect x="55" y="24" width="4" height="10" rx="1"/>
           <rect x="65" y="24" width="4" height="10" rx="1"/>
           <rect x="75" y="24" width="4" height="10" rx="1"/>
@@ -813,16 +806,16 @@ footer span { color: var(--sun); }
           <rect x="145" y="24" width="4" height="10" rx="1"/>
         </g>
         <!-- Chip -->
-        <rect x="130" y="70" width="60" height="60" rx="6" fill="#0B1E3D" stroke="#00F5DC" stroke-width="1.5"/>
-        <text x="160" y="97" font-family="JetBrains Mono,monospace" font-size="8" fill="#00F5DC" text-anchor="middle">ATmega</text>
-        <text x="160" y="110" font-family="JetBrains Mono,monospace" font-size="8" fill="#00F5DC" text-anchor="middle">2560</text>
+        <rect x="130" y="70" width="60" height="60" rx="6" fill="#181b24" stroke="#2bb673" stroke-width="1.5"/>
+        <text x="160" y="97" font-family="IBM Plex Mono,monospace" font-size="8" fill="#2bb673" text-anchor="middle">ATmega</text>
+        <text x="160" y="110" font-family="IBM Plex Mono,monospace" font-size="8" fill="#2bb673" text-anchor="middle">2560</text>
         <!-- Power LED -->
-        <circle cx="80" cy="155" r="6" fill="#F4A900" opacity="0.8">
+        <circle cx="80" cy="155" r="6" fill="#d14b86" opacity="0.8">
           <animate attributeName="opacity" values="0.8;0.3;0.8" dur="2s" repeatCount="indefinite"/>
         </circle>
-        <text x="80" y="175" font-family="JetBrains Mono,monospace" font-size="7" fill="#8AA0C0" text-anchor="middle">PWR</text>
+        <text x="80" y="175" font-family="IBM Plex Mono,monospace" font-size="7" fill="#9aa0ac" text-anchor="middle">PWR</text>
         <!-- Pins bottom -->
-        <g fill="#F4A900">
+        <g fill="#d14b86">
           <rect x="55" y="165" width="4" height="10" rx="1"/>
           <rect x="65" y="165" width="4" height="10" rx="1"/>
           <rect x="75" y="165" width="4" height="10" rx="1"/>
@@ -831,8 +824,8 @@ footer span { color: var(--sun); }
           <rect x="105" y="165" width="4" height="10" rx="1"/>
         </g>
         <!-- Label -->
-        <text x="200" y="155" font-family="Syne,sans-serif" font-size="11" fill="#F4A900" font-weight="700">MEGA</text>
-        <text x="200" y="168" font-family="JetBrains Mono,monospace" font-size="8" fill="#8AA0C0">2560</text>
+        <text x="200" y="155" font-family="Fraunces,serif" font-size="11" fill="#d14b86" font-weight="700">MEGA</text>
+        <text x="200" y="168" font-family="IBM Plex Mono,monospace" font-size="8" fill="#9aa0ac">2560</text>
       </svg>
     </div>
     <div class="method-text">
@@ -853,40 +846,40 @@ footer span { color: var(--sun); }
     <div class="method-visual">
       <svg class="circuit-svg" viewBox="0 0 320 200" fill="none" xmlns="http://www.w3.org/2000/svg">
         <!-- Phone outline -->
-        <rect x="110" y="20" width="100" height="160" rx="14" fill="#0E2750" stroke="#00C9B1" stroke-width="1.5"/>
-        <rect x="122" y="36" width="76" height="120" rx="5" fill="#060E1E"/>
+        <rect x="110" y="20" width="100" height="160" rx="14" fill="#20232e" stroke="#178a53" stroke-width="1.5"/>
+        <rect x="122" y="36" width="76" height="120" rx="5" fill="#14161d"/>
         <!-- Screen content -->
-        <rect x="128" y="44" width="64" height="14" rx="3" fill="#1A3A6B"/>
-        <text x="160" y="54" font-family="JetBrains Mono,monospace" font-size="6" fill="#00F5DC" text-anchor="middle">PV MONITOR</text>
+        <rect x="128" y="44" width="64" height="14" rx="3" fill="#2e3340"/>
+        <text x="160" y="54" font-family="IBM Plex Mono,monospace" font-size="6" fill="#2bb673" text-anchor="middle">PV MONITOR</text>
         <!-- Data rows -->
-        <rect x="128" y="64" width="30" height="8" rx="2" fill="#0B1E3D"/>
-        <text x="133" y="71" font-family="JetBrains Mono,monospace" font-size="5.5" fill="#8AA0C0">VOLTAGE</text>
-        <rect x="162" y="64" width="30" height="8" rx="2" fill="#0B1E3D"/>
-        <text x="167" y="71" font-family="JetBrains Mono,monospace" font-size="5.5" fill="#F4A900">18.6V</text>
-        <rect x="128" y="76" width="30" height="8" rx="2" fill="#0B1E3D"/>
-        <text x="133" y="83" font-family="JetBrains Mono,monospace" font-size="5.5" fill="#8AA0C0">CURRENT</text>
-        <rect x="162" y="76" width="30" height="8" rx="2" fill="#0B1E3D"/>
-        <text x="167" y="83" font-family="JetBrains Mono,monospace" font-size="5.5" fill="#00C9B1">2.3A</text>
-        <rect x="128" y="88" width="30" height="8" rx="2" fill="#0B1E3D"/>
-        <text x="133" y="95" font-family="JetBrains Mono,monospace" font-size="5.5" fill="#8AA0C0">POWER</text>
-        <rect x="162" y="88" width="30" height="8" rx="2" fill="#0B1E3D"/>
-        <text x="167" y="95" font-family="JetBrains Mono,monospace" font-size="5.5" fill="#F4A900">42.8W</text>
-        <rect x="128" y="100" width="30" height="8" rx="2" fill="#0B1E3D"/>
-        <text x="133" y="107" font-family="JetBrains Mono,monospace" font-size="5.5" fill="#8AA0C0">TEMP</text>
-        <rect x="162" y="100" width="30" height="8" rx="2" fill="#0B1E3D"/>
-        <text x="167" y="107" font-family="JetBrains Mono,monospace" font-size="5.5" fill="#00C9B1">32°C</text>
-        <rect x="128" y="112" width="30" height="8" rx="2" fill="#0B1E3D"/>
-        <text x="133" y="119" font-family="JetBrains Mono,monospace" font-size="5.5" fill="#8AA0C0">LIGHT</text>
-        <rect x="162" y="112" width="30" height="8" rx="2" fill="#0B1E3D"/>
-        <text x="167" y="119" font-family="JetBrains Mono,monospace" font-size="5.5" fill="#F4A900">11240lx</text>
+        <rect x="128" y="64" width="30" height="8" rx="2" fill="#181b24"/>
+        <text x="133" y="71" font-family="IBM Plex Mono,monospace" font-size="5.5" fill="#9aa0ac">VOLTAGE</text>
+        <rect x="162" y="64" width="30" height="8" rx="2" fill="#181b24"/>
+        <text x="167" y="71" font-family="IBM Plex Mono,monospace" font-size="5.5" fill="#d14b86">18.6V</text>
+        <rect x="128" y="76" width="30" height="8" rx="2" fill="#181b24"/>
+        <text x="133" y="83" font-family="IBM Plex Mono,monospace" font-size="5.5" fill="#9aa0ac">CURRENT</text>
+        <rect x="162" y="76" width="30" height="8" rx="2" fill="#181b24"/>
+        <text x="167" y="83" font-family="IBM Plex Mono,monospace" font-size="5.5" fill="#178a53">2.3A</text>
+        <rect x="128" y="88" width="30" height="8" rx="2" fill="#181b24"/>
+        <text x="133" y="95" font-family="IBM Plex Mono,monospace" font-size="5.5" fill="#9aa0ac">POWER</text>
+        <rect x="162" y="88" width="30" height="8" rx="2" fill="#181b24"/>
+        <text x="167" y="95" font-family="IBM Plex Mono,monospace" font-size="5.5" fill="#d14b86">42.8W</text>
+        <rect x="128" y="100" width="30" height="8" rx="2" fill="#181b24"/>
+        <text x="133" y="107" font-family="IBM Plex Mono,monospace" font-size="5.5" fill="#9aa0ac">TEMP</text>
+        <rect x="162" y="100" width="30" height="8" rx="2" fill="#181b24"/>
+        <text x="167" y="107" font-family="IBM Plex Mono,monospace" font-size="5.5" fill="#178a53">32°C</text>
+        <rect x="128" y="112" width="30" height="8" rx="2" fill="#181b24"/>
+        <text x="133" y="119" font-family="IBM Plex Mono,monospace" font-size="5.5" fill="#9aa0ac">LIGHT</text>
+        <rect x="162" y="112" width="30" height="8" rx="2" fill="#181b24"/>
+        <text x="167" y="119" font-family="IBM Plex Mono,monospace" font-size="5.5" fill="#d14b86">11240lx</text>
         <!-- Home button -->
-        <circle cx="160" cy="168" r="7" fill="#1A3A6B" stroke="#00C9B1" stroke-width="1"/>
+        <circle cx="160" cy="168" r="7" fill="#2e3340" stroke="#178a53" stroke-width="1"/>
         <!-- BT icon -->
-        <text x="40" y="100" font-family="JetBrains Mono,monospace" font-size="28" fill="#00C9B1" opacity="0.3">⬡</text>
-        <line x1="109" y1="100" x2="75" y2="100" stroke="#00C9B1" stroke-width="1" stroke-dasharray="4 3">
+        <text x="40" y="100" font-family="IBM Plex Mono,monospace" font-size="28" fill="#178a53" opacity="0.3"></text>
+        <line x1="109" y1="100" x2="75" y2="100" stroke="#178a53" stroke-width="1" stroke-dasharray="4 3">
           <animate attributeName="stroke-dashoffset" from="0" to="-14" dur="1s" repeatCount="indefinite"/>
         </line>
-        <text x="55" y="90" font-family="JetBrains Mono,monospace" font-size="7" fill="#00C9B1">BT</text>
+        <text x="55" y="90" font-family="IBM Plex Mono,monospace" font-size="7" fill="#178a53">BT</text>
       </svg>
     </div>
     <div class="method-text">
@@ -905,7 +898,7 @@ footer span { color: var(--sun); }
 
 <div class="divider"></div>
 
-<!-- SENSORS -->
+<!-- sensors -->
 <section id="sensors">
 <div class="section">
   <div class="section-label">03 — Sensor Suite</div>
@@ -914,7 +907,7 @@ footer span { color: var(--sun); }
 
   <div class="sensors-grid">
 
-    <!-- DHT22 -->
+    <!-- dht22 -->
     <div class="sensor-card reveal reveal-delay-1" data-sensor="T°">
       <div class="sensor-header">
         <div>
@@ -932,10 +925,10 @@ footer span { color: var(--sun); }
         <li><span class="spec-key">Dimensions</span><span class="spec-val">27×59×13.5 mm</span></li>
         <li><span class="spec-key">Interface</span><span class="spec-val">1-Wire Digital</span></li>
       </ul>
-      <span class="sensor-pin">📌 Digital I/O pin — Arduino Mega</span>
+      <span class="sensor-pin">Digital I/O pin — Arduino Mega</span>
     </div>
 
-    <!-- BH1750 -->
+    <!-- bh1750 -->
     <div class="sensor-card reveal reveal-delay-2" data-sensor="Lux">
       <div class="sensor-header">
         <div>
@@ -953,10 +946,10 @@ footer span { color: var(--sun); }
         <li><span class="spec-key">Power</span><span class="spec-val">260 mW</span></li>
         <li><span class="spec-key">Interface</span><span class="spec-val">I²C (SCL / SDA)</span></li>
       </ul>
-      <span class="sensor-pin">📌 I²C Bus — SDA / SCL pins</span>
+      <span class="sensor-pin">I²C Bus — SDA / SCL pins</span>
     </div>
 
-    <!-- ACS712 -->
+    <!-- acs712 -->
     <div class="sensor-card reveal reveal-delay-3" data-sensor="A">
       <div class="sensor-header">
         <div>
@@ -973,10 +966,10 @@ footer span { color: var(--sun); }
         <li><span class="spec-key">Supports</span><span class="spec-val">AC & DC circuits</span></li>
         <li><span class="spec-key">Calibration</span><span class="spec-val">Zero-current offset required</span></li>
       </ul>
-      <span class="sensor-pin">📌 Analog pin A10 — Arduino Mega</span>
+      <span class="sensor-pin">Analog pin A10 — Arduino Mega</span>
     </div>
 
-    <!-- B25 -->
+    <!-- b25 -->
     <div class="sensor-card reveal reveal-delay-4" data-sensor="V">
       <div class="sensor-header">
         <div>
@@ -993,7 +986,7 @@ footer span { color: var(--sun); }
         <li><span class="spec-key">Scale factor</span><span class="spec-val">÷ 5 (resistive divider)</span></li>
         <li><span class="spec-key">Compatible with</span><span class="spec-val">5V & 3.3V systems</span></li>
       </ul>
-      <span class="sensor-pin">📌 Analog pin 9 — Arduino Mega</span>
+      <span class="sensor-pin">Analog pin 9 — Arduino Mega</span>
     </div>
   </div>
 </div>
@@ -1001,7 +994,7 @@ footer span { color: var(--sun); }
 
 <div class="divider"></div>
 
-<!-- BLUETOOTH -->
+<!-- bluetooth -->
 <section id="comm">
 <div class="section">
   <div class="section-label">04 — Communication</div>
@@ -1010,19 +1003,19 @@ footer span { color: var(--sun); }
 
   <div class="bt-grid">
     <div class="bt-card reveal">
-      <div class="bt-title">⚙️ Key Design Consideration</div>
+      <div class="bt-title">Key Design Consideration</div>
       <p style="font-size:14px;color:var(--muted);margin-bottom:1rem;">The HC-06 RX pin tolerates a maximum of <strong style="color:var(--white)">3.3V</strong>, but Arduino outputs 5V logic. A voltage divider is mandatory to protect the module:</p>
-      <div style="background:var(--dark);border:1px solid var(--border2);border-radius:10px;padding:1rem;font-family:var(--mono);font-size:12px;color:var(--sun2);">
+      <div style="background:var(--sky);border:1px solid var(--border2);border-radius:10px;padding:1rem;font-family:var(--mono);font-size:12px;color:var(--sun2);">
         <span style="color:var(--muted)">// Voltage divider on RX line</span><br>
         Arduino TX (5V) → R1 (1kΩ) ──┬── HC-06 RX<br>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── R2 (2kΩ) → GND<br><br>
-        <span style="color:var(--teal2)">Vout = 5V × 2/(1+2) = 3.33V ✓</span>
+        <span style="color:var(--teal2)">Vout = 5V × 2/(1+2) = 3.33V </span>
       </div>
       <p style="font-size:13px;color:var(--muted);margin-top:1rem;">Operating voltage: <strong style="color:var(--white)">3.3 – 5V</strong> | Baud rate: <strong style="color:var(--white)">9600 bps (default)</strong></p>
     </div>
 
     <div class="bt-card reveal reveal-delay-2">
-      <div class="bt-title">📟 AT Commands Reference</div>
+      <div class="bt-title">AT Commands Reference</div>
       <table class="at-table">
         <thead>
           <tr><th>Command</th><th>Function</th></tr>
@@ -1045,7 +1038,7 @@ footer span { color: var(--sun); }
 
 <div class="divider"></div>
 
-<!-- METHODOLOGY -->
+<!-- methodology -->
 <div class="section">
   <div class="section-label">05 — Implementation</div>
   <h2 class="section-title reveal">From <em>design</em> to reality</h2>
@@ -1092,7 +1085,7 @@ footer span { color: var(--sun); }
 
 <div class="divider"></div>
 
-<!-- AUTHOR -->
+<!-- author -->
 <section id="author" class="author-section">
   <div class="orb orb-1" style="opacity:0.5;top:0;left:30%"></div>
   <div class="author-ring">
@@ -1115,14 +1108,14 @@ footer span { color: var(--sun); }
 
 <div class="divider"></div>
 
-<!-- FOOTER -->
+<!-- footer -->
 <footer>
   <p>Designed & documented by <span>BEDDIAF Mohamed Anes</span> · beddiafmohamedanes@gmail.com · 2025</p>
   <p style="margin-top:0.3rem;font-size:11px;opacity:0.5;">Android Application for Measurement and Display of Internal and External Photovoltaic Panel Parameters</p>
 </footer>
 
 <script>
-// ─── PARTICLE CANVAS ───
+// particle canvas
 const canvas = document.getElementById('bg-canvas');
 const ctx = canvas.getContext('2d');
 let particles = [];
@@ -1143,7 +1136,7 @@ class Particle {
     this.speedX = (Math.random() - 0.5) * 0.3;
     this.speedY = (Math.random() - 0.5) * 0.3;
     this.opacity = Math.random() * 0.5 + 0.1;
-    this.color = Math.random() > 0.6 ? '#F4A900' : '#00C9B1';
+    this.color = Math.random() > 0.6 ? '#d14b86' : '#178a53';
   }
   update() {
     this.x += this.speedX;
@@ -1169,7 +1162,7 @@ function animateParticles() {
 }
 animateParticles();
 
-// ─── PROGRESS BAR ───
+// progress bar
 window.addEventListener('scroll', () => {
   const scrollTop = document.documentElement.scrollTop;
   const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -1177,14 +1170,14 @@ window.addEventListener('scroll', () => {
   document.getElementById('progress-bar').style.width = progress + '%';
 });
 
-// ─── SCROLL REVEAL ───
+// scroll reveal
 const reveals = document.querySelectorAll('.reveal');
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
 }, { threshold: 0.1 });
 reveals.forEach(r => observer.observe(r));
 
-// ─── NAV ACTIVE HIGHLIGHT ───
+// nav active highlight
 const sections = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('.nav-links a');
 window.addEventListener('scroll', () => {
